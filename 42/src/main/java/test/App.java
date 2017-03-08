@@ -7,6 +7,10 @@ package test;
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/dev
 public void funAM()
 {
 	
@@ -14,6 +18,10 @@ public void funAM()
 	
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/dev
 
 public class App 
 {
