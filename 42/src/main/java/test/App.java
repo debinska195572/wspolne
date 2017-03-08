@@ -7,12 +7,10 @@ package test;
 
 
 
-
-
 public void funAM()
 {
 	
-	
+	 System.out.println( "Lubie placki" );
 	
 }
 
@@ -23,11 +21,11 @@ public class App
 
 	
 	
-	
-	
 
 public class App 
 {
+
+
 
     public static void main( String[] args )
     {
