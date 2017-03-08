@@ -13,6 +13,7 @@ package test;
 public class App 
 {
 
+
 	public void funAM()
 	{
 		
@@ -34,8 +35,12 @@ public class App
 		 System.out.println( "Agata, Ola1, Ola2, Wojtek, Marcik" );
 	}
 	
+
 	
 	
+
+
+
     public static void main( String[] args )
     {
 
@@ -49,4 +54,6 @@ public class App
 	{
 		return 5;
 	}
+
 }
+
