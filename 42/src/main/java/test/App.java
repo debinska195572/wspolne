@@ -51,4 +51,9 @@ public class App
 	{
 		return 5;
 	}
+	
+	public static int masternak()
+	{
+		return 69;
+	}
 }
