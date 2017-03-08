@@ -10,7 +10,7 @@ package test;
 public void funAM()
 {
 	
-	
+	 System.out.println( "Lubie placki" );
 	
 }
 
