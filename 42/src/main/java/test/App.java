@@ -7,6 +7,16 @@ package test;
 
 
 
+
+public void funAM()
+{
+	
+	
+	
+}
+
+
+
 public class App 
 {
 	
