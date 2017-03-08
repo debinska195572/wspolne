@@ -6,6 +6,16 @@ package test;
  */
 
 
+public void funAM()
+{
+	
+	 System.out.println( "Lubie placki" );
+	
+}
+
+
+public class App 
+{
 
 
 
@@ -44,7 +54,6 @@ public class App
     public static void main( String[] args )
     {
 
-
     	
     	public void liczby(){
     		for(int i=0;i<10;i++)
@@ -66,12 +75,18 @@ public class App
 	{
 		return 5;
 	}
-<<<<<<< HEAD
+
 	
 	public static int masternak()
 	{
 		return 69;
+		System.out.println( "Masternak" );
+
 	}
 
+
+		
+	}
+	
 }
 
