@@ -1,0 +1,48 @@
+aplikacja desktopowa, 
+prawdopodobnie swing
+każda funkcjonalność kolejny branch
+
+testy- mockito, travis - konieczność!
+
+1 zalogowanie się (użytkownik, administrator)
+
+2 baza danych dla użytkownika- mysql
+//hibernate. połączenie z bazą danych
+//mysql connector - inne połączenie
+		
+3 przepisy
+użytkownik- zobaczenie istniejących przepisów, dodawanie, edytowanie swoich przepisów
+administrator- wszystko
+
+3 liczenie bmi
+
+4 generowanie jadłospisu na dany dzień, 
+losowanie 3 przepisów,wybieranie opcji "bez glukozy/laktozy" itp, 
+//generowanie listy zakupów
+
+
+
+
+
+
+
+
+
+Zasady zaliczenia przedmiotu:
+
+Projekt będzie oceniany wg następujących kryteriów:
+
+    Funkcjonalność (jakość UI nie ma znaczenia!): 0/10 pkt
+    Jakość kodu: 0/10 pkt
+    Testy jednostkowe 0/10 pkt (bez mockito max 5, bez konfiguracji Travisa – 0pkt)
+    Wzorce projektowe: 0/5 pkt
+    Praca z repozytorium (branche, historia komitów) + dokumentacja (najlepiej używając narzędzi githuba) 0/5 pkt
+    Inne ciekawe elementy (aspekty, wielowątkowość, JMX) 0/5 pkt, możliwie więcej punktów niż 5 jeśli tych elementów będzie sporo lub będą ciekawe
+
+W sumie: 45 pkt.
+
+Punkty zdobywa cały zespół, następnie są one dzielone wewnątrz zespołu na poszczególnych członków.
+
+Skala ocen:
+
+27 – 34 pkt. : 3 35-40 pkt. : 4 41-45 pkt. : 5
