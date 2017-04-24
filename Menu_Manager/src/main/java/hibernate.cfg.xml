@@ -8,16 +8,29 @@
     <session-factory>
  
         <!-- Database connection settings -->
-        <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:3306/postgres</property>
-        <property name="connection.username">admin</property>
-        <property name="connection.password">admin</property>
+
+   <property name="hibernate.dialect">
+      org.hibernate.dialect.MySQLDialect
+   </property>
+   <property name="hibernate.connection.driver_class">
+      com.mysql.jdbc.Driver
+   </property>
+
+   <!-- Assume test is the database name -->
+   <property name="hibernate.connection.url">
+      jdbc:mysql://localhost:3306/menu_db
+   </property>
+   <property name="hibernate.connection.username">
+      admin
+   </property>
+   <property name="hibernate.connection.password">
+      admin
+   </property>
+   
  
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">1</property>
  
-        <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
  
         <!-- Enable Hibernate's automatic session context management -->
         <property name="current_session_context_class">thread</property>
@@ -30,8 +43,11 @@
  
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
+        
+   
  
-        <mapping resource="Database_Connection_Manager.Manager/Users.hbm.xml"/>
+        <mapping resource="Menu.hbm.xml"/>
+      
  
     </session-factory>
  

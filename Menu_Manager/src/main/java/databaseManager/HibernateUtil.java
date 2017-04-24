@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Database_Connection_Manager.Manager;
+package databaseManager;
 
 
 import java.sql.*;
@@ -13,9 +13,11 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-public class Connection_Manager {
+public class HibernateUtil {
 
 private static final SessionFactory sessionFactory = buildSessionFactory();
+
+//	private static final SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
 private static SessionFactory buildSessionFactory() {
     try {

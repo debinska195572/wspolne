@@ -1,4 +1,4 @@
-package Database_Connection_Manager.Manager;
+package databaseManager;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

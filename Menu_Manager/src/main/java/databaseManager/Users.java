@@ -1,8 +1,9 @@
-package Database_Connection_Manager.Manager;
+package databaseManager;
+
 
 public class Users {
 
-	  private String login;
+	  	private String login;
 	    private String password;
 	    private int age;	
 	    private int height;

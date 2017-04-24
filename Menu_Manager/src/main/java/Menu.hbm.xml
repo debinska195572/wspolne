@@ -7,10 +7,10 @@
  
     <class name="Users" table="Users">
  
-        <id name="login" column="Login">
-            <generator class="native"/>
-        </id>
+        <id name=" databaseManager.Users" column="Login">
+            <generator class="native"/>        </id>
  
+
         <property name="password" column="Password"/>
  
         <property name="age" column="Age"/>
@@ -25,6 +25,6 @@
         
         <property name="diet" column="Diet"/>
  
-    </class>
+  </class>
  
 </hibernate-mapping>
