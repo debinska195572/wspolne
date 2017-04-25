@@ -5,7 +5,6 @@
  */
 package databaseManager;
 
-
 import java.sql.*;
 
 import org.hibernate.SessionFactory;
@@ -15,36 +14,32 @@ import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 
-//private static final SessionFactory sessionFactory = buildSessionFactory();
+	// private static final SessionFactory sessionFactory =
+	// buildSessionFactory();
 
-	private static SessionFactory sessionFactory= new Configuration()
-    .configure() // configures settings from hibernate.cfg.xml
-    .buildSessionFactory();
+	private static SessionFactory sessionFactory = new Configuration().configure() // configures
+																					// settings
+																					// from
+																					// hibernate.cfg.xml
+			.buildSessionFactory();
 
+	private static SessionFactory buildSessionFactory() {
+		try {
 
+			Configuration configuration = new Configuration();
+			configuration.configure();
 
-private static SessionFactory buildSessionFactory() {
-    try {
-    	
-    	
-    	
-    	
-    	
-        Configuration configuration = new Configuration();
-        configuration.configure();
+			StandardServiceRegistryBuilder standardServiceRegistryBuilder = new StandardServiceRegistryBuilder();
+			standardServiceRegistryBuilder.applySettings(configuration.getProperties());
+			ServiceRegistry serviceRegistry = standardServiceRegistryBuilder.build();
 
-        StandardServiceRegistryBuilder standardServiceRegistryBuilder = new StandardServiceRegistryBuilder();
-        standardServiceRegistryBuilder.applySettings(configuration.getProperties());
-        ServiceRegistry serviceRegistry = standardServiceRegistryBuilder.build();
+			return configuration.buildSessionFactory(serviceRegistry);
+		} catch (Exception e) {
+			throw new ExceptionInInitializerError(e);
+		}
+	}
 
-        return configuration.buildSessionFactory(serviceRegistry);
-    }
-    catch(Exception e) {
-        throw new ExceptionInInitializerError(e);
-    }
-}
-
-public static SessionFactory getSessionFactory() {
-    return sessionFactory;
-}
+	public static SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
 }
