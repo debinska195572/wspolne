@@ -21,18 +21,25 @@ public class Main {
 		Session sessionForRecipes = HibernateUtil.getSessionFactory().openSession();
 		sessionForRecipes.beginTransaction();
 
-		/*
-		 * Users admin = new Users(); admin.setLogin("admin");
-		 * admin.setPassword("12345"); //potem sie zahaszuje
-		 */
-
-		// Recipes r= new Recipes();
-		// r.setRecipeNumber(5);
-		// r.setNameOfDish("Jajecznica");
-		// r.setOwner("Asia");
-		// sessionForRecipes.save(r);
-		// sessionForRecipes.save(admin);
-
+		Ingredients i = new Ingredients();
+		i.setIngredient_Name("Pomidor");
+		
+		  Users admin = new Users(); admin.setLogin("admin");
+		  admin.setPassword("12345"); //potem sie zahaszuje
+		 
+		 sessionForRecipes.save(admin);
+		 Recipes r= new Recipes();
+		r.setRecipeNumber(5);
+		 r.setNameOfDish("Jajecznica");
+		 r.setOwner("admin");
+		 sessionForRecipes.save(r);
+		
+		 RecipesIngredients ri= new RecipesIngredients();
+		 ri.setId_RecipeIngredient(1);
+		 ri.setIngredient_name("Kalafior");
+		 ri.setRecipe_number(5);
+		 
+		sessionForRecipes.save(i);
 		sessionForRecipes.getTransaction().commit();
 		sessionForRecipes.close();
 

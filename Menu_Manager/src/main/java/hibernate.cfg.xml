@@ -38,6 +38,10 @@
 
 		<mapping class="databaseManager.Recipes"></mapping>
 		<mapping class="databaseManager.Users"></mapping>
+		<mapping class="databaseManager.Ingredients"></mapping>
+		<mapping class="databaseManager.RecipesIngredients"></mapping>
+
+	
 
 
 	</session-factory>
