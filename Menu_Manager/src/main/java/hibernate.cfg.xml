@@ -9,23 +9,13 @@
  
         <!-- Database connection settings -->
 
-   <property name="hibernate.dialect">
-      org.hibernate.dialect.MySQLDialect
-   </property>
-   <property name="hibernate.connection.driver_class">
-      com.mysql.jdbc.Driver
-   </property>
+   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 
    <!-- Assume test is the database name -->
-   <property name="hibernate.connection.url">
-      jdbc:mysql://localhost:3306/menu_db
-   </property>
-   <property name="hibernate.connection.username">
-      admin
-   </property>
-   <property name="hibernate.connection.password">
-      admin
-   </property>
+   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/menu_db</property>
+   <property name="hibernate.connection.username">admin</property>
+   <property name="hibernate.connection.password">admin</property>
    
  
         <!-- JDBC connection pool (use the built-in) -->
@@ -46,8 +36,9 @@
         
    
  
-        <mapping resource="Menu.hbm.xml"/>
-      
+         <mapping class="databaseManager.Recipes"></mapping>
+       <mapping class="databaseManager.Users"></mapping>
+ 
  
     </session-factory>
  

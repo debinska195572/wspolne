@@ -11,13 +11,14 @@ public class Recipes {
 
 	@Id
     @Column(name = "ID_Recipe")
-  
     private int recipeNumber;
 
   
-	   
+	 @Column(name = "Dish_Name") 
 	    private String nameOfDish;
+	 @Column(name = "Owner")
 	    private String owner;
+	 @Column(name = "Content")
 	    private String content;
 	   
 	    

@@ -10,26 +10,36 @@ import java.sql.*;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 public class Main {
     
 	
     
      public static void main(String[] args) {
-    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-         session.beginTransaction();
+    	
   
-        Users admin = new Users();
-         admin.setLogin("admin");
-         admin.setPassword("admin"); //potem sie zahaszuje
+         Session sessionForRecipes = HibernateUtil.getSessionFactory().openSession();
+         sessionForRecipes.beginTransaction();
          
-         Recipes r= new Recipes();
-         r.setRecipeNumber(1);
-        // session.save(r);
-        //session.save(admin);
+   /*     Users admin = new Users();
+         admin.setLogin("admin");
+         admin.setPassword("12345"); //potem sie zahaszuje
+*/       
+    
+//         Recipes r= new Recipes();
+//         r.setRecipeNumber(5);
+//         r.setNameOfDish("Jajecznica");
+//         r.setOwner("Asia");
+//         sessionForRecipes.save(r);
+ //        sessionForRecipes.save(admin);
         
-         session.getTransaction().commit();
+         sessionForRecipes.getTransaction().commit();
+         sessionForRecipes.close();
+         
   
-         HibernateUtil.getSessionFactory().close();
+        
    }
 }

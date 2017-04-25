@@ -1,15 +1,30 @@
 package databaseManager;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "Users")
 public class Users {
 
+	@Id
+    @Column(name = "Login")
 	  	private String login;
+	 @Column(name = "Password")
 	    private String password;
-	    private int age;	
+	 @Column(name = "Age")
+	    private int age;
+	 @Column(name = "Height")
 	    private int height;
+	 @Column(name = "Weight")
 	    private int weight;
+	 @Column(name = "Lactose_tolerance")
 	    private boolean lactoseTolerance;
+	 @Column(name = "Intolerance_to_gluten")
 	    private boolean intoleranceGluten;
+	 @Column(name = "Diet") 
 	    private String diet;
 	    
 	    
