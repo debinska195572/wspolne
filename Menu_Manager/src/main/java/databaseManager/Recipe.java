@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Recipes")
-public class Recipes {
+public class Recipe {
 
 	@Id
 	@Column(name = "ID_Recipe")
@@ -20,7 +20,7 @@ public class Recipes {
 	@Column(name = "Content")
 	private String content;
 
-	public Recipes() {
+	public Recipe() {
 		// TODO Auto-generated constructor stub
 	}
 

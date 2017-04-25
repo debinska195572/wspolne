@@ -41,7 +41,7 @@
 		<mapping class="databaseManager.Ingredients"></mapping>
 		<mapping class="databaseManager.RecipesIngredients"></mapping>
 
-	
+
 
 
 	</session-factory>

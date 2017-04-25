@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Ingredients")
-public class Ingredients {
+public class Ingredient {
 
 	@Id
 	@Column(name = "Ingredient_Name")
@@ -21,7 +21,7 @@ public class Ingredients {
 	@Column(name = "Meat")
 	private int meat;
 
-	public Ingredients() {
+	public Ingredient() {
 
 	}
 

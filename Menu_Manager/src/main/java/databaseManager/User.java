@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Users")
-public class Users {
+public class User {
 
 	@Id
 	@Column(name = "Login")
@@ -27,7 +27,7 @@ public class Users {
 	@Column(name = "Diet")
 	private String diet;
 
-	public Users() {
+	public User() {
 
 	}
 
