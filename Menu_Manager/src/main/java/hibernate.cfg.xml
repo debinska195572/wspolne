@@ -36,10 +36,10 @@
 
 
 
-		<mapping class="databaseManager.Recipes"></mapping>
-		<mapping class="databaseManager.Users"></mapping>
-		<mapping class="databaseManager.Ingredients"></mapping>
-		<mapping class="databaseManager.RecipesIngredients"></mapping>
+		<mapping class="databaseManager.Recipe"></mapping>
+		<mapping class="databaseManager.User"></mapping>
+		<mapping class="databaseManager.Ingredient"></mapping>
+		<mapping class="databaseManager.RecipeIngredient"></mapping>
 
 
 
