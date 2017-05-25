@@ -33,7 +33,7 @@
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-maven-plugin</artifactId>
 			<version>3.5.0</version>
-		</dependency>
+					</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -50,4 +50,22 @@
 
 
 	</dependencies>
+	
+	 <build>
+         <plugins>
+         <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <configuration>
+          <changeLogFile>
+            ${basedir}/src/main/java/liquibaseChanges.xml
+          </changeLogFile>
+          <driver>com.mysql.jdbc.Driver</driver>
+          <url>jdbc:mysql://localhost:3306/menu_db</url>
+          <username>admin</username>
+          <password>admin</password>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

@@ -39,9 +39,10 @@ public class Main {
 		r.setNameOfDish("Jajecznica");
 		r.setOwner("admin");
 		sessionDB.delete(r);
+		sessionDB.save(admin);
 		sessionDB.save(r);
 		
-		sessionDB.save(admin);
+		
 		
 		RecipeIngredient ri = new RecipeIngredient();
 		ri.setId_RecipeIngredient(1);
