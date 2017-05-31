@@ -3,17 +3,72 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-
-    <changeSet id="1" author="bob">
-        <createTable tableName="department">
-            <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false"/>
+ <!--  
+    <changeSet id="2" author="admin_zzpj">
+   
+        <createTable tableName="Users">
+            <column name="Login" type="VARCHAR(45)">
+                <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="name" type="varchar(50)">
+            <column name="Password" type="varchar(45)">
                 <constraints nullable="false"/>
             </column>
-            <column name="active" type="boolean" defaultValueBoolean="true"/>
+             <column name="Age" type="int">
+                <constraints nullable="true"/>
+            </column>
+             <column name="Height" type="int">
+                <constraints nullable="true"/>
+            </column>
+             <column name="Weight" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="Lactose_tolerance" type="boolean" defaultValueBoolean="true"/>
+        
+            <column name="Intolerance_to_gluten" type="boolean" defaultValueBoolean="true"/>
+           
+            <column name="Diet" type="varchar(45)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+     
+        <createTable tableName="Recipes">
+            <column name="ID_Recipe"  autoIncrement="true" type="int" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="Dish_Name" type="varchar(45)">
+                <constraints nullable="false"/>
+            </column>
+             <column name="Owner" type="varchar(45)">
+                <constraints nullable="false" foreignKeyName="fk_owner_user" references="Users(login)"/>
+            </column>
+             <column name="Content" type="varchar(45)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="Ingredients">
+            <column name="Ingredient_Name"  type="VARCHAR(45)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="Lactose"  type="boolean" defaultValueBoolean="true"/>
+            <column name="Gluten"  type="boolean" defaultValueBoolean="true"/>
+             <column name="Calories" type="int">
+                <constraints nullable="true" />
+            </column>
+            <column name="Meat"  type="boolean" defaultValueBoolean="true"/>
+          </createTable>
+            
+             <createTable tableName="RecipesIngredients">
+            <column name="ID_RecipeIngredient"  autoIncrement="true" type="int" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="Recipe_Number" type="int">
+                <constraints nullable="false" foreignKeyName="fk_ri_recipes" references="Recipes(ID_Recipe)"/>
+            </column>
+             <column name="Ingredient_Name" type="varchar(45)">
+                <constraints nullable="false" foreignKeyName="fk_ri_ingredients" references="Ingredients(Ingredient_Name)"/>
+            </column>
+           
         </createTable>
     </changeSet>
-
+ -->
 </databaseChangeLog>

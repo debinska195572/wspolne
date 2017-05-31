@@ -61,9 +61,9 @@
             ${basedir}/src/main/java/liquibaseChanges.xml
           </changeLogFile>
           <driver>com.mysql.jdbc.Driver</driver>
-          <url>jdbc:mysql://localhost:3306/menu_db</url>
-          <username>admin</username>
-          <password>admin</password>
+          <url>jdbc:mysql://db4free.net/menu_zzpj?useSSL=false</url>
+          <username>admin_zzpj</username>
+          <password>admin1</password>
         </configuration>
       </plugin>
     </plugins>

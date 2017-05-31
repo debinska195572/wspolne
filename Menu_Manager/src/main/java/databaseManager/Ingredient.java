@@ -13,13 +13,13 @@ public class Ingredient {
 	@Column(name = "Ingredient_Name")
 	private String ingredient_Name;
 	@Column(name = "Lactose")
-	private String lactose;
+	private boolean lactose;
 	@Column(name = "Gluten")
-	private int gluten;
+	private boolean gluten;
 	@Column(name = "Calories")
 	private int calories;
 	@Column(name = "Meat")
-	private int meat;
+	private boolean meat;
 
 	public Ingredient() {
 
@@ -33,19 +33,19 @@ public class Ingredient {
 		this.ingredient_Name = ingredient_Name;
 	}
 
-	public String getLactose() {
+	public boolean isLactose() {
 		return lactose;
 	}
 
-	public void setLactose(String lactose) {
+	public void setLactose(boolean lactose) {
 		this.lactose = lactose;
 	}
 
-	public int getGluten() {
+	public boolean isGluten() {
 		return gluten;
 	}
 
-	public void setGluten(int gluten) {
+	public void setGluten(boolean gluten) {
 		this.gluten = gluten;
 	}
 
@@ -57,12 +57,14 @@ public class Ingredient {
 		this.calories = calories;
 	}
 
-	public int getMeat() {
+	public boolean isMeat() {
 		return meat;
 	}
 
-	public void setMeat(int meat) {
+	public void setMeat(boolean meat) {
 		this.meat = meat;
 	}
+
+	
 
 }

@@ -6,13 +6,9 @@ package databaseManager;
  * and open the template in the editor.
  */
 
-import java.sql.*;
-import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+
 
 public class Main {
 
@@ -32,14 +28,14 @@ public class Main {
 		admin.setLogin("admin");
 		admin.setPassword("12345"); // potem sie zahaszuje
 		sessionDB.delete(admin);
-		
+		sessionDB.save(admin);
 		
 		Recipe r = new Recipe();
 		r.setRecipeNumber(5);
 		r.setNameOfDish("Jajecznica");
 		r.setOwner("admin");
 		sessionDB.delete(r);
-		sessionDB.save(admin);
+
 		sessionDB.save(r);
 		
 		
