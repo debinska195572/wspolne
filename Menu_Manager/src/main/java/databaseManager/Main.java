@@ -27,15 +27,16 @@ public class Main {
 		User admin = new User();
 		admin.setLogin("admin");
 		admin.setPassword("12345"); // potem sie zahaszuje
-		sessionDB.delete(admin);
+		
 		sessionDB.save(admin);
 		
 		Recipe r = new Recipe();
 		r.setRecipeNumber(5);
 		r.setNameOfDish("Jajecznica");
 		r.setOwner("admin");
+		
 		sessionDB.delete(r);
-
+		sessionDB.delete(admin);
 		sessionDB.save(r);
 		
 		
