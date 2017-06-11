@@ -9,6 +9,13 @@ package databaseManager;
 
 import org.hibernate.Session;
 
+import databaseController.AccountController;
+import databaseController.DietException;
+import databaseController.DishTypeException;
+import databaseController.IngredientController;
+import databaseController.RIController;
+import databaseController.RecipeController;
+
 
 public class Main {
 
@@ -16,38 +23,38 @@ public class Main {
 
 		Session sessionDB = HibernateUtil.getSessionFactory().openSession();
 		sessionDB.beginTransaction();
+		AccountController ac = new AccountController(sessionDB);
+		RecipeController rc = new RecipeController(sessionDB);
+		IngredientController ic = new IngredientController(sessionDB);
+		RIController ric = new RIController(sessionDB);
 		
+		//Bawcie sie 
+		
+/*		
+		User user1=ac.createUser("admin3", "password");
+		
+		ac.deleteUser(user1);
 	
 
-		Ingredient i = new Ingredient();
-		i.setIngredient_Name("Pomidor");
-		sessionDB.delete(i);
-		sessionDB.save(i);
+		try {
+			User user2=ac.createSpecificUser("Anna", "password", 15, 159, 180, true, true, "WEGETARIANSKA");
+		} catch (DietException e) {
+			
+			e.printStackTrace();
+		}
 		
-		User admin = new User();
-		admin.setLogin("admin");
-		admin.setPassword("12345"); // potem sie zahaszuje
+		Recipe recipe1 = null;
+		try {
+			recipe1 = rc.addRecipe("Jajecznica", "SNIADANIE", user1.getLogin(), "Rozbij jajka i je usmaż");
+		} catch (DishTypeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		sessionDB.save(admin);
+		Ingredient jajko = ic.addIngredient("jajko", false, false, 10, false);
 		
-		Recipe r = new Recipe();
-		r.setRecipeNumber(5);
-		r.setNameOfDish("Jajecznica");
-		r.setOwner("admin");
-		
-		sessionDB.delete(r);
-		sessionDB.delete(admin);
-		sessionDB.save(r);
-		
-		
-		
-		RecipeIngredient ri = new RecipeIngredient();
-		ri.setId_RecipeIngredient(1);
-		ri.setIngredient_name("Kalafior");
-		ri.setRecipe_number(5);
-
-		
-		sessionDB.getTransaction().commit();
+		RecipeIngredient jajkoJajecznica = ric.addRecipeIngredient(recipe1.getRecipeNumber(), jajko.getIngredientName());
+*/		
 		sessionDB.close();
 
 	}

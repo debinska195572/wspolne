@@ -38,6 +38,9 @@
             <column name="Dish_Name" type="varchar(45)">
                 <constraints nullable="false"/>
             </column>
+            <column name="Dish_Type" type="varchar(45)">
+                <constraints nullable="false"/>
+            </column>
              <column name="Owner" type="varchar(45)">
                 <constraints nullable="false" foreignKeyName="fk_owner_user" references="Users(login)"/>
             </column>
@@ -71,4 +74,19 @@
         </createTable>
     </changeSet>
  -->
+
+
+ 
+  <!--
+   <changeSet id="3" author="admin_zzpj">
+    <dropTable cascadeConstraints="true"
+           
+            tableName="RecipesIngredients"/>
+ <dropTable cascadeConstraints="true"
+           
+            tableName="Recipes"/>
+           
+           
+     </changeSet>
+      -->
 </databaseChangeLog>

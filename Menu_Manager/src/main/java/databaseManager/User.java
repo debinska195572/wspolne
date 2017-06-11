@@ -31,6 +31,26 @@ public class User {
 
 	}
 
+	public User(String login, String password) {
+this.login=login;
+this.password= password;
+	}
+	
+	
+	
+	public User(String login, String password, int age, int height, int weight, boolean lactoseTolerance,
+			boolean intoleranceGluten, String diet) {
+		super();
+		this.login = login;
+		this.password = password;
+		this.age = age;
+		this.height = height;
+		this.weight = weight;
+		this.lactoseTolerance = lactoseTolerance;
+		this.intoleranceGluten = intoleranceGluten;
+		this.diet = diet;
+	}
+
 	public String getLogin() {
 		return login;
 	}

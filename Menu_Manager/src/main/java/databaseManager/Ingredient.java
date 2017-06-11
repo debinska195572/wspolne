@@ -11,7 +11,7 @@ public class Ingredient {
 
 	@Id
 	@Column(name = "Ingredient_Name")
-	private String ingredient_Name;
+	private String ingredientName;
 	@Column(name = "Lactose")
 	private boolean lactose;
 	@Column(name = "Gluten")
@@ -25,12 +25,22 @@ public class Ingredient {
 
 	}
 
-	public String getIngredient_Name() {
-		return ingredient_Name;
+	public Ingredient(String ingredientName, boolean lactose, boolean gluten, int calories, boolean meat) {
+		super();
+		this.ingredientName = ingredientName;
+		this.lactose = lactose;
+		this.gluten = gluten;
+		this.calories = calories;
+		this.meat = meat;
 	}
 
-	public void setIngredient_Name(String ingredient_Name) {
-		this.ingredient_Name = ingredient_Name;
+	
+	public String getIngredientName() {
+		return ingredientName;
+	}
+
+	public void setIngredientName(String ingredientName) {
+		this.ingredientName = ingredientName;
 	}
 
 	public boolean isLactose() {
