@@ -31,6 +31,13 @@
 
 
 		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-maven-plugin</artifactId>
+			<version>3.5.0</version>
+					</dependency>
+
+
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.37</version>
@@ -45,4 +52,22 @@
 
 
 	</dependencies>
+
+         <plugins>
+         <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <configuration>
+          <changeLogFile>
+            ${basedir}/src/main/java/liquibaseChanges.xml
+          </changeLogFile>
+          <driver>com.mysql.jdbc.Driver</driver>
+          <url>jdbc:mysql://db4free.net/menu_zzpj?useSSL=false</url>
+          <username>admin_zzpj</username>
+          <password>admin1</password>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
