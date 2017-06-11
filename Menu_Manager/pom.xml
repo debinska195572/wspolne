@@ -29,11 +29,13 @@
 			<version>5.2.10.Final</version>
 		</dependency>
 
+
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-maven-plugin</artifactId>
 			<version>3.5.0</version>
 					</dependency>
+
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -50,8 +52,7 @@
 
 
 	</dependencies>
-	
-	 <build>
+
          <plugins>
          <plugin>
         <groupId>org.liquibase</groupId>
@@ -68,4 +69,5 @@
       </plugin>
     </plugins>
   </build>
+
 </project>
