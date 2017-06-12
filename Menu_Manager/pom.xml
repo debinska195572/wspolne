@@ -53,6 +53,10 @@
 
 	</dependencies>
 
+
+ <build>
+
+
          <plugins>
          <plugin>
         <groupId>org.liquibase</groupId>
