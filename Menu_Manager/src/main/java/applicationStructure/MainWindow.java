@@ -26,7 +26,7 @@ public class MainWindow extends JFrame{
 
 	public MainWindow(User loggedUser) {
 		
-		this.setSize(700, 700);
+		this.setSize(800,  600);
 		this.setLocationRelativeTo(null);
 		RecipesWindow recipesWindow =new RecipesWindow(loggedUser);
 		AccountWindow accountWindow =new AccountWindow(loggedUser);

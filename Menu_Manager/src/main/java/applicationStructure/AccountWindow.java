@@ -72,6 +72,7 @@ public class AccountWindow extends javax.swing.JPanel {
 		springLayout.putConstraint(SpringLayout.WEST, textFieldLogin, 220, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldLogin, -1, SpringLayout.NORTH, lblName);
 		springLayout.putConstraint(SpringLayout.EAST, textFieldLogin, 185, SpringLayout.EAST, lblName);
+		textFieldLogin.setText(loggedUser.getLogin());
 		textFieldLogin.setEditable(false);
 		add(textFieldLogin);
 		textFieldLogin.setColumns(10);
@@ -80,6 +81,7 @@ public class AccountWindow extends javax.swing.JPanel {
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldPassword, -1, SpringLayout.NORTH, lblPassword);
 		springLayout.putConstraint(SpringLayout.WEST, textFieldPassword, 0, SpringLayout.WEST, textFieldLogin);
 		springLayout.putConstraint(SpringLayout.EAST, textFieldPassword, 0, SpringLayout.EAST, textFieldLogin);
+		textFieldPassword.setText(loggedUser.getPassword());
 		textFieldPassword.setEditable(false);
 		add(textFieldPassword);
 		textFieldPassword.setColumns(10);
@@ -88,6 +90,7 @@ public class AccountWindow extends javax.swing.JPanel {
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldAge, -1, SpringLayout.NORTH, lblAge);
 		springLayout.putConstraint(SpringLayout.WEST, textFieldAge, 151, SpringLayout.EAST, lblAge);
 		springLayout.putConstraint(SpringLayout.EAST, textFieldAge, 0, SpringLayout.EAST, textFieldLogin);
+		textFieldAge.setText(Integer.toString(loggedUser.getAge()));
 		textFieldAge.setEditable(false);
 		add(textFieldAge);
 		textFieldAge.setColumns(10);
@@ -96,6 +99,8 @@ public class AccountWindow extends javax.swing.JPanel {
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldHeight, -1, SpringLayout.NORTH, lblHeight);
 		springLayout.putConstraint(SpringLayout.WEST, textFieldHeight, 141, SpringLayout.EAST, lblHeight);
 		springLayout.putConstraint(SpringLayout.EAST, textFieldHeight, 0, SpringLayout.EAST, textFieldLogin);
+		textFieldHeight.setText(Integer.toString(loggedUser.getHeight()));
+		
 		textFieldHeight.setEditable(false);
 		add(textFieldHeight);
 		textFieldHeight.setColumns(10);
@@ -104,6 +109,7 @@ public class AccountWindow extends javax.swing.JPanel {
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldWeight, -1, SpringLayout.NORTH, lblWeight);
 		springLayout.putConstraint(SpringLayout.WEST, textFieldWeight, 151, SpringLayout.EAST, lblWeight);
 		springLayout.putConstraint(SpringLayout.EAST, textFieldWeight, 0, SpringLayout.EAST, textFieldLogin);
+		textFieldWeight.setText(Integer.toString(loggedUser.getWeight()));
 		textFieldWeight.setEditable(false);
 		add(textFieldWeight);
 		textFieldWeight.setColumns(10);
@@ -111,6 +117,8 @@ public class AccountWindow extends javax.swing.JPanel {
 		JCheckBox checkBoxLactose = new JCheckBox("");
 		springLayout.putConstraint(SpringLayout.SOUTH, lblLactose, 0, SpringLayout.SOUTH, checkBoxLactose);
 		springLayout.putConstraint(SpringLayout.WEST, checkBoxLactose, 220, SpringLayout.WEST, this);
+		if(loggedUser.isLactoseTolerance()==true)
+			checkBoxLactose.setSelected(true);
 		checkBoxLactose.setEnabled(false);
 		add(checkBoxLactose);
 		
@@ -119,6 +127,8 @@ public class AccountWindow extends javax.swing.JPanel {
 		springLayout.putConstraint(SpringLayout.SOUTH, checkBoxLactose, -20, SpringLayout.NORTH, chckbxGluten);
 		springLayout.putConstraint(SpringLayout.NORTH, lblGluten, 0, SpringLayout.NORTH, chckbxGluten);
 		springLayout.putConstraint(SpringLayout.WEST, chckbxGluten, 0, SpringLayout.WEST, textFieldLogin);
+		if(loggedUser.isGlutenTolerance()==true)
+			chckbxGluten.setSelected(true);
 		chckbxGluten.setEnabled(false);
 		add(chckbxGluten);
 		
@@ -126,6 +136,7 @@ public class AccountWindow extends javax.swing.JPanel {
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldDiet, -1, SpringLayout.NORTH, lblDiet);
 		springLayout.putConstraint(SpringLayout.WEST, textFieldDiet, 0, SpringLayout.WEST, textFieldLogin);
 		springLayout.putConstraint(SpringLayout.EAST, textFieldDiet, -190, SpringLayout.EAST, this);
+		textFieldDiet.setText(loggedUser.getDiet());
 		textFieldDiet.setEditable(false);
 		add(textFieldDiet);
 		textFieldDiet.setColumns(10);

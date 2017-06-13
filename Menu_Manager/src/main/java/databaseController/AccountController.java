@@ -21,12 +21,12 @@ public class AccountController {
 		return newUser;
 	}
 	
-	public User createSpecificUser(String login, String password, int age, int height, int weight, boolean lactoseTolerance,   boolean intoleranceGluten, String diet  ) throws DietException
+	public User createSpecificUser(String login, String password, int age, int height, int weight, boolean lactoseTolerance,   boolean glutenTolerance, String diet  ) throws DietException
 	{
 		if(!diet.equals("NORMALNA") && !diet.equals("WEGETARIANSKA")){
 			throw new DietException(diet);
 		}
-		User newUser = new User(login, password, age,  height, weight, lactoseTolerance,intoleranceGluten,  diet);
+		User newUser = new User(login, password, age,  height, weight, lactoseTolerance,glutenTolerance,  diet);
 		
 		sessionDB.save(newUser);
 		sessionDB.getTransaction().commit();
@@ -34,7 +34,7 @@ public class AccountController {
 	}
 	
 	
-	public void updateUser(User changedUser,String password, int age, String diet, int height, int weight, boolean intoleranceGluten, boolean lactoseTolerance  ) throws DietException
+	public void updateUser(User changedUser,String password, int age, String diet, int height, int weight, boolean glutenTolerance, boolean lactoseTolerance  ) throws DietException
 	{
 	
 		if(!diet.equals("NORMALNA") && !diet.equals("WEGETARIANSKA")){
@@ -46,7 +46,7 @@ public class AccountController {
 		changedUser.setDiet(diet);
 		changedUser.setHeight(height);
 		changedUser.setWeight(weight);
-		changedUser.setIntoleranceGluten(intoleranceGluten);
+		changedUser.setGlutenTolerance(glutenTolerance);
 		changedUser.setLactoseTolerance(lactoseTolerance);
 		sessionDB.update(changedUser);
 		sessionDB.getTransaction().commit();

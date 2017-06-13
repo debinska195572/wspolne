@@ -24,7 +24,7 @@
             </column>
             <column name="Lactose_tolerance" type="boolean" defaultValueBoolean="true"/>
         
-            <column name="Intolerance_to_gluten" type="boolean" defaultValueBoolean="true"/>
+            <column name="Intolerance_to_Gluten" type="boolean" defaultValueBoolean="true"/>
            
             <column name="Diet" type="varchar(45)">
                 <constraints nullable="true"/>
@@ -77,8 +77,8 @@
 
 
  
-  <!--
-   <changeSet id="3" author="admin_zzpj">
+ <!--  
+   <changeSet id="5" author="admin_zzpj">
     <dropTable cascadeConstraints="true"
            
             tableName="RecipesIngredients"/>
@@ -86,7 +86,20 @@
            
             tableName="Recipes"/>
            
+   <dropTable cascadeConstraints="true"
            
+            tableName="Users"/>         
      </changeSet>
-      -->
+ -->    
+  <!--
+  <changeSet id="5" author="admin_zzpj">
+  
+     <renameColumn columnDataType="boolean"
+                newColumnName="Gluten_tolerance"
+                oldColumnName="Gluten_tolerance"
+                tableName="Users"/>
+           
+        
+     </changeSet>
+ -->    
 </databaseChangeLog>
