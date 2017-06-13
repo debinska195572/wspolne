@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import java.awt.Button;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+
+import databaseManager.User;
+
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JRadioButton;
@@ -16,12 +19,15 @@ import java.awt.Color;
 public class MainWindow extends JFrame{
 	private final JButton btnLogOut = new JButton("WYLOGUJ");
 	private JTabbedPane tabbedPaneRecipes;
-	RecipesWindow recipesWindow =new RecipesWindow();
-	AccountWindow accountWindow =new AccountWindow();
-	CreatorWindow creatorWindow =new CreatorWindow();
-	DietWindow dietWindow =new DietWindow();
+	
 
-	public MainWindow() {
+	public MainWindow(User loggedUser) {
+		
+		
+		RecipesWindow recipesWindow =new RecipesWindow(loggedUser);
+		AccountWindow accountWindow =new AccountWindow(loggedUser);
+		CreatorWindow creatorWindow =new CreatorWindow(loggedUser);
+		DietWindow dietWindow =new DietWindow(loggedUser);
 		getContentPane().setBackground(new Color(176, 224, 230));
 		setTitle("Główny Panel");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/applicationStructure/jablka.png")));
@@ -41,17 +47,17 @@ public class MainWindow extends JFrame{
 		
 		tabbedPaneRecipes = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPaneRecipes.setToolTipText("");
-		tabbedPane.addTab("Przepisy", this.recipesWindow);
+		tabbedPane.addTab("Przepisy", recipesWindow);
 		
 		
 		JTabbedPane tabbedPaneAccount = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Moje Konto", this.accountWindow);
+		tabbedPane.addTab("Moje Konto", accountWindow);
 		
 		JTabbedPane tabbedPaneCreate = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Kreator przepisów", this.creatorWindow);
+		tabbedPane.addTab("Kreator przepisów", creatorWindow);
 		
 		JTabbedPane tabbedPaneDiet = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Moja dieta", this.dietWindow);
+		tabbedPane.addTab("Moja dieta", dietWindow);
 		getContentPane().add(btnLogOut);
 		// TODO Auto-generated constructor stub
 	}

@@ -1,6 +1,9 @@
 package applicationStructure;
 import javax.swing.JButton;
 import javax.swing.SpringLayout;
+
+import databaseManager.User;
+
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JList;
@@ -11,7 +14,7 @@ public class CreatorWindow extends javax.swing.JPanel {
 	private JTextField textFieldName;
 	private JTextField textFieldType;
 
-	public CreatorWindow() {
+	public CreatorWindow(User loggedUser) {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		

@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JCheckBox;
 import javax.swing.SpringLayout;
+
+import databaseManager.User;
+
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -11,7 +14,7 @@ import java.awt.Font;
 
 public class RecipesWindow extends javax.swing.JPanel{
 
-	public RecipesWindow() {
+	public RecipesWindow(User loggedUser) {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		

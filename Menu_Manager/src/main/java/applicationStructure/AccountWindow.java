@@ -1,6 +1,9 @@
 package applicationStructure;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
+
+import databaseManager.User;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
@@ -14,7 +17,7 @@ public class AccountWindow extends javax.swing.JPanel {
 	private JTextField textFieldWeight;
 	private JTextField textFieldDiet;
 
-	public AccountWindow() {
+	public AccountWindow(User loggedUser) {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		

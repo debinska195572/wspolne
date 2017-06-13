@@ -1,5 +1,8 @@
 package applicationStructure;
 import javax.swing.SpringLayout;
+
+import databaseManager.User;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -7,7 +10,7 @@ import java.awt.Font;
 
 public class DietWindow extends javax.swing.JPanel {
 
-	public DietWindow() {
+	public DietWindow(User loggedUser) {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		
