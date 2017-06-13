@@ -17,6 +17,9 @@ public class MainWindow extends JFrame{
 	private final JButton btnLogOut = new JButton("WYLOGUJ");
 	private JTabbedPane tabbedPaneRecipes;
 	RecipesWindow recipesWindow =new RecipesWindow();
+	AccountWindow accountWindow =new AccountWindow();
+	CreatorWindow creatorWindow =new CreatorWindow();
+	DietWindow dietWindow =new DietWindow();
 
 	public MainWindow() {
 		getContentPane().setBackground(new Color(176, 224, 230));
@@ -42,13 +45,13 @@ public class MainWindow extends JFrame{
 		
 		
 		JTabbedPane tabbedPaneAccount = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Moje Konto", null, tabbedPaneAccount, null);
+		tabbedPane.addTab("Moje Konto", this.accountWindow);
 		
 		JTabbedPane tabbedPaneCreate = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Kreator przepisów", null, tabbedPaneCreate, null);
+		tabbedPane.addTab("Kreator przepisów", this.creatorWindow);
 		
 		JTabbedPane tabbedPaneDiet = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Moja dieta", null, tabbedPaneDiet, null);
+		tabbedPane.addTab("Moja dieta", this.dietWindow);
 		getContentPane().add(btnLogOut);
 		// TODO Auto-generated constructor stub
 	}

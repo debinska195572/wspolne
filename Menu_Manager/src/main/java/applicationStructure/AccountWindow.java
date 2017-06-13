@@ -7,12 +7,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 
 public class AccountWindow extends javax.swing.JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField textFieldLogin;
+	private JTextField textFieldPassword;
+	private JTextField textFieldAge;
+	private JTextField textFieldHeight;
+	private JTextField textFieldWeight;
+	private JTextField textFieldDiet;
 
 	public AccountWindow() {
 		SpringLayout springLayout = new SpringLayout();
@@ -20,95 +20,115 @@ public class AccountWindow extends javax.swing.JPanel {
 		
 		JLabel lblName = new JLabel("Login");
 		springLayout.putConstraint(SpringLayout.WEST, lblName, 35, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblName, 33, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, lblName, -375, SpringLayout.EAST, this);
 		lblName.setFont(new Font("Calibri", Font.BOLD, 15));
 		add(lblName);
 		
-		JLabel lblNazwisko = new JLabel("Hasło");
-		springLayout.putConstraint(SpringLayout.NORTH, lblNazwisko, 6, SpringLayout.SOUTH, lblName);
-		springLayout.putConstraint(SpringLayout.WEST, lblNazwisko, 0, SpringLayout.WEST, lblName);
-		add(lblNazwisko);
+		JLabel lblPassword = new JLabel("Hasło");
+		springLayout.putConstraint(SpringLayout.SOUTH, lblName, -13, SpringLayout.NORTH, lblPassword);
+		springLayout.putConstraint(SpringLayout.NORTH, lblPassword, 55, SpringLayout.NORTH, this);
+		lblPassword.setFont(new Font("Calibri", Font.BOLD, 15));
+		add(lblPassword);
 		
-		JLabel lblWiek = new JLabel("Wiek");
-		springLayout.putConstraint(SpringLayout.WEST, lblWiek, 0, SpringLayout.WEST, lblName);
-		add(lblWiek);
+		JLabel lblAge = new JLabel("Wiek");
+		springLayout.putConstraint(SpringLayout.NORTH, lblAge, 14, SpringLayout.SOUTH, lblPassword);
+		springLayout.putConstraint(SpringLayout.EAST, lblPassword, 0, SpringLayout.EAST, lblAge);
+		springLayout.putConstraint(SpringLayout.WEST, lblAge, 36, SpringLayout.WEST, this);
+		lblAge.setFont(new Font("Calibri", Font.BOLD, 15));
+		add(lblAge);
 		
-		JLabel lblWzrost = new JLabel("Wzrost");
-		springLayout.putConstraint(SpringLayout.WEST, lblWzrost, 0, SpringLayout.WEST, lblName);
-		add(lblWzrost);
+		JLabel lblHeight = new JLabel("Wzrost");
+		springLayout.putConstraint(SpringLayout.WEST, lblHeight, 35, SpringLayout.WEST, this);
+		lblHeight.setFont(new Font("Calibri", Font.BOLD, 15));
+		add(lblHeight);
 		
-		JLabel lblWaga = new JLabel("Waga");
-		springLayout.putConstraint(SpringLayout.EAST, lblWaga, 0, SpringLayout.EAST, lblNazwisko);
-		add(lblWaga);
+		JLabel lblWeight = new JLabel("Waga");
+		springLayout.putConstraint(SpringLayout.NORTH, lblWeight, 163, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblHeight, -18, SpringLayout.NORTH, lblWeight);
+		springLayout.putConstraint(SpringLayout.WEST, lblWeight, 34, SpringLayout.WEST, this);
+		lblWeight.setFont(new Font("Calibri", Font.BOLD, 15));
+		add(lblWeight);
 		
-		JLabel lblTolerancjaLaktozy = new JLabel("Tolerancja laktozy");
-		springLayout.putConstraint(SpringLayout.WEST, lblTolerancjaLaktozy, 0, SpringLayout.WEST, lblName);
-		add(lblTolerancjaLaktozy);
+		JLabel lblLactose = new JLabel("Tolerancja laktozy");
+		springLayout.putConstraint(SpringLayout.WEST, lblLactose, 0, SpringLayout.WEST, lblName);
+		lblLactose.setFont(new Font("Calibri", Font.BOLD, 15));
+		add(lblLactose);
 		
-		JLabel lblTolerancjaGlutenu = new JLabel("Tolerancja glutenu");
-		springLayout.putConstraint(SpringLayout.WEST, lblTolerancjaGlutenu, 0, SpringLayout.WEST, lblName);
-		add(lblTolerancjaGlutenu);
+		JLabel lblGluten = new JLabel("Tolerancja glutenu");
+		springLayout.putConstraint(SpringLayout.WEST, lblGluten, 0, SpringLayout.WEST, lblName);
+		lblGluten.setFont(new Font("Calibri", Font.BOLD, 15));
+		add(lblGluten);
 		
-		JLabel lblDieta = new JLabel("Dieta");
-		springLayout.putConstraint(SpringLayout.WEST, lblDieta, 0, SpringLayout.WEST, lblName);
-		add(lblDieta);
+		JLabel lblDiet = new JLabel("Dieta");
+		springLayout.putConstraint(SpringLayout.NORTH, lblDiet, 36, SpringLayout.SOUTH, lblGluten);
+		springLayout.putConstraint(SpringLayout.WEST, lblDiet, 0, SpringLayout.WEST, lblAge);
+		lblDiet.setFont(new Font("Calibri", Font.BOLD, 15));
+		add(lblDiet);
 		
-		textField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField, 10, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, textField, 97, SpringLayout.EAST, lblName);
-		springLayout.putConstraint(SpringLayout.NORTH, lblName, -3, SpringLayout.NORTH, textField);
-		add(textField);
-		textField.setColumns(10);
+		textFieldLogin = new JTextField();
+		springLayout.putConstraint(SpringLayout.WEST, textFieldLogin, 220, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldLogin, -1, SpringLayout.NORTH, lblName);
+		springLayout.putConstraint(SpringLayout.EAST, textFieldLogin, 185, SpringLayout.EAST, lblName);
+		textFieldLogin.setEditable(false);
+		add(textFieldLogin);
+		textFieldLogin.setColumns(10);
 		
-		textField_1 = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField_1, 12, SpringLayout.SOUTH, textField);
-		springLayout.putConstraint(SpringLayout.EAST, textField_1, 0, SpringLayout.EAST, textField);
-		add(textField_1);
-		textField_1.setColumns(10);
+		textFieldPassword = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldPassword, -1, SpringLayout.NORTH, lblPassword);
+		springLayout.putConstraint(SpringLayout.WEST, textFieldPassword, 0, SpringLayout.WEST, textFieldLogin);
+		springLayout.putConstraint(SpringLayout.EAST, textFieldPassword, 0, SpringLayout.EAST, textFieldLogin);
+		textFieldPassword.setEditable(false);
+		add(textFieldPassword);
+		textFieldPassword.setColumns(10);
 		
-		textField_2 = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField_2, 13, SpringLayout.SOUTH, textField_1);
-		springLayout.putConstraint(SpringLayout.NORTH, lblWiek, 3, SpringLayout.NORTH, textField_2);
-		springLayout.putConstraint(SpringLayout.WEST, textField_2, 0, SpringLayout.WEST, textField);
-		add(textField_2);
-		textField_2.setColumns(10);
+		textFieldAge = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldAge, -1, SpringLayout.NORTH, lblAge);
+		springLayout.putConstraint(SpringLayout.WEST, textFieldAge, 151, SpringLayout.EAST, lblAge);
+		springLayout.putConstraint(SpringLayout.EAST, textFieldAge, 0, SpringLayout.EAST, textFieldLogin);
+		textFieldAge.setEditable(false);
+		add(textFieldAge);
+		textFieldAge.setColumns(10);
 		
-		textField_3 = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, lblWzrost, 3, SpringLayout.NORTH, textField_3);
-		springLayout.putConstraint(SpringLayout.NORTH, textField_3, 15, SpringLayout.SOUTH, textField_2);
-		springLayout.putConstraint(SpringLayout.EAST, textField_3, 0, SpringLayout.EAST, textField);
-		add(textField_3);
-		textField_3.setColumns(10);
+		textFieldHeight = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldHeight, -1, SpringLayout.NORTH, lblHeight);
+		springLayout.putConstraint(SpringLayout.WEST, textFieldHeight, 141, SpringLayout.EAST, lblHeight);
+		springLayout.putConstraint(SpringLayout.EAST, textFieldHeight, 0, SpringLayout.EAST, textFieldLogin);
+		textFieldHeight.setEditable(false);
+		add(textFieldHeight);
+		textFieldHeight.setColumns(10);
 		
-		textField_4 = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, lblWaga, 3, SpringLayout.NORTH, textField_4);
-		springLayout.putConstraint(SpringLayout.NORTH, textField_4, 15, SpringLayout.SOUTH, textField_3);
-		springLayout.putConstraint(SpringLayout.EAST, textField_4, 0, SpringLayout.EAST, textField);
-		add(textField_4);
-		textField_4.setColumns(10);
+		textFieldWeight = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldWeight, -1, SpringLayout.NORTH, lblWeight);
+		springLayout.putConstraint(SpringLayout.WEST, textFieldWeight, 151, SpringLayout.EAST, lblWeight);
+		springLayout.putConstraint(SpringLayout.EAST, textFieldWeight, 0, SpringLayout.EAST, textFieldLogin);
+		textFieldWeight.setEditable(false);
+		add(textFieldWeight);
+		textFieldWeight.setColumns(10);
 		
-		JCheckBox checkBox = new JCheckBox("");
-		springLayout.putConstraint(SpringLayout.NORTH, lblTolerancjaLaktozy, 0, SpringLayout.NORTH, checkBox);
-		springLayout.putConstraint(SpringLayout.NORTH, checkBox, 13, SpringLayout.SOUTH, textField_4);
-		springLayout.putConstraint(SpringLayout.WEST, checkBox, 0, SpringLayout.WEST, textField);
-		add(checkBox);
+		JCheckBox checkBoxLactose = new JCheckBox("");
+		springLayout.putConstraint(SpringLayout.SOUTH, lblLactose, 0, SpringLayout.SOUTH, checkBoxLactose);
+		springLayout.putConstraint(SpringLayout.WEST, checkBoxLactose, 220, SpringLayout.WEST, this);
+		checkBoxLactose.setEnabled(false);
+		add(checkBoxLactose);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("");
-		springLayout.putConstraint(SpringLayout.NORTH, lblTolerancjaGlutenu, 0, SpringLayout.NORTH, chckbxNewCheckBox);
-		springLayout.putConstraint(SpringLayout.NORTH, chckbxNewCheckBox, 20, SpringLayout.SOUTH, checkBox);
-		springLayout.putConstraint(SpringLayout.WEST, chckbxNewCheckBox, 0, SpringLayout.WEST, textField);
-		add(chckbxNewCheckBox);
+		JCheckBox chckbxGluten = new JCheckBox("");
+		springLayout.putConstraint(SpringLayout.NORTH, chckbxGluten, 245, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, checkBoxLactose, -20, SpringLayout.NORTH, chckbxGluten);
+		springLayout.putConstraint(SpringLayout.NORTH, lblGluten, 0, SpringLayout.NORTH, chckbxGluten);
+		springLayout.putConstraint(SpringLayout.WEST, chckbxGluten, 0, SpringLayout.WEST, textFieldLogin);
+		chckbxGluten.setEnabled(false);
+		add(chckbxGluten);
 		
-		textField_5 = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField_5, 11, SpringLayout.SOUTH, chckbxNewCheckBox);
-		springLayout.putConstraint(SpringLayout.NORTH, lblDieta, 3, SpringLayout.NORTH, textField_5);
-		springLayout.putConstraint(SpringLayout.WEST, textField_5, 0, SpringLayout.WEST, textField);
-		add(textField_5);
-		textField_5.setColumns(10);
+		textFieldDiet = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldDiet, -1, SpringLayout.NORTH, lblDiet);
+		springLayout.putConstraint(SpringLayout.WEST, textFieldDiet, 0, SpringLayout.WEST, textFieldLogin);
+		springLayout.putConstraint(SpringLayout.EAST, textFieldDiet, -190, SpringLayout.EAST, this);
+		textFieldDiet.setEditable(false);
+		add(textFieldDiet);
+		textFieldDiet.setColumns(10);
 		
 		JButton btnEdytuj = new JButton("EDYTUJ");
-		springLayout.putConstraint(SpringLayout.NORTH, btnEdytuj, 2, SpringLayout.NORTH, lblName);
+		springLayout.putConstraint(SpringLayout.NORTH, btnEdytuj, 9, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, btnEdytuj, -40, SpringLayout.EAST, this);
 		add(btnEdytuj);
 		
