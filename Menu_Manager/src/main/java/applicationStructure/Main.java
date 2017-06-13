@@ -1,4 +1,4 @@
-package databaseManager;
+package applicationStructure;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -9,28 +9,33 @@ package databaseManager;
 
 import org.hibernate.Session;
 
-import applicationStructure.OpenWindow;
 import databaseController.AccountController;
 import databaseController.DietException;
 import databaseController.DishTypeException;
 import databaseController.IngredientController;
 import databaseController.RIController;
 import databaseController.RecipeController;
+import databaseManager.HibernateUtil;
+import databaseManager.User;
 
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Session sessionDB = HibernateUtil.getSessionFactory().openSession();
-		sessionDB.beginTransaction();
+		
+		/*
 		AccountController ac = new AccountController(sessionDB);
 		RecipeController rc = new RecipeController(sessionDB);
 		IngredientController ic = new IngredientController(sessionDB);
 		RIController ric = new RIController(sessionDB);
+		*/
 		
-		OpenWindow mainWindow = new OpenWindow();
-		mainWindow.setVisible(true);
+		
+		
+		
+		OpenWindow openWindow = new OpenWindow();
+		openWindow.setVisible(true);
 		
 		//Bawcie sie 
 		
@@ -59,7 +64,7 @@ public class Main {
 		
 		RecipeIngredient jajkoJajecznica = ric.addRecipeIngredient(recipe1.getRecipeNumber(), jajko.getIngredientName());
 */		
-		sessionDB.close();
+		
 
 	}
 }

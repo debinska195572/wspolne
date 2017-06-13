@@ -2,20 +2,36 @@ package applicationStructure;
 
 import javax.swing.JFrame;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SpringLayout;
 
+import org.hibernate.Session;
+
+import databaseController.AccountController;
+import databaseManager.HibernateUtil;
+import databaseManager.User;
+
 public class LoginWindow  extends JFrame{
 	private JTextField textFieldLogin;
-	private JTextField textFieldPassword;
+	private JPasswordField textFieldPassword;
+
 
 	public LoginWindow() {
+		final Session sessionDB = HibernateUtil.getSessionFactory().openSession();
+		sessionDB.beginTransaction();
+		final AccountController ac= new AccountController(sessionDB);
 		getContentPane().setBackground(new Color(176, 224, 230));
 		setTitle("Panel logowania");
+		this.setSize(340, 241);
+		this.setLocationRelativeTo(null);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginWindow.class.getResource("/applicationStructure/jablka.png")));
 		SpringLayout springLayout = new SpringLayout();
 		getContentPane().setLayout(springLayout);
@@ -35,11 +51,12 @@ public class LoginWindow  extends JFrame{
 		lblLogin.setFont(new Font("Calibri", Font.BOLD, 20));
 		getContentPane().add(lblLogin);
 		
-		textFieldPassword = new JTextField();
+		textFieldPassword = new JPasswordField();
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldPassword, 91, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, textFieldPassword, 202, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, textFieldPassword, 302, SpringLayout.WEST, getContentPane());
 		getContentPane().add(textFieldPassword);
+		textFieldPassword.setEchoChar('*');
 		textFieldPassword.setColumns(10);
 		
 		JLabel lblNewPassword = new JLabel("Hasło");
@@ -50,13 +67,52 @@ public class LoginWindow  extends JFrame{
 		lblNewPassword.setFont(new Font("Calibri", Font.BOLD, 20));
 		getContentPane().add(lblNewPassword);
 		
+		final JLabel labelBad = new JLabel("");
+		springLayout.putConstraint(SpringLayout.WEST, labelBad, 132, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, labelBad, -10, SpringLayout.SOUTH, getContentPane());
+		getContentPane().add(labelBad);
+		
 		JButton btnLogInUser = new JButton("ZALOGUJ");
-		springLayout.putConstraint(SpringLayout.NORTH, btnLogInUser, 146, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, btnLogInUser, 119, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, btnLogInUser, 169, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnLogInUser, 208, SpringLayout.WEST, getContentPane());
-		btnLogInUser.setFont(new Font("Calibri", Font.PLAIN, 15));
+		springLayout.putConstraint(SpringLayout.NORTH, btnLogInUser, 34, SpringLayout.SOUTH, textFieldPassword);
+		springLayout.putConstraint(SpringLayout.WEST, btnLogInUser, 0, SpringLayout.WEST, textFieldLogin);
+		springLayout.putConstraint(SpringLayout.EAST, btnLogInUser, -37, SpringLayout.EAST, getContentPane());
+		btnLogInUser.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnLogInUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				User loggedUser=ac.getUser(textFieldLogin.getText());
+				if(loggedUser!=null && textFieldPassword.getText().equals(loggedUser.getPassword()))
+						{
+					MainWindow mainWindow = new MainWindow(loggedUser);
+					mainWindow.setVisible(true);
+					sessionDB.close();
+					dispose();
+					
+						}
+				else
+				{
+					labelBad.setText("Zły login lub hasło");
+				}
+				
+			}
+		});
 		getContentPane().add(btnLogInUser);
+		
+		JButton btnAnuluj = new JButton("ANULUJ");
+		btnAnuluj.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		springLayout.putConstraint(SpringLayout.NORTH, btnAnuluj, 30, SpringLayout.SOUTH, lblNewPassword);
+		springLayout.putConstraint(SpringLayout.WEST, btnAnuluj, 0, SpringLayout.WEST, lblLogin);
+		btnAnuluj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OpenWindow openWindow= new OpenWindow();
+				openWindow.setVisible(true);
+				sessionDB.close();
+				dispose();
+				
+			}
+		});
+		getContentPane().add(btnAnuluj);
+		
+		
 		// TODO Auto-generated constructor stub
 	}
 }

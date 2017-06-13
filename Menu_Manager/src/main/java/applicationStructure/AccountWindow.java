@@ -131,12 +131,12 @@ public class AccountWindow extends javax.swing.JPanel {
 		textFieldDiet.setColumns(10);
 		
 		JButton btnEdytuj = new JButton("EDYTUJ");
-		springLayout.putConstraint(SpringLayout.NORTH, btnEdytuj, 9, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.NORTH, btnEdytuj, -2, SpringLayout.NORTH, lblName);
 		springLayout.putConstraint(SpringLayout.EAST, btnEdytuj, -40, SpringLayout.EAST, this);
 		add(btnEdytuj);
 		
 		JButton btnZapisz = new JButton("ZAPISZ");
-		springLayout.putConstraint(SpringLayout.NORTH, btnZapisz, 21, SpringLayout.SOUTH, btnEdytuj);
+		springLayout.putConstraint(SpringLayout.NORTH, btnZapisz, 0, SpringLayout.NORTH, lblPassword);
 		springLayout.putConstraint(SpringLayout.WEST, btnZapisz, 0, SpringLayout.WEST, btnEdytuj);
 		add(btnZapisz);
 		// TODO Auto-generated constructor stub

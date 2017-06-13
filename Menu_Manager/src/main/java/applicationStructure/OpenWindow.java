@@ -27,6 +27,11 @@ public class OpenWindow extends JFrame {
 		btnLogin.setFont(new Font("Segoe Script", Font.BOLD, 20));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				LoginWindow loginWindow= new LoginWindow();
+				
+				loginWindow.setVisible(true);
+				dispose();
+				
 			}
 		});
 		SpringLayout springLayout = new SpringLayout();
@@ -43,6 +48,11 @@ public class OpenWindow extends JFrame {
 		springLayout.putConstraint(SpringLayout.SOUTH, btnSignUp, 228, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnSignUp, 420, SpringLayout.WEST, getContentPane());
 		btnSignUp.setFont(new Font("Segoe Script", Font.BOLD, 20));
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		getContentPane().add(btnSignUp);
 		
 		JLabel lblNewLabel = new JLabel("Dietetyk 2017 !");

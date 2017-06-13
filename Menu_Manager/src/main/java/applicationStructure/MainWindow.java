@@ -2,6 +2,9 @@ package applicationStructure;
 
 import javax.swing.JFrame;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.SpringLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -23,7 +26,8 @@ public class MainWindow extends JFrame{
 
 	public MainWindow(User loggedUser) {
 		
-		
+		this.setSize(700, 700);
+		this.setLocationRelativeTo(null);
 		RecipesWindow recipesWindow =new RecipesWindow(loggedUser);
 		AccountWindow accountWindow =new AccountWindow(loggedUser);
 		CreatorWindow creatorWindow =new CreatorWindow(loggedUser);
@@ -58,8 +62,17 @@ public class MainWindow extends JFrame{
 		
 		JTabbedPane tabbedPaneDiet = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Moja dieta", dietWindow);
+		
 		getContentPane().add(btnLogOut);
-		// TODO Auto-generated constructor stub
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OpenWindow openWindow= new OpenWindow();
+				openWindow.setVisible(true);
+				
+				dispose();
+				
+			}
+		});
 	}
 	public JTabbedPane getTabbedPaneRecipes() {
 		return tabbedPaneRecipes;
