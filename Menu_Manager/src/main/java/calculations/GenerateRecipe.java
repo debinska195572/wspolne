@@ -3,178 +3,57 @@
  */
 package calculations;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import org.hibernate.Session;
-import databaseController.RIController;
-import databaseController.RecipeController;
+
+import org.hibernate.Transaction;
+
 import databaseManager.*;
+import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.AccessLevel;
 
 /**
  * @author Marcin
  *
  */
+@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public final class GenerateRecipe {
 
-	private User user;
+	@NonNull private User user;
+	private int forSwitch;
 	private Session session;
-	private RIController riController;
-	private RecipeController recipeController;
-	Random generator;
-	float iloscKalorii;
-	String przepisXml;
-	//
-	//
-	// private IngredientController ingredientController;
+	private Transaction tx;
 
-	public GenerateRecipe(final User loggedUser, final Session sessionDB) {
-		this.session = sessionDB;
-		this.user = loggedUser;
-		riController = new RIController(session);
-		generator = new Random();
-		recipeController = new RecipeController(session);
-		//
-		// ingredientController=new IngredientController(session);
-	}
+	/*
+	 * public GenerateRecipe(User user) { this.user = user;
+	 * 
+	 * }
+	 */
 
-	public String getRecipe(float minCalories, String recipeType) {
-		String przepis = "";
-		List<Ingredient> listDobra = new ArrayList<Ingredient>();
-		Recipe recipe;
+	public GenerateRecipe() {
 
-		List<Recipe> listOfRecipes = recipeController.getAllRecipes();
+		session = HibernateUtil.getSessionFactory().openSession();
+		tx = null;
+		try {
+			tx = session.beginTransaction();
 
-		List<RecipeIngredient> listOfIngredientsOfRecipe;
+			tryToGetGoodRecipe();
 
-
-		int i;
-		int o = 0;
-		boolean juz = false;
-		recipe = null;
-		iloscKalorii = 0;
-
-		while (juz == false) {
-
-			o++;
-			i = generator.nextInt(listOfRecipes.size());
-
-			recipe = listOfRecipes.get(i);
-			if (!recipe.getRecipeType().equals(recipeType)) {
-				continue;
-			}
-
-			listOfIngredientsOfRecipe = riController.getRecipesIngredientsByRecipe(recipe.getRecipeName());
-
-			int z = listOfIngredientsOfRecipe.size();
-
-			int pom = 0;
-			iloscKalorii = 0;
-
-			for (int y = 0; y < z; y++) {
-
-				if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
-						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
-						&& (listOfIngredientsOfRecipe.get(y).getIngredient().isMeat()
-								&& user.getDiet().equals("NORMALNA"))) {
-					pom++;
-					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
-
-				} else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
-						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
-						&& (listOfIngredientsOfRecipe.get(y).getIngredient().isMeat()
-								&& user.getDiet().equals("NORMALNA"))) {
-					pom++;
-					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
-
-				} else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
-						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
-						&& (listOfIngredientsOfRecipe.get(y).getIngredient().isMeat()
-								&& user.getDiet().equals("NORMALNA"))) {
-					pom++;
-					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
-
-				} else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
-						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
-						&& (!listOfIngredientsOfRecipe.get(y).getIngredient().isMeat()
-								&& user.getDiet().equals("NORMALNA"))) {
-					pom++;
-					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
-
-				} else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
-						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
-						&& (listOfIngredientsOfRecipe.get(y).getIngredient().isMeat()
-								&& user.getDiet().equals("NORMALNA"))) {
-					pom++;
-					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
-
-				} else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
-						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
-						&& (!listOfIngredientsOfRecipe.get(y).getIngredient().isMeat()
-								&& user.getDiet().equals("NORMALNA"))) {
-					pom++;
-					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
-
-				} else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
-						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
-						&& (!listOfIngredientsOfRecipe.get(y).getIngredient().isMeat()
-								&& user.getDiet().equals("NORMALNA"))) {
-					pom++;
-					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
-
-				} else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
-						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
-						&& (!listOfIngredientsOfRecipe.get(y).getIngredient().isMeat()
-								&& user.getDiet().equals("NORMALNA"))) {
-					pom++;
-					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
-
-				}
-
-			}
-
-			// for(int k=0; k<listDobra.size(); k++)
-			// {
-			// iloscKalorii+=listDobra.get(k).getCalories();
-			// }
-
-			if ((pom == z) || o == 100) {
-				juz = true;
-			} else if (o == 100 && (pom != z)) {
-				recipe = null;
-			}
-
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 
-		przepisXml = "";
-
-		if (recipe != null) {
-			przepis += recipeType + ": " + recipe.getRecipeName() + "\n" + "Składniki: \n";
-			przepisXml += "<Przepis>" + recipe.getRecipeName();
-
-			for (int h = 0; h < listDobra.size(); h++) {
-				przepis += "-" + listDobra.get(h).getIngredientName() + "\n";
-				przepisXml += "<Składnik>" + listDobra.get(h).getIngredientName() + "</Składnik>";
-
-				iloscKalorii += listDobra.get(h).getCalories();
-			}
-			przepis += "OPIS: " + recipe.getContent() + "\n";
-			przepisXml += "<Opis>" + recipe.getContent() + "</Opis>";
-			przepisXml += "</Przepis>";
-
-		} else
-			przepis = "Przykro nam, nie znaleziono żadnego " + recipeType + ", spełniającego wymagania \n";
-
-		return przepis;
-
 	}
 
-	public float getObliczoneKalorie() {
-		return iloscKalorii;
-	}
+	private void tryToGetGoodRecipe() {
 
-	public String getStringXml() {
-		return przepisXml;
 	}
 
 }

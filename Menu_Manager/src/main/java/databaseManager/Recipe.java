@@ -1,98 +1,92 @@
 package databaseManager;
 
-import java.util.HashSet;
-import java.util.Set;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Recipes")
+
+
+@Getter
+@Setter
+
+@NoArgsConstructor
+
 public class Recipe {
 
-	private String recipeName;
-	private String recipeType;
-	private User owner;
-	private String content;
-	private Set<RecipeIngredient> ri= new HashSet<RecipeIngredient>();
+	@Id
+	@Column(name = "ID_Recipe")
+	private int recipeNumber;
 
-	public Recipe() {
-		// TODO Auto-generated constructor stub
-	}
+	@Column(name = "Dish_Name")
+	private String dishName;
+	@Column(name = "Dish_Type")
+	private String dishType;
+	@Column(name = "Owner")
+	private String owner;
+	@Column(name = "Content")
+	private String content;
 
 	
-
-	public Recipe( String recipeName, String recipeType,User user,  String content) {
+	//powinno zostać, bo super() (?)
+	public Recipe(String dishName, String dishType, String owner, String content) {
 		super();
-		
-		this.recipeName = recipeName;
-		this.recipeType = recipeType;
-		this.owner=user;
+
+		this.dishName = dishName;
+		this.dishType = dishType;
+		this.owner = owner;
 		this.content = content;
 	}
 
-	@Id
-	@Column(name = "Recipe_Name")
-	public String getRecipeName() {
-		return recipeName;
-	}
-
-	public void setRecipeName(String recipeName) {
-		this.recipeName = recipeName;
-	}
+	/*public Recipe() {
 	
-	@Column(name = "Recipe_Type")
-	public String getRecipeType() {
-		return recipeType;
+	} 
+	
+	public int getRecipeNumber() {
+		return recipeNumber;
 	}
 
-	public void setRecipeType(String recipeType) {
-		this.recipeType = recipeType;
+	public void setRecipeNumber(int recipeNumber) {
+		this.recipeNumber = recipeNumber;
 	}
 
-	@ManyToOne
-	@JoinColumn(name="Owner")
-	public User getOwner() {
+	public String getDishName() {
+		return dishName;
+	}
+
+	public void setDishName(String dishName) {
+		this.dishName = dishName;
+	}
+
+	public String getDishType() {
+		return dishType;
+	}
+
+	public void setDishType(String dishType) {
+		this.dishType = dishType;
+	}
+
+	public String getOwner() {
 		return owner;
 	}
 
-	public void setOwner(User owner) {
+	public void setOwner(String owner) {
 		this.owner = owner;
 	}
 
-	@Column(name = "Content")
 	public String getContent() {
 		return content;
 	}
 
 	public void setContent(String content) {
 		this.content = content;
-	}
+	}*/
 
-	  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
-	    public Set<RecipeIngredient> getRecipesIngredients() {
-	        return ri;
-	    }
-	 
-	    public void setRecipesIngredients(Set<RecipeIngredient> newRI) {
-	        this.ri = newRI;
-	    }
-	     
-	    public void addRecipeIngredient(RecipeIngredient newRI) {
-	        this.ri.add(newRI);
-	    }   
-	
-	    public void removeRecipeIngredient(RecipeIngredient deletedRI) {
-	        this.ri.remove(deletedRI);
-	    }   
 }
