@@ -8,13 +8,20 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import org.hibernate.Session;
+
+import databaseManager.HibernateUtil;
+
 import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.SpringLayout;
 
 public class OpenWindow extends JFrame {
-
+	final Session sessionDB = HibernateUtil.getSessionFactory().openSession();
 	public OpenWindow() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 300);
 		this.setLocationRelativeTo(null);
@@ -27,7 +34,7 @@ public class OpenWindow extends JFrame {
 		btnLogin.setFont(new Font("Segoe Script", Font.BOLD, 20));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginWindow loginWindow= new LoginWindow();
+				LoginWindow loginWindow= new LoginWindow(sessionDB);
 				
 				loginWindow.setVisible(true);
 				dispose();
@@ -50,7 +57,10 @@ public class OpenWindow extends JFrame {
 		btnSignUp.setFont(new Font("Segoe Script", Font.BOLD, 20));
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SignUpWindow signUpWindow= new SignUpWindow(sessionDB);
 				
+				signUpWindow.setVisible(true);
+				dispose();
 			}
 		});
 		getContentPane().add(btnSignUp);

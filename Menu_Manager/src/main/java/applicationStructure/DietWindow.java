@@ -1,6 +1,12 @@
 package applicationStructure;
 import javax.swing.SpringLayout;
 
+import org.hibernate.Session;
+
+import databaseController.AccountController;
+import databaseController.IngredientController;
+import databaseController.RIController;
+import databaseController.RecipeController;
 import databaseManager.User;
 
 import javax.swing.JButton;
@@ -9,8 +15,20 @@ import javax.swing.JList;
 import java.awt.Font;
 
 public class DietWindow extends javax.swing.JPanel {
+	
+	RecipeController rc;
+	IngredientController ic;
+	RIController ric;
+	AccountController ac;
 
-	public DietWindow(User loggedUser) {
+	public DietWindow(User loggedUser, Session sessionDB) {
+		
+		sessionDB.beginTransaction();
+		rc = new RecipeController(sessionDB);
+		ic = new IngredientController(sessionDB);
+		ric = new RIController(sessionDB);
+		ac= new AccountController(sessionDB);
+		
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		

@@ -1,6 +1,11 @@
 package applicationStructure;
 import javax.swing.SpringLayout;
 
+import org.hibernate.Session;
+
+import databaseController.IngredientController;
+import databaseController.RIController;
+import databaseController.RecipeController;
 import databaseManager.User;
 
 import javax.swing.JLabel;
@@ -15,8 +20,16 @@ import javax.swing.JTextField;
 public class RecipeEditWindow extends javax.swing.JPanel{
 	private JTextField textFieldNameEdited;
 	private JTextField textFieldTypeEdited;
-
-	public RecipeEditWindow(User loggedUser) {
+	RecipeController rc;
+	IngredientController ic;
+	RIController ric;
+	
+	public RecipeEditWindow(User loggedUser, Session sessionDB) {
+		
+		rc = new RecipeController(sessionDB);
+		ic = new IngredientController(sessionDB);
+		ric = new RIController(sessionDB);
+		
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		

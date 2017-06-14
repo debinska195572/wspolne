@@ -24,7 +24,7 @@ public class RecipeController {
 		return newRecipe;
 	}
 	// zakładamy że nie da się zmienić właściciela
-	public void changeRecipe(Recipe changedRecipe, String recipeName, String recipeType,  String content) throws DishTypeException{
+	public Recipe changeRecipe(Recipe changedRecipe, String recipeName, String recipeType,  String content) throws DishTypeException{
 		if(!recipeType.equals("SNIADANIE") && !recipeType.equals("KOLACJA") &&
 				!recipeType.equals("OBIAD") && !recipeType.equals("DESER") && !recipeType.equals("PRZEKASKA") ){
 			throw new DishTypeException(recipeType);
@@ -34,6 +34,7 @@ public class RecipeController {
 		changedRecipe.setContent(content);
 		sessionDB.update( changedRecipe);
 		sessionDB.getTransaction().commit();
+		return changedRecipe;
 	}
 
 	public Recipe getRecipe(String recipeName) {

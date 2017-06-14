@@ -2,6 +2,11 @@ package applicationStructure;
 import javax.swing.JButton;
 import javax.swing.SpringLayout;
 
+import org.hibernate.Session;
+
+import databaseController.IngredientController;
+import databaseController.RIController;
+import databaseController.RecipeController;
 import databaseManager.User;
 
 import javax.swing.JLabel;
@@ -13,8 +18,17 @@ import javax.swing.JTextField;
 public class CreatorWindow extends javax.swing.JPanel {
 	private JTextField textFieldName;
 	private JTextField textFieldType;
+	RecipeController rc;
+	IngredientController ic;
+	RIController ric;
 
-	public CreatorWindow(User loggedUser) {
+	public CreatorWindow(User loggedUser, Session sessionDB) {
+		
+		sessionDB.beginTransaction();
+		rc = new RecipeController(sessionDB);
+		ic = new IngredientController(sessionDB);
+		ric = new RIController(sessionDB);
+		
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		

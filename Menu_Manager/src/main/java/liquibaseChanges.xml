@@ -116,15 +116,25 @@
         
      </changeSet>
     --> 
-  <!--
-  <changeSet id="5" author="admin_zzpj">
+ 
+  <changeSet id="10" author="admin_zzpj">
   
-     <renameColumn columnDataType="boolean"
-                newColumnName="Gluten_tolerance"
-                oldColumnName="Gluten_tolerance"
+     <renameColumn columnDataType="varchar(255)"
+                newColumnName="Gender"
+                oldColumnName="gender"
                 tableName="Users"/>
            
         
      </changeSet>
- -->    
+   
+  <!--
+  <changeSet id="9" author="admin_zzpj">
+  
+     <addColumn 
+            tableName="Users">
+        <column name="gender" type="varchar(255)"/>
+           
+      </addColumn>
+     </changeSet>
+      --> 
 </databaseChangeLog>

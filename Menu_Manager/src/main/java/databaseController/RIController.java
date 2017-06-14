@@ -20,13 +20,14 @@ public class RIController {
 		return newRecipeIngredient;
 	}
 	// w miejscu wywołania trzeba bedzie sprawdzić, czy owner istnieje!
-	public void changeRecipeIngredient(RecipeIngredient changedRecipeIngredient, String recipeName, String ingredientName) {
+	public RecipeIngredient changeRecipeIngredient(RecipeIngredient changedRecipeIngredient, String recipeName, String ingredientName) {
 	
 		changedRecipeIngredient.setRecipeName(recipeName);;
 		changedRecipeIngredient.setIngredientName(ingredientName);
 		
 		sessionDB.update(changedRecipeIngredient);
 		sessionDB.getTransaction().commit();
+		return changedRecipeIngredient;
 	}
 	public RecipeIngredient getRI(int id) {
 		RecipeIngredient ri=sessionDB.get(RecipeIngredient.class, id);

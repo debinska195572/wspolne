@@ -22,12 +22,12 @@ import databaseManager.User;
 public class LoginWindow  extends JFrame{
 	private JTextField textFieldLogin;
 	private JPasswordField textFieldPassword;
+	AccountController ac;
 
-
-	public LoginWindow() {
-		final Session sessionDB = HibernateUtil.getSessionFactory().openSession();
+	public LoginWindow(final Session sessionDB ) {
+		
 		sessionDB.beginTransaction();
-		final AccountController ac= new AccountController(sessionDB);
+		ac= new AccountController(sessionDB);
 		getContentPane().setBackground(new Color(176, 224, 230));
 		setTitle("Panel logowania");
 		this.setSize(340, 241);
@@ -68,7 +68,7 @@ public class LoginWindow  extends JFrame{
 		getContentPane().add(lblNewPassword);
 		
 		final JLabel labelBad = new JLabel("");
-		springLayout.putConstraint(SpringLayout.WEST, labelBad, 132, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, labelBad, 120, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, labelBad, -10, SpringLayout.SOUTH, getContentPane());
 		getContentPane().add(labelBad);
 		
@@ -82,9 +82,9 @@ public class LoginWindow  extends JFrame{
 				User loggedUser=ac.getUser(textFieldLogin.getText());
 				if(loggedUser!=null && textFieldPassword.getText().equals(loggedUser.getPassword()))
 						{
-					MainWindow mainWindow = new MainWindow(loggedUser);
+					MainWindow mainWindow = new MainWindow(loggedUser, sessionDB);
 					mainWindow.setVisible(true);
-					sessionDB.close();
+					
 					dispose();
 					
 						}

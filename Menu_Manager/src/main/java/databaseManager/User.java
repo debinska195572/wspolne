@@ -26,7 +26,10 @@ public class User {
 	private boolean glutenTolerance;
 	@Column(name = "Diet")
 	private String diet;
-
+	@Column(name = "Gender")
+	private String gender;
+	
+	
 	public User() {
 
 	}
@@ -39,7 +42,7 @@ this.password= password;
 	
 	
 	public User(String login, String password, int age, int height, int weight, boolean lactoseTolerance,
-			boolean glutenTolerance, String diet) {
+			boolean glutenTolerance, String diet, String gender) {
 		super();
 		this.login = login;
 		this.password = password;
@@ -49,6 +52,15 @@ this.password= password;
 		this.lactoseTolerance = lactoseTolerance;
 		this.glutenTolerance = glutenTolerance;
 		this.diet = diet;
+		this.gender= gender;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public String getLogin() {

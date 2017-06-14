@@ -21,12 +21,12 @@ public class AccountController {
 		return newUser;
 	}
 	
-	public User createSpecificUser(String login, String password, int age, int height, int weight, boolean lactoseTolerance,   boolean glutenTolerance, String diet  ) throws DietException
+	public User createSpecificUser(String login, String password, int age, int height, int weight, boolean lactoseTolerance,   boolean glutenTolerance, String diet, String gender  ) throws DietException
 	{
 		if(!diet.equals("NORMALNA") && !diet.equals("WEGETARIANSKA")){
 			throw new DietException(diet);
 		}
-		User newUser = new User(login, password, age,  height, weight, lactoseTolerance,glutenTolerance,  diet);
+		User newUser = new User(login, password, age,  height, weight, lactoseTolerance,glutenTolerance,  diet, gender);
 		
 		sessionDB.save(newUser);
 		sessionDB.getTransaction().commit();
@@ -34,7 +34,7 @@ public class AccountController {
 	}
 	
 	
-	public void updateUser(User changedUser,String password, int age, String diet, int height, int weight, boolean glutenTolerance, boolean lactoseTolerance  ) throws DietException
+	public User updateUser(User changedUser,String password, int age, String diet, int height, int weight, boolean glutenTolerance, boolean lactoseTolerance , String gender ) throws DietException
 	{
 	
 		if(!diet.equals("NORMALNA") && !diet.equals("WEGETARIANSKA")){
@@ -48,8 +48,10 @@ public class AccountController {
 		changedUser.setWeight(weight);
 		changedUser.setGlutenTolerance(glutenTolerance);
 		changedUser.setLactoseTolerance(lactoseTolerance);
+		changedUser.setGender(gender);
 		sessionDB.update(changedUser);
 		sessionDB.getTransaction().commit();
+		return changedUser;
 	}
 	
 	public User getUser(String userName) {
@@ -58,12 +60,14 @@ public class AccountController {
 
     }
 	
-	public void changePssword(User changedUser,  String password  )
+	public User changePssword(User changedUser,  String password  )
 	{
 		changedUser.setPassword(password); 
 		
 		sessionDB.update( changedUser);
 		sessionDB.getTransaction().commit();
+		
+		return changedUser;
 	}
 	
 	public void deleteUser(User deletedUser)

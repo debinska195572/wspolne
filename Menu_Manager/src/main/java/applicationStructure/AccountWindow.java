@@ -2,12 +2,21 @@ package applicationStructure;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 
+import org.hibernate.Session;
+
+import databaseController.AccountController;
+import databaseController.DietException;
 import databaseManager.User;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
 
 public class AccountWindow extends javax.swing.JPanel {
 	private JTextField textFieldLogin;
@@ -16,8 +25,31 @@ public class AccountWindow extends javax.swing.JPanel {
 	private JTextField textFieldHeight;
 	private JTextField textFieldWeight;
 	private JTextField textFieldDiet;
+	JCheckBox checkBoxLactose;
+	JCheckBox chckbxGluten;
+	JRadioButton rdbtnM;
+	JRadioButton rdbtnK;
+	JLabel labelNoData;
+	
+	User loggedUser;
+	String passwordNew;
+	int ageNew;
+	int heightNew;
+	int weightNew;
+	boolean lactoseNew;
+	boolean glutenNew;
+	String dietNew;
+	String genderNew;
+	
+	AccountController ac;
+	private JButton btnDelete;
 
-	public AccountWindow(User loggedUser) {
+	public AccountWindow( User logged, Session sessionDB) {
+				
+		sessionDB.beginTransaction();
+		ac= new AccountController(sessionDB);
+		this.loggedUser=logged;
+		
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		
@@ -114,7 +146,7 @@ public class AccountWindow extends javax.swing.JPanel {
 		add(textFieldWeight);
 		textFieldWeight.setColumns(10);
 		
-		JCheckBox checkBoxLactose = new JCheckBox("");
+		checkBoxLactose = new JCheckBox("");
 		springLayout.putConstraint(SpringLayout.SOUTH, lblLactose, 0, SpringLayout.SOUTH, checkBoxLactose);
 		springLayout.putConstraint(SpringLayout.WEST, checkBoxLactose, 220, SpringLayout.WEST, this);
 		if(loggedUser.isLactoseTolerance()==true)
@@ -122,7 +154,7 @@ public class AccountWindow extends javax.swing.JPanel {
 		checkBoxLactose.setEnabled(false);
 		add(checkBoxLactose);
 		
-		JCheckBox chckbxGluten = new JCheckBox("");
+		chckbxGluten = new JCheckBox("");
 		springLayout.putConstraint(SpringLayout.NORTH, chckbxGluten, 245, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, checkBoxLactose, -20, SpringLayout.NORTH, chckbxGluten);
 		springLayout.putConstraint(SpringLayout.NORTH, lblGluten, 0, SpringLayout.NORTH, chckbxGluten);
@@ -144,12 +176,110 @@ public class AccountWindow extends javax.swing.JPanel {
 		JButton btnEdytuj = new JButton("EDYTUJ");
 		springLayout.putConstraint(SpringLayout.NORTH, btnEdytuj, -2, SpringLayout.NORTH, lblName);
 		springLayout.putConstraint(SpringLayout.EAST, btnEdytuj, -40, SpringLayout.EAST, this);
+		btnEdytuj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				textFieldPassword.setEnabled(true);
+				textFieldAge.setEnabled(true);
+				textFieldHeight.setEnabled(true);
+				textFieldWeight.setEnabled(true);
+				checkBoxLactose.setEnabled(true);
+				chckbxGluten.setEnabled(true);
+				textFieldDiet.setEnabled(true);
+				rdbtnM.setEnabled(true);
+				rdbtnK.setEnabled(true);
+			}
+		});
 		add(btnEdytuj);
 		
 		JButton btnZapisz = new JButton("ZAPISZ");
 		springLayout.putConstraint(SpringLayout.NORTH, btnZapisz, 0, SpringLayout.NORTH, lblPassword);
 		springLayout.putConstraint(SpringLayout.WEST, btnZapisz, 0, SpringLayout.WEST, btnEdytuj);
+		btnZapisz.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				if(textFieldPassword.getText().equals(""))
+					labelNoData.setText("Hasło jest wymagane!");
+				else{
+				
+				passwordNew=textFieldPassword.getText();
+				if(textFieldAge.getText().equals("")||textFieldHeight.getText().equals("")
+						|| textFieldWeight.getText().equals("") || textFieldDiet.getText().equals("") )
+				{
+						loggedUser=ac.changePssword(loggedUser, passwordNew);
+					
+				}
+					
+				else
+				{
+				ageNew=Integer.parseInt(textFieldAge.getText());
+				heightNew=Integer.parseInt(textFieldHeight.getText());
+				weightNew=Integer.parseInt(textFieldWeight.getText());
+				if(checkBoxLactose.isSelected()==true)
+					lactoseNew=true;
+				else
+					lactoseNew=false;
+				
+				if(chckbxGluten.isSelected()==true)
+					glutenNew=true;
+				else
+					glutenNew=true;
+				if(rdbtnM.isSelected()==true)
+					genderNew="M";
+				else if(rdbtnK.isSelected()==true)
+					genderNew="K";
+				
+				dietNew=textFieldDiet.getText();
+				
+				
+				
+					try {
+						loggedUser=ac.updateUser(loggedUser, passwordNew, ageNew, dietNew, heightNew, weightNew, glutenNew, lactoseNew, genderNew);
+												
+					} catch (DietException e1) {
+						
+						e1.printStackTrace();
+					}
+					
+				  }				
+				}
+			  }		
+		});
 		add(btnZapisz);
-		// TODO Auto-generated constructor stub
+		
+		JLabel lblGender = new JLabel("Płeć");
+		lblGender.setFont(new Font("Calibri", Font.BOLD, 15));
+		springLayout.putConstraint(SpringLayout.NORTH, lblGender, 30, SpringLayout.SOUTH, lblDiet);
+		springLayout.putConstraint(SpringLayout.WEST, lblGender, 0, SpringLayout.WEST, lblName);
+		add(lblGender);
+		
+		rdbtnM = new JRadioButton("M");
+		rdbtnM.setEnabled(false);
+		springLayout.putConstraint(SpringLayout.NORTH, rdbtnM, 0, SpringLayout.NORTH, lblGender);
+		springLayout.putConstraint(SpringLayout.WEST, rdbtnM, 0, SpringLayout.WEST, textFieldLogin);
+		add(rdbtnM);
+		
+		rdbtnK = new JRadioButton("K");
+		rdbtnK.setEnabled(false);
+		springLayout.putConstraint(SpringLayout.NORTH, rdbtnK, 0, SpringLayout.NORTH, lblGender);
+		springLayout.putConstraint(SpringLayout.WEST, rdbtnK, 31, SpringLayout.EAST, rdbtnM);
+		add(rdbtnK);
+		
+
+		ButtonGroup genderGroup = new ButtonGroup();
+		genderGroup.add(rdbtnM);
+		genderGroup.add(rdbtnK);
+		if(loggedUser.getGender().equals("M"))
+			rdbtnM.setSelected(true);
+		else if(loggedUser.getGender().equals("K"))
+			rdbtnK.setSelected(true);
+		
+		labelNoData = new JLabel("");
+		springLayout.putConstraint(SpringLayout.SOUTH, labelNoData, 0, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, labelNoData, 0, SpringLayout.EAST, lblHeight);
+		add(labelNoData);
+		
+	
+		
 	}
 }

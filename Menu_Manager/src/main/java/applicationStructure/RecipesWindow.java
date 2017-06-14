@@ -5,6 +5,11 @@ import javax.swing.JTextArea;
 import javax.swing.JCheckBox;
 import javax.swing.SpringLayout;
 
+import org.hibernate.Session;
+
+import databaseController.IngredientController;
+import databaseController.RIController;
+import databaseController.RecipeController;
 import databaseManager.User;
 
 import javax.swing.JList;
@@ -13,8 +18,18 @@ import javax.swing.JButton;
 import java.awt.Font;
 
 public class RecipesWindow extends javax.swing.JPanel{
+	
+	RecipeController rc;
+	IngredientController ic;
+	RIController ric;
 
-	public RecipesWindow(User loggedUser) {
+	public RecipesWindow(User loggedUser, Session sessionDB) {
+		
+		sessionDB.beginTransaction();
+		rc = new RecipeController(sessionDB);
+		ic = new IngredientController(sessionDB);
+		ric = new RIController(sessionDB);
+		
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		

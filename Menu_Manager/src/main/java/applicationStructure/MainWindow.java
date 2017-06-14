@@ -12,6 +12,9 @@ import java.awt.Button;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import org.hibernate.Session;
+
+import databaseController.AccountController;
 import databaseManager.User;
 
 import javax.swing.JTextField;
@@ -22,16 +25,20 @@ import java.awt.Color;
 public class MainWindow extends JFrame{
 	private final JButton btnLogOut = new JButton("WYLOGUJ");
 	private JTabbedPane tabbedPaneRecipes;
+	AccountController ac;
+	User loggedUser;
 	
 
-	public MainWindow(User loggedUser) {
+	public MainWindow(User logged, Session sessionDB) {
 		
 		this.setSize(800,  600);
 		this.setLocationRelativeTo(null);
-		RecipesWindow recipesWindow =new RecipesWindow(loggedUser);
-		AccountWindow accountWindow =new AccountWindow(loggedUser);
-		CreatorWindow creatorWindow =new CreatorWindow(loggedUser);
-		DietWindow dietWindow =new DietWindow(loggedUser);
+		this.loggedUser=logged;
+		ac= new AccountController(sessionDB);
+		RecipesWindow recipesWindow =new RecipesWindow(loggedUser, sessionDB);
+		AccountWindow accountWindow =new AccountWindow(loggedUser, sessionDB);
+		CreatorWindow creatorWindow =new CreatorWindow(loggedUser, sessionDB);
+		DietWindow dietWindow =new DietWindow(loggedUser, sessionDB);
 		getContentPane().setBackground(new Color(176, 224, 230));
 		setTitle("Główny Panel");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/applicationStructure/jablka.png")));
@@ -64,6 +71,22 @@ public class MainWindow extends JFrame{
 		tabbedPane.addTab("Moja dieta", dietWindow);
 		
 		getContentPane().add(btnLogOut);
+		
+		JButton btnDelete = new JButton("USUŃ KONTO");
+		springLayout.putConstraint(SpringLayout.NORTH, btnDelete, 0, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, btnDelete, 20, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnDelete, -6, SpringLayout.WEST, btnLogOut);
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ac.deleteUser(loggedUser);
+				OpenWindow openWindow= new OpenWindow();
+				openWindow.setVisible(true);
+				dispose();
+				
+			}
+		});
+		getContentPane().add(btnDelete);
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				OpenWindow openWindow= new OpenWindow();
