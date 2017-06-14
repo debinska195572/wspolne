@@ -4,6 +4,7 @@ import org.hibernate.Session;
 
 
 import databaseManager.Recipe;
+import databaseManager.User;
 
 public class RecipeController {
 	Session sessionDB;
@@ -13,28 +14,36 @@ public class RecipeController {
 		
 	}
 	// w miejscu wywołania trzeba bedzie sprawdzić, czy owner istnieje!
-	public Recipe addRecipe(String dishName, String dishType, String owner, String content)  throws DishTypeException{
-		if(!dishType.equals("SNIADANIE") && !dishType.equals("KOLACJA") &&
-				!dishType.equals("OBIAD") && !dishType.equals("DESER") && !dishType.equals("PRZEKASKA") ){
-			throw new DishTypeException(dishType);
+	public Recipe addRecipe(String recipeName, String recipeType, String owner, String content)  throws DishTypeException{
+		if(!recipeType.equals("SNIADANIE") && !recipeType.equals("KOLACJA") &&
+				!recipeType.equals("OBIAD") && !recipeType.equals("DESER") && !recipeType.equals("PRZEKASKA") ){
+			throw new DishTypeException(recipeType);
 		}
-		Recipe newRecipe = new Recipe(dishName, dishType, owner, content);
+		Recipe newRecipe = new Recipe(recipeName, recipeType, owner, content);
 		sessionDB.save(newRecipe);
 		return newRecipe;
 	}
 	// zakładamy że nie da się zmienić właściciela
-	public void changeRecipe(Recipe changedRecipe, String dishName, String dishType,  String content) throws DishTypeException{
-		if(!dishType.equals("SNIADANIE") && !dishType.equals("KOLACJA") &&
-				!dishType.equals("OBIAD") && !dishType.equals("DESER") && !dishType.equals("PRZEKASKA") ){
-			throw new DishTypeException(dishType);
+	public void changeRecipe(Recipe changedRecipe, String recipeName, String recipeType,  String content) throws DishTypeException{
+		if(!recipeType.equals("SNIADANIE") && !recipeType.equals("KOLACJA") &&
+				!recipeType.equals("OBIAD") && !recipeType.equals("DESER") && !recipeType.equals("PRZEKASKA") ){
+			throw new DishTypeException(recipeType);
 		}
-		changedRecipe.setDishName(dishName);
-		changedRecipe.setDishType(dishType);
+		changedRecipe.setRecipeName(recipeName);
+		changedRecipe.setRecipeType(recipeType);
 		changedRecipe.setContent(content);
 		sessionDB.update( changedRecipe);
 		sessionDB.getTransaction().commit();
 	}
 
+	public Recipe getRecipe(String recipeName) {
+		Recipe recipe=sessionDB.get(Recipe.class, recipeName);
+		return recipe;
+
+    }
+	
+	
+	
 	public void deleteIngredient(Recipe deletedRecipe) {
 
 		sessionDB.delete( deletedRecipe);

@@ -55,9 +55,7 @@ public class AccountController {
 	public User getUser(String userName) {
 		User user=sessionDB.get(User.class, userName);
 		return user;
-		 
-		
- 
+
     }
 	
 	public void changePssword(User changedUser,  String password  )

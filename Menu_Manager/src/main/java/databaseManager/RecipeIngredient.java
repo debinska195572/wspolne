@@ -12,8 +12,8 @@ public class RecipeIngredient {
 	@Id
 	@Column(name = "ID_RecipeIngredient")
 	private int riNumber;
-	@Column(name = "Recipe_Number")
-	private int recipeNumber;
+	@Column(name = "Recipe_Name")
+	private String recipeName;
 	@Column(name = "Ingredient_Name")
 	private String ingredientName;
 
@@ -21,10 +21,10 @@ public class RecipeIngredient {
 
 	}
 
-	public RecipeIngredient( int recipeNumber, String ingredientName) {
+	public RecipeIngredient( String recipeName, String ingredientName) {
 		super();
 		
-		this.recipeNumber = recipeNumber;
+		this.recipeName = recipeName;
 		this.ingredientName = ingredientName;
 	}
 
@@ -36,12 +36,13 @@ public class RecipeIngredient {
 		this.riNumber = riNumber;
 	}
 
-	public int getRecipeNumber() {
-		return recipeNumber;
+	
+	public String getRecipeName() {
+		return recipeName;
 	}
 
-	public void setRecipeNumber(int recipeNumber) {
-		this.recipeNumber = recipeNumber;
+	public void setRecipeName(String recipeName) {
+		this.recipeName = recipeName;
 	}
 
 	public String getIngredientName() {

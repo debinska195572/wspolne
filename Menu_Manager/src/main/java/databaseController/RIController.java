@@ -2,6 +2,7 @@ package databaseController;
 
 import org.hibernate.Session;
 
+import databaseManager.Recipe;
 import databaseManager.RecipeIngredient;
 
 
@@ -12,22 +13,26 @@ public class RIController {
 		this.sessionDB = sessionDB;
 		
 	}
-	public RecipeIngredient addRecipeIngredient(int recipeNumber, String ingredientName)  {
+	public RecipeIngredient addRecipeIngredient(String recipeName, String ingredientName)  {
 		
-		RecipeIngredient newRecipeIngredient = new RecipeIngredient(recipeNumber, ingredientName);
+		RecipeIngredient newRecipeIngredient = new RecipeIngredient(recipeName, ingredientName);
 		sessionDB.save(newRecipeIngredient);
 		return newRecipeIngredient;
 	}
 	// w miejscu wywołania trzeba bedzie sprawdzić, czy owner istnieje!
-	public void changeRecipeIngredient(RecipeIngredient changedRecipeIngredient, int recipeNumber, String ingredientName) {
+	public void changeRecipeIngredient(RecipeIngredient changedRecipeIngredient, String recipeName, String ingredientName) {
 	
-		changedRecipeIngredient.setRecipeNumber(recipeNumber);
+		changedRecipeIngredient.setRecipeName(recipeName);;
 		changedRecipeIngredient.setIngredientName(ingredientName);
 		
 		sessionDB.update(changedRecipeIngredient);
 		sessionDB.getTransaction().commit();
 	}
+	public RecipeIngredient getRI(int id) {
+		RecipeIngredient ri=sessionDB.get(RecipeIngredient.class, id);
+		return ri;
 
+    }
 	public void deleteIngredient(RecipeIngredient deletedRecipeIngredient) {
 
 		sessionDB.delete(deletedRecipeIngredient);

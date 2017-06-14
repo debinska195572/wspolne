@@ -3,6 +3,7 @@ package databaseController;
 import org.hibernate.Session;
 
 import databaseManager.Ingredient;
+import databaseManager.Recipe;
 import databaseManager.User;
 
 public class IngredientController {
@@ -30,6 +31,12 @@ public class IngredientController {
 		sessionDB.getTransaction().commit();
 	}
 
+	public Ingredient getIngredient(String ingredientName) {
+		Ingredient ingredient=sessionDB.get(Ingredient.class, ingredientName);
+		return ingredient;
+
+    }
+	
 	public void deleteIngredient(Ingredient deletedIngredient) {
 
 		sessionDB.delete( deletedIngredient);

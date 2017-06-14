@@ -77,20 +77,45 @@
 
 
  
- <!--  
-   <changeSet id="5" author="admin_zzpj">
+ <!--
+   <changeSet id="6" author="admin_zzpj">
     <dropTable cascadeConstraints="true"
            
             tableName="RecipesIngredients"/>
  <dropTable cascadeConstraints="true"
            
             tableName="Recipes"/>
+         <createTable tableName="Recipes">
+            <column name="Recipe_Name" type="varchar(45)">
+                 <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="Recipe_Type" type="varchar(45)">
+                <constraints nullable="false"/>
+            </column>
+             <column name="Owner" type="varchar(45)">
+                <constraints nullable="false" foreignKeyName="fk_owner_user" references="Users(login)"/>
+            </column>
+             <column name="Content" type="text">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+       
+            
+             <createTable tableName="RecipesIngredients">
+            <column name="ID_RecipeIngredient"  autoIncrement="true" type="int" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="Recipe_Name" type="varchar(45)">
+                <constraints nullable="false" foreignKeyName="fk_ri_recipes" references="Recipes(Recipe_Name)"/>
+            </column>
+             <column name="Ingredient_Name" type="varchar(45)">
+                <constraints nullable="false" foreignKeyName="fk_ri_ingredients" references="Ingredients(Ingredient_Name)"/>
+            </column>
            
-   <dropTable cascadeConstraints="true"
-           
-            tableName="Users"/>         
+        </createTable>
+        
      </changeSet>
- -->    
+    --> 
   <!--
   <changeSet id="5" author="admin_zzpj">
   
