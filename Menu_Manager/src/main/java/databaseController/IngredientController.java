@@ -8,14 +8,16 @@ import org.hibernate.Session;
 import databaseManager.Ingredient;
 import databaseManager.Recipe;
 import databaseManager.User;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class IngredientController {
 	Session sessionDB;
 
-	public IngredientController(Session sessionDB) {
+/*	public IngredientController(Session sessionDB) {
 		this.sessionDB = sessionDB;
 		
-	}
+	}*/
 
 	public Ingredient addIngredient(String ingredientName, boolean lactose, boolean gluten, int calories,
 			boolean meat) {
