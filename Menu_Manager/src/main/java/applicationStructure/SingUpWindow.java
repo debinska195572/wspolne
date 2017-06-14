@@ -5,100 +5,160 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.SpringLayout;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JCheckBox;
+import java.awt.Toolkit;
 
 public class SingUpWindow extends JFrame {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField textFieldLoginNew;
+	private JTextField textFieldPasswordNew;
+	private JTextField textFieldAgeNew;
+	private JTextField textFieldHeightNew;
+	private JTextField textFieldWeightNew;
+	private JTextField textFieldDietNew;
 
 	public SingUpWindow() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SingUpWindow.class.getResource("/applicationStructure/jablka.png")));
+		getContentPane().setBackground(new Color(176, 224, 230));
 		setTitle("Rejestracja nowego użytkownika");
-		getContentPane().setLayout(null);
+		SpringLayout springLayout = new SpringLayout();
+		getContentPane().setLayout(springLayout);
 		
-		textField = new JTextField();
-		textField.setBounds(197, 10, 116, 22);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		textFieldLoginNew = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldLoginNew, 10, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, textFieldLoginNew, 197, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, textFieldLoginNew, 32, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, textFieldLoginNew, 313, SpringLayout.WEST, getContentPane());
+		getContentPane().add(textFieldLoginNew);
+		textFieldLoginNew.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(197, 45, 116, 22);
-		getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		textFieldPasswordNew = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldPasswordNew, 45, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, textFieldPasswordNew, 197, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, textFieldPasswordNew, 67, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, textFieldPasswordNew, 313, SpringLayout.WEST, getContentPane());
+		getContentPane().add(textFieldPasswordNew);
+		textFieldPasswordNew.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(197, 80, 116, 22);
-		getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		textFieldAgeNew = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldAgeNew, 80, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, textFieldAgeNew, 197, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, textFieldAgeNew, 102, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, textFieldAgeNew, 313, SpringLayout.WEST, getContentPane());
+		getContentPane().add(textFieldAgeNew);
+		textFieldAgeNew.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(197, 115, 116, 22);
-		getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		textFieldHeightNew = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldHeightNew, 115, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, textFieldHeightNew, 197, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, textFieldHeightNew, 137, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, textFieldHeightNew, 313, SpringLayout.WEST, getContentPane());
+		getContentPane().add(textFieldHeightNew);
+		textFieldHeightNew.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(197, 150, 116, 22);
-		getContentPane().add(textField_4);
-		textField_4.setColumns(10);
+		textFieldWeightNew = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldWeightNew, 150, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, textFieldWeightNew, 197, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, textFieldWeightNew, 172, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, textFieldWeightNew, 313, SpringLayout.WEST, getContentPane());
+		getContentPane().add(textFieldWeightNew);
+		textFieldWeightNew.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(197, 185, 116, 22);
-		getContentPane().add(textField_5);
-		textField_5.setColumns(10);
+		textFieldDietNew = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textFieldDietNew, 255, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, textFieldDietNew, 197, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, textFieldDietNew, 277, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, textFieldDietNew, 313, SpringLayout.WEST, getContentPane());
+		getContentPane().add(textFieldDietNew);
+		textFieldDietNew.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(197, 220, 116, 22);
-		getContentPane().add(textField_6);
-		textField_6.setColumns(10);
+		JLabel lblLoginNew = new JLabel("Login:");
+		lblLoginNew.setFont(new Font("Calibri", Font.BOLD, 15));
+		springLayout.putConstraint(SpringLayout.NORTH, lblLoginNew, 3, SpringLayout.NORTH, textFieldLoginNew);
+		springLayout.putConstraint(SpringLayout.WEST, lblLoginNew, 24, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, lblLoginNew, 29, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblLoginNew, 80, SpringLayout.WEST, getContentPane());
+		getContentPane().add(lblLoginNew);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(197, 255, 116, 22);
-		getContentPane().add(textField_7);
-		textField_7.setColumns(10);
+		JLabel lblPasswordNew = new JLabel("Hasło:");
+		lblPasswordNew.setFont(new Font("Calibri", Font.BOLD, 15));
+		springLayout.putConstraint(SpringLayout.NORTH, lblPasswordNew, 3, SpringLayout.NORTH, textFieldPasswordNew);
+		springLayout.putConstraint(SpringLayout.WEST, lblPasswordNew, 0, SpringLayout.WEST, lblLoginNew);
+		springLayout.putConstraint(SpringLayout.EAST, lblPasswordNew, 80, SpringLayout.WEST, getContentPane());
+		getContentPane().add(lblPasswordNew);
 		
-		JLabel lblNewLabel = new JLabel("Login:");
-		lblNewLabel.setBounds(80, 13, 56, 16);
-		getContentPane().add(lblNewLabel);
+		JLabel lblAgeNew = new JLabel("Wiek:");
+		lblAgeNew.setFont(new Font("Calibri", Font.BOLD, 15));
+		springLayout.putConstraint(SpringLayout.NORTH, lblAgeNew, 3, SpringLayout.NORTH, textFieldAgeNew);
+		springLayout.putConstraint(SpringLayout.WEST, lblAgeNew, 0, SpringLayout.WEST, lblLoginNew);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblAgeNew, 99, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblAgeNew, 80, SpringLayout.WEST, getContentPane());
+		getContentPane().add(lblAgeNew);
 		
-		JLabel lblNewLabel_1 = new JLabel("Hasło:");
-		lblNewLabel_1.setBounds(80, 48, 56, 16);
-		getContentPane().add(lblNewLabel_1);
+		JLabel lblHeightNew = new JLabel("Wzrost:");
+		lblHeightNew.setFont(new Font("Calibri", Font.BOLD, 15));
+		springLayout.putConstraint(SpringLayout.NORTH, lblHeightNew, 3, SpringLayout.NORTH, textFieldHeightNew);
+		springLayout.putConstraint(SpringLayout.WEST, lblHeightNew, 0, SpringLayout.WEST, lblLoginNew);
+		springLayout.putConstraint(SpringLayout.EAST, lblHeightNew, 80, SpringLayout.WEST, getContentPane());
+		getContentPane().add(lblHeightNew);
 		
-		JLabel lblNewLabel_2 = new JLabel("Wiek:");
-		lblNewLabel_2.setBounds(80, 83, 56, 16);
-		getContentPane().add(lblNewLabel_2);
+		JLabel lblWeightNew = new JLabel("Waga:");
+		lblWeightNew.setFont(new Font("Calibri", Font.BOLD, 15));
+		springLayout.putConstraint(SpringLayout.NORTH, lblWeightNew, 3, SpringLayout.NORTH, textFieldWeightNew);
+		springLayout.putConstraint(SpringLayout.WEST, lblWeightNew, 0, SpringLayout.WEST, lblLoginNew);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblWeightNew, 169, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblWeightNew, 80, SpringLayout.WEST, getContentPane());
+		getContentPane().add(lblWeightNew);
 		
-		JLabel lblNewLabel_3 = new JLabel("Wzrost:");
-		lblNewLabel_3.setBounds(80, 118, 56, 16);
-		getContentPane().add(lblNewLabel_3);
+		JLabel lblLactoseNew = new JLabel("Tolerancja laktozy:");
+		springLayout.putConstraint(SpringLayout.NORTH, lblLactoseNew, 19, SpringLayout.SOUTH, lblWeightNew);
+		lblLactoseNew.setFont(new Font("Calibri", Font.BOLD, 15));
+		springLayout.putConstraint(SpringLayout.WEST, lblLactoseNew, 0, SpringLayout.WEST, lblLoginNew);
+		springLayout.putConstraint(SpringLayout.EAST, lblLactoseNew, 197, SpringLayout.WEST, getContentPane());
+		getContentPane().add(lblLactoseNew);
 		
-		JLabel lblNewLabel_4 = new JLabel("Wiek:");
-		lblNewLabel_4.setBounds(80, 153, 56, 16);
-		getContentPane().add(lblNewLabel_4);
+		JLabel lblGlutenNew = new JLabel("Tolerancja glutenu:");
+		springLayout.putConstraint(SpringLayout.NORTH, lblGlutenNew, 16, SpringLayout.SOUTH, lblLactoseNew);
+		lblGlutenNew.setFont(new Font("Calibri", Font.BOLD, 15));
+		springLayout.putConstraint(SpringLayout.WEST, lblGlutenNew, 24, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblGlutenNew, 0, SpringLayout.EAST, lblLactoseNew);
+		getContentPane().add(lblGlutenNew);
 		
-		JLabel lblNewLabel_5 = new JLabel("Tolerancja laktozy (tak/nie):");
-		lblNewLabel_5.setBounds(12, 188, 173, 16);
-		getContentPane().add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_6 = new JLabel("Tolerancja glutenu (tak/nie):");
-		lblNewLabel_6.setBounds(12, 223, 173, 16);
-		getContentPane().add(lblNewLabel_6);
-		
-		JLabel lblNewLabel_7 = new JLabel("Dieta:");
-		lblNewLabel_7.setBounds(80, 258, 56, 16);
-		getContentPane().add(lblNewLabel_7);
-		
-		JButton btnNewButton = new JButton("Potwierdzam");
-		btnNewButton.setBounds(39, 321, 116, 25);
-		getContentPane().add(btnNewButton);
+		JLabel lblDietNew = new JLabel("Dieta:");
+		lblDietNew.setFont(new Font("Calibri", Font.BOLD, 15));
+		springLayout.putConstraint(SpringLayout.NORTH, lblDietNew, 3, SpringLayout.NORTH, textFieldDietNew);
+		springLayout.putConstraint(SpringLayout.WEST, lblDietNew, 0, SpringLayout.WEST, lblLoginNew);
+		springLayout.putConstraint(SpringLayout.EAST, lblDietNew, 80, SpringLayout.WEST, getContentPane());
+		getContentPane().add(lblDietNew);
 		
 		JButton btnAnuluj = new JButton("Anuluj");
-		btnAnuluj.setBounds(244, 321, 116, 25);
+		springLayout.putConstraint(SpringLayout.NORTH, btnAnuluj, 321, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, btnAnuluj, 244, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, btnAnuluj, 346, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnAnuluj, 360, SpringLayout.WEST, getContentPane());
 		getContentPane().add(btnAnuluj);
+		
+		JCheckBox checkBox = new JCheckBox("");
+		springLayout.putConstraint(SpringLayout.NORTH, checkBox, 0, SpringLayout.NORTH, lblLactoseNew);
+		springLayout.putConstraint(SpringLayout.WEST, checkBox, 0, SpringLayout.WEST, textFieldLoginNew);
+		getContentPane().add(checkBox);
+		
+		JCheckBox checkBox_1 = new JCheckBox("");
+		springLayout.putConstraint(SpringLayout.NORTH, checkBox_1, 0, SpringLayout.NORTH, lblGlutenNew);
+		springLayout.putConstraint(SpringLayout.WEST, checkBox_1, 1, SpringLayout.EAST, lblGlutenNew);
+		getContentPane().add(checkBox_1);
+		
+		JButton btnCreate = new JButton("UTWÓRZ KONTO");
+		springLayout.putConstraint(SpringLayout.SOUTH, btnCreate, -6, SpringLayout.NORTH, btnAnuluj);
+		springLayout.putConstraint(SpringLayout.EAST, btnCreate, -35, SpringLayout.EAST, getContentPane());
+		getContentPane().add(btnCreate);
+		
+		JButton btnBack = new JButton("ANUULUJ");
+		springLayout.putConstraint(SpringLayout.WEST, btnBack, 25, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, btnBack, -6, SpringLayout.SOUTH, getContentPane());
+		getContentPane().add(btnBack);
 		// TODO Auto-generated constructor stub
 	}
 }
