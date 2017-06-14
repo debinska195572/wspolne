@@ -5,8 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "Ingredients")
+
+@Getter
+@Setter
+ 
+@NoArgsConstructor
+
 public class Ingredient {
 
 	@Id
@@ -21,10 +32,9 @@ public class Ingredient {
 	@Column(name = "Meat")
 	private boolean meat;
 
-	public Ingredient() {
 
-	}
 
+	// bo super() i chyba musi zostać
 	public Ingredient(String ingredientName, boolean lactose, boolean gluten, int calories, boolean meat) {
 		super();
 		this.ingredientName = ingredientName;
@@ -35,6 +45,10 @@ public class Ingredient {
 	}
 
 	
+/*	public Ingredient() {
+
+	}
+		
 	public String getIngredientName() {
 		return ingredientName;
 	}
@@ -73,7 +87,7 @@ public class Ingredient {
 
 	public void setMeat(boolean meat) {
 		this.meat = meat;
-	}
+	}*/
 
 	
 

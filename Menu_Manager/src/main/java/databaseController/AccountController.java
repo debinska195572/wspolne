@@ -4,15 +4,23 @@ import org.hibernate.Session;
 
 
 import databaseManager.User;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class AccountController {
 	Session sessionDB;
-	public AccountController(Session sessionDB) {
+	
+/*	public AccountController(Session sessionDB) {
 		this.sessionDB=sessionDB;
 		
-	}
+	}*/
 
 	
+	
+
 	public User createUser(String login, String password ) 
 	{
 		User newUser = new User(login, password);

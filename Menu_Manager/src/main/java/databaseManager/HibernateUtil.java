@@ -16,9 +16,14 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
 public class HibernateUtil {
 
-	private static final SessionFactory sessionFactory = buildSessionFactory();
+	@Getter(lazy = true)
+	 private static final SessionFactory sessionFactory = buildSessionFactory();
 
 //	private static SessionFactory sessionFactory = new Configuration().configure() // configures
 //																					// settings
@@ -39,7 +44,12 @@ public class HibernateUtil {
 	        }
 	}
 
-	public static SessionFactory getSessionFactory() {
+
+
+/*	public static SessionFactory getSessionFactory() {
 		return sessionFactory;
-	}
+	}*/
+	
+	
+	
 }

@@ -5,8 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "RecipesIngredients")
+
+@Getter
+@Setter
+ 
+@NoArgsConstructor
+
 public class RecipeIngredient {
 
 	@Id
@@ -17,15 +28,15 @@ public class RecipeIngredient {
 	@Column(name = "Ingredient_Name")
 	private String ingredientName;
 
-	public RecipeIngredient() {
-
-	}
-
-	public RecipeIngredient( int recipeNumber, String ingredientName) {
+	public RecipeIngredient(int recipeNumber, String ingredientName) {
 		super();
-		
+
 		this.recipeNumber = recipeNumber;
 		this.ingredientName = ingredientName;
+	}
+
+	/*public RecipeIngredient() {
+
 	}
 
 	public int getRiNumber() {
@@ -50,8 +61,6 @@ public class RecipeIngredient {
 
 	public void setIngredientName(String ingredientName) {
 		this.ingredientName = ingredientName;
-	}
-
-
+	}*/
 
 }

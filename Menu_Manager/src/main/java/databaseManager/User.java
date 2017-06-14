@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package databaseManager;
 
 import javax.persistence.Column;
@@ -5,8 +8,19 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "Users")
+
+@Getter
+@Setter
+
+
+
 public class User {
 
 	@Id
@@ -27,17 +41,12 @@ public class User {
 	@Column(name = "Diet")
 	private String diet;
 
-	public User() {
+	// lombok nie tworzy konstruktorow z wybranymi polami, chyba, że by były final lub non-null i wtedy @RequiredArgsConstructor
+		public User(String login, String password) {
+			this.login = login;
+			this.password = password;
+		}
 
-	}
-
-	public User(String login, String password) {
-this.login=login;
-this.password= password;
-	}
-	
-	
-	
 	public User(String login, String password, int age, int height, int weight, boolean lactoseTolerance,
 			boolean intoleranceGluten, String diet) {
 		super();
@@ -50,7 +59,15 @@ this.password= password;
 		this.intoleranceGluten = intoleranceGluten;
 		this.diet = diet;
 	}
+	
+	
 
+	/*public User() {
+
+	}
+
+	
+	
 	public String getLogin() {
 		return login;
 	}
@@ -113,6 +130,6 @@ this.password= password;
 
 	public void setDiet(String diet) {
 		this.diet = diet;
-	}
+	}*/
 
 }

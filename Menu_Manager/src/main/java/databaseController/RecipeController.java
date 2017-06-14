@@ -4,14 +4,18 @@ import org.hibernate.Session;
 
 
 import databaseManager.Recipe;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 
 public class RecipeController {
 	Session sessionDB;
 
-	public RecipeController(Session sessionDB) {
+/*	public RecipeController(Session sessionDB) {
 		this.sessionDB = sessionDB;
 		
-	}
+	}*/
+	
 	// w miejscu wywołania trzeba bedzie sprawdzić, czy owner istnieje!
 	public Recipe addRecipe(String dishName, String dishType, String owner, String content)  throws DishTypeException{
 		if(!dishType.equals("SNIADANIE") && !dishType.equals("KOLACJA") &&

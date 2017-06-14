@@ -3,15 +3,18 @@ package databaseController;
 import org.hibernate.Session;
 
 import databaseManager.RecipeIngredient;
+import lombok.AllArgsConstructor;
 
 
+@AllArgsConstructor
 
 public class RIController {
 	Session sessionDB;
-	public RIController(Session sessionDB) {
+	
+/*	public RIController(Session sessionDB) {
 		this.sessionDB = sessionDB;
 		
-	}
+	}*/
 	public RecipeIngredient addRecipeIngredient(int recipeNumber, String ingredientName)  {
 		
 		RecipeIngredient newRecipeIngredient = new RecipeIngredient(recipeNumber, ingredientName);
