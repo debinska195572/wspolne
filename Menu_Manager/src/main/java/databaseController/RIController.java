@@ -22,7 +22,7 @@ public class RIController {
 	// w miejscu wywołania trzeba bedzie sprawdzić, czy owner istnieje!
 	public RecipeIngredient changeRecipeIngredient(RecipeIngredient changedRecipeIngredient, String recipeName, String ingredientName) {
 	
-		changedRecipeIngredient.setRecipeName(recipeName);;
+		changedRecipeIngredient.setRecipeName(recipeName);
 		changedRecipeIngredient.setIngredientName(ingredientName);
 		
 		sessionDB.update(changedRecipeIngredient);

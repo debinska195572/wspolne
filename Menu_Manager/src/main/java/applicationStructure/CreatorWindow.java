@@ -24,10 +24,7 @@ public class CreatorWindow extends javax.swing.JPanel {
 
 	public CreatorWindow(User loggedUser, Session sessionDB) {
 		
-		sessionDB.beginTransaction();
-		rc = new RecipeController(sessionDB);
-		ic = new IngredientController(sessionDB);
-		ric = new RIController(sessionDB);
+		
 		
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);

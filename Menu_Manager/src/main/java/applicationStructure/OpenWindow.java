@@ -18,7 +18,7 @@ import java.awt.Color;
 import javax.swing.SpringLayout;
 
 public class OpenWindow extends JFrame {
-	final Session sessionDB = HibernateUtil.getSessionFactory().openSession();
+	 Session sessionDB = HibernateUtil.getSessionFactory().openSession();
 	public OpenWindow() {
 		
 		

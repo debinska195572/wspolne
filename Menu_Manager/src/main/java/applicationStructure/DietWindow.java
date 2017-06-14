@@ -23,11 +23,7 @@ public class DietWindow extends javax.swing.JPanel {
 
 	public DietWindow(User loggedUser, Session sessionDB) {
 		
-		sessionDB.beginTransaction();
-		rc = new RecipeController(sessionDB);
-		ic = new IngredientController(sessionDB);
-		ric = new RIController(sessionDB);
-		ac= new AccountController(sessionDB);
+	
 		
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);

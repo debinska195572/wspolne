@@ -25,7 +25,7 @@ public class Main {
 		
 		
 		/*
-		AccountController ac = new AccountController(sessionDB);
+		
 		RecipeController rc = new RecipeController(sessionDB);
 		IngredientController ic = new IngredientController(sessionDB);
 		RIController ric = new RIController(sessionDB);
@@ -38,12 +38,12 @@ public class Main {
 		openWindow.setVisible(true);
 		
 		//Bawcie sie 
-		
-/*		
-		User user1=ac.createUser("admin3", "password");
-		
-		ac.deleteUser(user1);
 	
+		
+	
+	
+/*		
+		
 
 		try {
 			User user2=ac.createSpecificUser("Anna", "password", 15, 159, 180, true, true, "WEGETARIANSKA");

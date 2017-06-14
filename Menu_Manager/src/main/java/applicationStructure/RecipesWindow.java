@@ -25,10 +25,7 @@ public class RecipesWindow extends javax.swing.JPanel{
 
 	public RecipesWindow(User loggedUser, Session sessionDB) {
 		
-		sessionDB.beginTransaction();
-		rc = new RecipeController(sessionDB);
-		ic = new IngredientController(sessionDB);
-		ric = new RIController(sessionDB);
+	
 		
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);

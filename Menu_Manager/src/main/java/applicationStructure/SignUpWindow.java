@@ -35,7 +35,7 @@ public class SignUpWindow extends JFrame {
 	JLabel labelNoLoginPassword;
 	JRadioButton rdbtnM;
 	JRadioButton rdbtnK;
-	
+	AccountController ac;
 	String nameNew;
 	String passwordNew;
 	int ageNew;
@@ -45,8 +45,6 @@ public class SignUpWindow extends JFrame {
 	boolean glutenNew;
 	String dietNew;
 	String genderNew;
-	
-	AccountController ac;
 
 	public SignUpWindow(final Session sessionDB) {
 		sessionDB.beginTransaction();
@@ -218,7 +216,7 @@ public class SignUpWindow extends JFrame {
 				if(checkBoxGlutenNew.isSelected()==true)
 					glutenNew=true;
 				else
-					glutenNew=true;
+					glutenNew=false;
 				if(rdbtnM.isSelected()==true)
 					genderNew="M";
 				else if(rdbtnK.isSelected()==true)

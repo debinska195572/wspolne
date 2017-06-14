@@ -3,8 +3,8 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
- <!--  
-    <changeSet id="2" author="admin_zzpj">
+   
+    <changeSet id="12" author="admin_zzpj">
    
         <createTable tableName="Users">
             <column name="Login" type="VARCHAR(45)">
@@ -24,25 +24,27 @@
             </column>
             <column name="Lactose_tolerance" type="boolean" defaultValueBoolean="true"/>
         
-            <column name="Intolerance_to_Gluten" type="boolean" defaultValueBoolean="true"/>
+            <column name="Gluten_tolerance" type="boolean" defaultValueBoolean="true"/>
            
             <column name="Diet" type="varchar(45)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="Gender" type="varchar(45)">
                 <constraints nullable="true"/>
             </column>
         </createTable>
      
         <createTable tableName="Recipes">
-            <column name="ID_Recipe"  autoIncrement="true" type="int" >
-                <constraints primaryKey="true" nullable="false"/>
+             
+            <column name="Recipe_Name" type="varchar(45)">
+                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="Dish_Name" type="varchar(45)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="Dish_Type" type="varchar(45)">
+            <column name="Recipe_Type" type="varchar(45)">
                 <constraints nullable="false"/>
             </column>
              <column name="Owner" type="varchar(45)">
-                <constraints nullable="false" foreignKeyName="fk_owner_user" references="Users(login)"/>
+                <constraints nullable="false" foreignKeyName="fk_owner_user" references="Users(Login)"/>
             </column>
              <column name="Content" type="varchar(45)">
                 <constraints nullable="true"/>
@@ -60,12 +62,12 @@
             <column name="Meat"  type="boolean" defaultValueBoolean="true"/>
           </createTable>
             
-             <createTable tableName="RecipesIngredients">
+               <createTable tableName="RecipesIngredients">
             <column name="ID_RecipeIngredient"  autoIncrement="true" type="int" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="Recipe_Number" type="int">
-                <constraints nullable="false" foreignKeyName="fk_ri_recipes" references="Recipes(ID_Recipe)"/>
+            <column name="Recipe_Name" type="varchar(45)">
+                <constraints nullable="false" foreignKeyName="fk_ri_recipes" references="Recipes(Recipe_Name)"/>
             </column>
              <column name="Ingredient_Name" type="varchar(45)">
                 <constraints nullable="false" foreignKeyName="fk_ri_ingredients" references="Ingredients(Ingredient_Name)"/>
@@ -73,7 +75,7 @@
            
         </createTable>
     </changeSet>
- -->
+
 
 
  
@@ -116,7 +118,7 @@
         
      </changeSet>
     --> 
- 
+   <!--
   <changeSet id="10" author="admin_zzpj">
   
      <renameColumn columnDataType="varchar(255)"
@@ -126,15 +128,30 @@
            
         
      </changeSet>
-   
+   --> 
   <!--
   <changeSet id="9" author="admin_zzpj">
   
      <addColumn 
             tableName="Users">
-        <column name="gender" type="varchar(255)"/>
+        <column name="Gender" type="varchar(255)"/>
            
       </addColumn>
      </changeSet>
-      --> 
+     -->   
+  <!--    
+      <changeSet id="11" author="admin_zzpj">
+    <dropTable 
+           
+            tableName="RecipesIngredients"/>
+ <dropTable 
+ 			  tableName="Recipes"/>
+ 			  
+ 	
+<dropTable  
+ 			  tableName="Ingredients"/>
+<dropTable  
+ 			  tableName="Users"/>
+ </changeSet>
+    --> 
 </databaseChangeLog>

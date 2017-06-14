@@ -22,12 +22,12 @@ import databaseManager.User;
 public class LoginWindow  extends JFrame{
 	private JTextField textFieldLogin;
 	private JPasswordField textFieldPassword;
-	AccountController ac;
+
 
 	public LoginWindow(final Session sessionDB ) {
 		
 		sessionDB.beginTransaction();
-		ac= new AccountController(sessionDB);
+		final AccountController ac= new AccountController(sessionDB);
 		getContentPane().setBackground(new Color(176, 224, 230));
 		setTitle("Panel logowania");
 		this.setSize(340, 241);
@@ -68,7 +68,7 @@ public class LoginWindow  extends JFrame{
 		getContentPane().add(lblNewPassword);
 		
 		final JLabel labelBad = new JLabel("");
-		springLayout.putConstraint(SpringLayout.WEST, labelBad, 120, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, labelBad, 130, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, labelBad, -10, SpringLayout.SOUTH, getContentPane());
 		getContentPane().add(labelBad);
 		
