@@ -27,7 +27,7 @@ public class MainWindow extends JFrame{
 	private JTabbedPane tabbedPaneRecipes;
 	AccountController ac;
 
-	public MainWindow(final User loggedUser, Session sessionDB) {
+	public MainWindow(final User loggedUser, final Session sessionDB) {
 		ac= new AccountController(sessionDB);
 		this.setSize(800,  600);
 		this.setLocationRelativeTo(null);
@@ -66,7 +66,15 @@ public class MainWindow extends JFrame{
 		
 		JTabbedPane tabbedPaneDiet = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Moja dieta", dietWindow);
-		
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OpenWindow openWindow= new OpenWindow();
+				openWindow.setVisible(true);
+				sessionDB.close();
+				dispose();
+				
+			}
+		});
 		getContentPane().add(btnLogOut);
 		
 		JButton btnDeleteAccount = new JButton("USUŃ KONTO");
@@ -85,15 +93,7 @@ public class MainWindow extends JFrame{
 			}
 		});
 		getContentPane().add(btnDeleteAccount);
-		btnLogOut.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				OpenWindow openWindow= new OpenWindow();
-				openWindow.setVisible(true);
-				
-				dispose();
-				
-			}
-		});
+		
 	}
 	public JTabbedPane getTabbedPaneRecipes() {
 		return tabbedPaneRecipes;

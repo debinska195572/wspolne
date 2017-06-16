@@ -289,6 +289,7 @@ public class AccountWindow extends javax.swing.JPanel  {
 		else if(loggedUser.getGender().equals("K"))
 			rdbtnK.setSelected(true);
 		
+		
 		labelNoData = new JLabel("");
 		springLayout.putConstraint(SpringLayout.SOUTH, labelNoData, 0, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, labelNoData, 0, SpringLayout.EAST, lblHeight);

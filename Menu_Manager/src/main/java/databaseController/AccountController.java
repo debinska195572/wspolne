@@ -23,7 +23,7 @@ public class AccountController {
 	
 	public User createSpecificUser(String login, String password, int age, int height, int weight, boolean lactoseTolerance,   boolean glutenTolerance, String diet, String gender  ) throws DietException
 	{
-		if(!diet.equals("NORMALNA") && !diet.equals("WEGETARIANSKA")){
+		if(!diet.equals("NORMALNA") && !diet.equals("WEGETARIAŃSKA")){
 			throw new DietException(diet);
 		}
 		User newUser = new User(login, password, age,  height, weight, lactoseTolerance,glutenTolerance,  diet, gender);
@@ -37,7 +37,7 @@ public class AccountController {
 	public User updateUser(User changedUser,String password, int age, String diet, int height, int weight, boolean glutenTolerance, boolean lactoseTolerance , String gender ) throws DietException
 	{
 	
-		if(!diet.equals("NORMALNA") && !diet.equals("WEGETARIANSKA")){
+		if(!diet.equals("NORMALNA") && !diet.equals("WEGETARIAŃSKA")){
 			throw new DietException(diet);
 		}
 		
