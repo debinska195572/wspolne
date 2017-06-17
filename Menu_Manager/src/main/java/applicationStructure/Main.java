@@ -104,8 +104,8 @@ public class Main {
 		egg.setRecipes(recipesContainsEggs);
 		*/
 		
-		//OpenWindow openWindow = new OpenWindow();
-		//openWindow.setVisible(true);
+		OpenWindow openWindow = new OpenWindow();
+		openWindow.setVisible(true);
 		
 		//Bawcie sie 
 	
