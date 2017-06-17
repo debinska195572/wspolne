@@ -1,5 +1,8 @@
 package applicationStructure;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,6 +19,8 @@ import databaseController.IngredientController;
 import databaseController.RIController;
 import databaseController.RecipeController;
 import databaseManager.HibernateUtil;
+import databaseManager.Ingredient;
+import databaseManager.Recipe;
 import databaseManager.User;
 
 
@@ -25,14 +30,66 @@ public class Main {
 		
 		
 		/*
-		
+		 Session sessionDB = HibernateUtil.getSessionFactory().openSession();
+		 sessionDB.beginTransaction();
+		AccountController ac= new AccountController(sessionDB);
 		RecipeController rc = new RecipeController(sessionDB);
 		IngredientController ic = new IngredientController(sessionDB);
 		RIController ric = new RIController(sessionDB);
 		*/
+	
+		/*
+		User u=null;
+		try {
+			 u = ac.createSpecificUser("test1", "test", 17, 157, 67, true, true, "NORMALNA", "M");
+		} catch (DietException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Recipe r =rc.addRecipe("jajecznica", "OBIAD", u, "blabla");
+		} catch (DishTypeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		/*
+		Set<Ingredient> ingredientsUsedToCake= new HashSet<Ingredient>(); 
 		
 		
+		//Dałam też możliwość dopisywania przepisów do składników-nie wiem czy się to przyda
+		Set<Recipe> recipesContainsEggs= new HashSet<Recipe>();
+		User u=ac.getUser("test");
+		Recipe cake=null;
+		Recipe omlet=null;
+		try {
+			 cake =rc.addRecipe("cake", "DESER", u, "blabla");
+		} catch (DishTypeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		try {
+			 omlet =rc.addRecipe("omlet", "KOLACJA", u, "blabla");
+		} catch (DishTypeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		Ingredient egg= ic.addIngredient("jajko", true, true, 300, false);
+		Ingredient sugar = ic.addIngredient("cukier", false, false, 5, false);
+		
+		ingredientsUsedToCake.add(egg);
+		ingredientsUsedToCake.add(sugar);
+		
+		recipesContainsEggs.add(omlet);
+		recipesContainsEggs.add(cake);
+		
+		cake.setIngredients(ingredientsUsedToCake);
+		egg.setRecipes(recipesContainsEggs);
+		*/
 		
 		OpenWindow openWindow = new OpenWindow();
 		openWindow.setVisible(true);

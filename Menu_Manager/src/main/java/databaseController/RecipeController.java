@@ -14,7 +14,7 @@ public class RecipeController {
 		
 	}
 	// w miejscu wywołania trzeba bedzie sprawdzić, czy owner istnieje!
-	public Recipe addRecipe(String recipeName, String recipeType, String owner, String content)  throws DishTypeException{
+	public Recipe addRecipe(String recipeName, String recipeType, User owner, String content)  throws DishTypeException{
 		if(!recipeType.equals("SNIADANIE") && !recipeType.equals("KOLACJA") &&
 				!recipeType.equals("OBIAD") && !recipeType.equals("DESER") && !recipeType.equals("PRZEKASKA") ){
 			throw new DishTypeException(recipeType);

@@ -1,25 +1,27 @@
 package databaseManager;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Ingredients")
 public class Ingredient {
 
-	@Id
-	@Column(name = "Ingredient_Name")
+	
 	private String ingredientName;
-	@Column(name = "Lactose")
 	private boolean lactose;
-	@Column(name = "Gluten")
 	private boolean gluten;
-	@Column(name = "Calories")
 	private int calories;
-	@Column(name = "Meat")
 	private boolean meat;
+	
+	private Set<Recipe> recipes=new HashSet<Recipe>();  
 
 	public Ingredient() {
 
@@ -34,7 +36,8 @@ public class Ingredient {
 		this.meat = meat;
 	}
 
-	
+	@Id
+	@Column(name = "Ingredient_Name")
 	public String getIngredientName() {
 		return ingredientName;
 	}
@@ -42,7 +45,7 @@ public class Ingredient {
 	public void setIngredientName(String ingredientName) {
 		this.ingredientName = ingredientName;
 	}
-
+	@Column(name = "Lactose")
 	public boolean isLactose() {
 		return lactose;
 	}
@@ -50,7 +53,7 @@ public class Ingredient {
 	public void setLactose(boolean lactose) {
 		this.lactose = lactose;
 	}
-
+	@Column(name = "Gluten")
 	public boolean isGluten() {
 		return gluten;
 	}
@@ -58,7 +61,7 @@ public class Ingredient {
 	public void setGluten(boolean gluten) {
 		this.gluten = gluten;
 	}
-
+	@Column(name = "Calories")
 	public int getCalories() {
 		return calories;
 	}
@@ -66,7 +69,7 @@ public class Ingredient {
 	public void setCalories(int calories) {
 		this.calories = calories;
 	}
-
+	@Column(name = "Meat")
 	public boolean isMeat() {
 		return meat;
 	}
@@ -75,6 +78,14 @@ public class Ingredient {
 		this.meat = meat;
 	}
 
-	
+	 @ManyToMany(cascade=CascadeType.ALL, mappedBy="ingredients")  
+	    public Set<Recipe> getRecipes()  
+	    {  
+	        return recipes;  
+	    }  
+	    public void setRecipes(Set<Recipe> recipes)  
+	    {  
+	        this.recipes = recipes;  
+	    }  
 
 }

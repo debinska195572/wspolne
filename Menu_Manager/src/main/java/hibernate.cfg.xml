@@ -40,7 +40,7 @@
 		<mapping class="databaseManager.User"></mapping>
 		<mapping class="databaseManager.Recipe"></mapping>
 		<mapping class="databaseManager.Ingredient"></mapping>
-		<mapping class="databaseManager.RecipeIngredient"></mapping>
+	<!-- 	<mapping class="databaseManager.RecipeIngredient"></mapping> -->
 
 
 
