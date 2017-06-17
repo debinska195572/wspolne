@@ -80,7 +80,7 @@ public class LoginWindow  extends JFrame{
 		btnLogInUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				User loggedUser=ac.getUser(textFieldLogin.getText());
-				if(loggedUser!=null && textFieldLogin.getText().equals(loggedUser.getLogin())&& textFieldPassword.getText().equals(loggedUser.getPassword()))
+				if(loggedUser!=null && textFieldPassword.getText().equals(loggedUser.getPassword()))
 						{
 					MainWindow mainWindow = new MainWindow(loggedUser, sessionDB);
 					mainWindow.setVisible(true);
