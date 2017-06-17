@@ -1,5 +1,6 @@
 package databaseController;
 
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -33,7 +34,12 @@ public class IngredientController {
 		sessionDB.getTransaction().commit();
 		return changedIngredient;
 	}
-
+	
+	public List<Ingredient> getAllIngredients() {
+		 List<Ingredient> allIngredients = sessionDB.createQuery("from Ingredient").list();
+		return allIngredients;
+	}
+	
 	public Ingredient addRecipe(Ingredient changedIngredient, Set<Recipe> all, Recipe added) {
 		all.add(added);
 		changedIngredient.setRecipes(all);

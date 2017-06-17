@@ -11,6 +11,7 @@ import java.util.Set;
 
 
 import org.hibernate.Session;
+import org.hibernate.mapping.List;
 
 import databaseController.AccountController;
 import databaseController.DietException;
@@ -35,9 +36,21 @@ public class Main {
 		AccountController ac= new AccountController(sessionDB);
 		RecipeController rc = new RecipeController(sessionDB);
 		IngredientController ic = new IngredientController(sessionDB);
-		
 		*/
-	
+	/*	
+		try {
+			User u=ac.getUser("test");
+			 Recipe r=rc.addRecipe("sałątka", "OBIAD", u, "bla");
+		} catch (DishTypeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Ingredient i = ic.addIngredient("sól", false, false, 10, false);
+		java.util.List<Ingredient> listall=ic.getAllIngredients();
+		
+		
+		  System.out.print(listall.size());
+	*/
 		/*
 		User u=null;
 		try {
@@ -91,8 +104,8 @@ public class Main {
 		egg.setRecipes(recipesContainsEggs);
 		*/
 		
-		OpenWindow openWindow = new OpenWindow();
-		openWindow.setVisible(true);
+		//OpenWindow openWindow = new OpenWindow();
+		//openWindow.setVisible(true);
 		
 		//Bawcie sie 
 	
