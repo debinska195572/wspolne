@@ -10,11 +10,10 @@ import javax.persistence.Table;
 public class Recipe {
 
 	@Id
-	@Column(name = "ID_Recipe")
-	private int recipeNumber;
-
-	@Column(name = "Dish_Name")
-	private String nameOfDish;
+	@Column(name = "Recipe_Name")
+	private String recipeName;
+	@Column(name = "Recipe_Type")
+	private String recipeType;
 	@Column(name = "Owner")
 	private String owner;
 	@Column(name = "Content")
@@ -24,36 +23,74 @@ public class Recipe {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getRecipeNumber() {
-		return recipeNumber;
-	}
+	
 
-	public void setRecipeNumber(int recipeNumber) {
-		this.recipeNumber = recipeNumber;
-	}
-
-	public String getNameOfDish() {
-		return nameOfDish;
-	}
-
-	public void setNameOfDish(String nameOfDish) {
-		this.nameOfDish = nameOfDish;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
+	public Recipe( String recipeName, String recipeType, String owner, String content) {
+		super();
+		
+		this.recipeName = recipeName;
+		this.recipeType = recipeType;
+		this.owner = owner;
 		this.content = content;
 	}
+
+
+
+
+
+
+
+	
+
+
+
+	public String getRecipeName() {
+		return recipeName;
+	}
+
+
+
+	public void setRecipeName(String recipeName) {
+		this.recipeName = recipeName;
+	}
+
+
+
+	public String getRecipeType() {
+		return recipeType;
+	}
+
+
+
+	public void setRecipeType(String recipeType) {
+		this.recipeType = recipeType;
+	}
+
+
 
 	public String getOwner() {
 		return owner;
 	}
 
+
+
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
 
+
+
+	public String getContent() {
+		return content;
+	}
+
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+
+	
 }

@@ -9,13 +9,13 @@
 
 		<!-- Database connection settings -->
 
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		  <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 
 		<!-- Assume test is the database name -->
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/menu_db</property>
-		<property name="hibernate.connection.username">admin</property>
-		<property name="hibernate.connection.password">admin</property>
+		<property name="hibernate.connection.url">jdbc:mysql://db4free.net/menu_zzpj?useSSL=false</property>
+		<property name="hibernate.connection.username">admin_zzpj</property>
+		<property name="hibernate.connection.password">admin1</property>
 
 
 		<!-- JDBC connection pool (use the built-in) -->
@@ -29,17 +29,18 @@
 		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
 
 		<!-- Echo all executed SQL to stdout -->
-		<property name="show_sql">false</property>
+		<property name="show_sql">true</property>
 
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">update</property>
 
 
 
-		<mapping class="databaseManager.Recipes"></mapping>
-		<mapping class="databaseManager.Users"></mapping>
-		<mapping class="databaseManager.Ingredients"></mapping>
-		<mapping class="databaseManager.RecipesIngredients"></mapping>
+		
+		<mapping class="databaseManager.User"></mapping>
+		<mapping class="databaseManager.Recipe"></mapping>
+		<mapping class="databaseManager.Ingredient"></mapping>
+		<mapping class="databaseManager.RecipeIngredient"></mapping>
 
 
 

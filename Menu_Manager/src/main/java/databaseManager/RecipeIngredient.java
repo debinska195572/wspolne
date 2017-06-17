@@ -11,38 +11,48 @@ public class RecipeIngredient {
 
 	@Id
 	@Column(name = "ID_RecipeIngredient")
-	private int id_RecipeIngredient;
-	@Column(name = "Recipe_Number")
-	private int recipe_number;
+	private int riNumber;
+	@Column(name = "Recipe_Name")
+	private String recipeName;
 	@Column(name = "Ingredient_Name")
-	private String ingredient_name;
+	private String ingredientName;
 
 	public RecipeIngredient() {
 
 	}
 
-	public int getId_RecipeIngredient() {
-		return id_RecipeIngredient;
+	public RecipeIngredient( String recipeName, String ingredientName) {
+		super();
+		
+		this.recipeName = recipeName;
+		this.ingredientName = ingredientName;
 	}
 
-	public void setId_RecipeIngredient(int id_RecipeIngredient) {
-		this.id_RecipeIngredient = id_RecipeIngredient;
+	public int getRiNumber() {
+		return riNumber;
 	}
 
-	public int getRecipe_number() {
-		return recipe_number;
+	public void setRiNumber(int riNumber) {
+		this.riNumber = riNumber;
 	}
 
-	public void setRecipe_number(int recipe_number) {
-		this.recipe_number = recipe_number;
+	
+	public String getRecipeName() {
+		return recipeName;
 	}
 
-	public String getIngredient_name() {
-		return ingredient_name;
+	public void setRecipeName(String recipeName) {
+		this.recipeName = recipeName;
 	}
 
-	public void setIngredient_name(String ingredient_name) {
-		this.ingredient_name = ingredient_name;
+	public String getIngredientName() {
+		return ingredientName;
 	}
+
+	public void setIngredientName(String ingredientName) {
+		this.ingredientName = ingredientName;
+	}
+
+
 
 }

@@ -22,13 +22,45 @@ public class User {
 	private int weight;
 	@Column(name = "Lactose_tolerance")
 	private boolean lactoseTolerance;
-	@Column(name = "Intolerance_to_gluten")
-	private boolean intoleranceGluten;
+	@Column(name = "Gluten_tolerance")
+	private boolean glutenTolerance;
 	@Column(name = "Diet")
 	private String diet;
-
+	@Column(name = "Gender")
+	private String gender;
+	
+	
 	public User() {
 
+	}
+
+	public User(String login, String password) {
+this.login=login;
+this.password= password;
+	}
+	
+	
+	
+	public User(String login, String password, int age, int height, int weight, boolean lactoseTolerance,
+			boolean glutenTolerance, String diet, String gender) {
+		super();
+		this.login = login;
+		this.password = password;
+		this.age = age;
+		this.height = height;
+		this.weight = weight;
+		this.lactoseTolerance = lactoseTolerance;
+		this.glutenTolerance = glutenTolerance;
+		this.diet = diet;
+		this.gender= gender;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public String getLogin() {
@@ -79,12 +111,14 @@ public class User {
 		this.lactoseTolerance = lactoseTolerance;
 	}
 
-	public boolean isIntoleranceGluten() {
-		return intoleranceGluten;
+	
+
+	public boolean isGlutenTolerance() {
+		return glutenTolerance;
 	}
 
-	public void setIntoleranceGluten(boolean intoleranceGluten) {
-		this.intoleranceGluten = intoleranceGluten;
+	public void setGlutenTolerance(boolean glutenTolerance) {
+		this.glutenTolerance = glutenTolerance;
 	}
 
 	public String getDiet() {
