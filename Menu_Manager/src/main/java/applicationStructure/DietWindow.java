@@ -8,7 +8,7 @@ import calculations.GenerateRecipe;
 import calculations.NeedCalories;
 import databaseController.AccountController;
 import databaseController.IngredientController;
-import databaseController.RIController;
+
 import databaseController.RecipeController;
 import databaseManager.User;
 
@@ -23,7 +23,7 @@ public class DietWindow extends javax.swing.JPanel {
 	
 	RecipeController rc;
 	IngredientController ic;
-	RIController ric;
+	
 	AccountController ac;
 	float bmi;
 	String obesityInfo;

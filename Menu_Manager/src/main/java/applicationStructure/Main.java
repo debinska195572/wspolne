@@ -16,7 +16,7 @@ import databaseController.AccountController;
 import databaseController.DietException;
 import databaseController.DishTypeException;
 import databaseController.IngredientController;
-import databaseController.RIController;
+
 import databaseController.RecipeController;
 import databaseManager.HibernateUtil;
 import databaseManager.Ingredient;
@@ -35,7 +35,7 @@ public class Main {
 		AccountController ac= new AccountController(sessionDB);
 		RecipeController rc = new RecipeController(sessionDB);
 		IngredientController ic = new IngredientController(sessionDB);
-		RIController ric = new RIController(sessionDB);
+		
 		*/
 	
 		/*

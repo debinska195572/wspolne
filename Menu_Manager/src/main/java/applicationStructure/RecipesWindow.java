@@ -8,7 +8,7 @@ import javax.swing.SpringLayout;
 import org.hibernate.Session;
 
 import databaseController.IngredientController;
-import databaseController.RIController;
+
 import databaseController.RecipeController;
 import databaseManager.User;
 
@@ -21,7 +21,7 @@ public class RecipesWindow extends javax.swing.JPanel{
 	
 	RecipeController rc;
 	IngredientController ic;
-	RIController ric;
+
 
 	public RecipesWindow(User loggedUser, Session sessionDB) {
 		

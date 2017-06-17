@@ -1,8 +1,10 @@
 package databaseController;
 
+import java.util.Set;
+
 import org.hibernate.Session;
 
-
+import databaseManager.Ingredient;
 import databaseManager.Recipe;
 import databaseManager.User;
 
@@ -37,6 +39,28 @@ public class RecipeController {
 		return changedRecipe;
 	}
 
+	public Recipe addIngredient(Recipe changedRecipe, Set<Ingredient> all, Ingredient added) {
+		all.add(added);
+		changedRecipe.setIngredients(all);
+		sessionDB.update( changedRecipe);
+		sessionDB.getTransaction().commit();
+		return changedRecipe;
+	}
+	
+	public Recipe removeIngredient(Recipe changedRecipe, Set<Ingredient> all, Ingredient deleted) {
+		all.remove(deleted);
+		changedRecipe.setIngredients(all);
+		sessionDB.update( changedRecipe);
+		sessionDB.getTransaction().commit();
+		return changedRecipe;
+	}
+	
+	public Set<Ingredient> getIngredientsFromRecipe(Recipe choosenRecipe) {
+		
+		
+		return choosenRecipe.getIngredients();
+	}
+	
 	public Recipe getRecipe(String recipeName) {
 		Recipe recipe=sessionDB.get(Recipe.class, recipeName);
 		return recipe;

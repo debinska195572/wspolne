@@ -4,7 +4,7 @@ import javax.swing.SpringLayout;
 import org.hibernate.Session;
 
 import databaseController.IngredientController;
-import databaseController.RIController;
+
 import databaseController.RecipeController;
 import databaseManager.User;
 
@@ -22,7 +22,7 @@ public class RecipeEditWindow extends javax.swing.JPanel{
 	private JTextField textFieldTypeEdited;
 	RecipeController rc;
 	IngredientController ic;
-	RIController ric;
+
 	
 	public RecipeEditWindow(User loggedUser, Session sessionDB) {
 		
