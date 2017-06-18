@@ -3,14 +3,14 @@ package databaseManager;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -23,7 +23,7 @@ public class Recipe {
 	private String recipeType;
 	private User owner;
 	private String content;
-	private Set<Ingredient> ingredients= new HashSet<Ingredient>();
+	private Set<RecipeIngredient> ri= new HashSet<RecipeIngredient>();
 
 	public Recipe() {
 		// TODO Auto-generated constructor stub
@@ -78,14 +78,20 @@ public class Recipe {
 		this.content = content;
 	}
 
-	@ManyToMany(cascade=CascadeType.ALL)  
-	@JoinTable(name = "RecipesIngredients", joinColumns = { @JoinColumn(name = "Recipe_Name") }, inverseJoinColumns = { @JoinColumn(name = "Ingredient_Name") })
-	public Set<Ingredient> getIngredients() {
-		return this.ingredients;
-	}
-
-	public void setIngredients(Set<Ingredient> ingredients) {
-		this.ingredients = ingredients;
-	}
-
+	  @OneToMany(mappedBy = "recipe")
+	    public Set<RecipeIngredient> getRecipesIngredients() {
+	        return ri;
+	    }
+	 
+	    public void setRecipesIngredients(Set<RecipeIngredient> newRI) {
+	        this.ri = newRI;
+	    }
+	     
+	    public void addRecipeIngredient(RecipeIngredient newRI) {
+	        this.ri.add(newRI);
+	    }   
+	
+	    public void removeRecipeIngredient(RecipeIngredient deletedRI) {
+	        this.ri.remove(deletedRI);
+	    }   
 }

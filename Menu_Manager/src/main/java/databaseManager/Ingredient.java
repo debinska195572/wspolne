@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +22,7 @@ public class Ingredient {
 	private int calories;
 	private boolean meat;
 	
-	private Set<Recipe> recipes=new HashSet<Recipe>();  
+	private Set<RecipeIngredient> ri= new HashSet<RecipeIngredient>();
 
 	public Ingredient() {
 
@@ -78,14 +79,17 @@ public class Ingredient {
 		this.meat = meat;
 	}
 
-	 @ManyToMany(cascade=CascadeType.ALL, mappedBy="ingredients")  
-	    public Set<Recipe> getRecipes()  
-	    {  
-	        return recipes;  
-	    }  
-	    public void setRecipes(Set<Recipe> recipes)  
-	    {  
-	        this.recipes = recipes;  
+	 @OneToMany(mappedBy = "ingredient")
+	 public Set<RecipeIngredient> getRecipesIngredients() {
+	        return ri;
+	    }
+	 
+	    public void setRecipesIngredients(Set<RecipeIngredient> newRI) {
+	        this.ri = newRI;
+	    }
+	     
+	    public void addRecipeIngredient(RecipeIngredient newRI) {
+	        this.ri.add(newRI);
 	    }  
 
 }

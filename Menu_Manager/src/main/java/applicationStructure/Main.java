@@ -17,11 +17,12 @@ import databaseController.AccountController;
 import databaseController.DietException;
 import databaseController.DishTypeException;
 import databaseController.IngredientController;
-
+import databaseController.RIController;
 import databaseController.RecipeController;
 import databaseManager.HibernateUtil;
 import databaseManager.Ingredient;
 import databaseManager.Recipe;
+import databaseManager.RecipeIngredient;
 import databaseManager.User;
 
 
@@ -30,27 +31,48 @@ public class Main {
 	public static void main(String[] args) {
 		
 		
-		/*
+		
 		 Session sessionDB = HibernateUtil.getSessionFactory().openSession();
 		 sessionDB.beginTransaction();
 		AccountController ac= new AccountController(sessionDB);
 		RecipeController rc = new RecipeController(sessionDB);
 		IngredientController ic = new IngredientController(sessionDB);
-		*/
+		RIController ric = new RIController(sessionDB);
+		
+		User u=ac.getUser("user1");
+		Recipe r =rc.getRecipe("pizza");
+		
+		Ingredient i = ic.getIngredient("papryka");
+		
+		
+		
+		
+		RecipeIngredient ri= ric.addRI(r, i, 2); //tworzenie osobno obiektu RecipeIngredient
+		r.addRecipeIngredient(ri); //osobno dodawanie tego obiektu do przepisu - do setu, żeby potem można było dostać wszystkie składniki przepisu przez:
+		//r.getRecipesIngredients() -zwraca set RecipeIngredient -składników danego przepisu
+		
+		r.removeRecipeIngredient(ri); //chyba najpierw trzeba usunąć stąd tak na logike
+		ric.deleteRI(ri);
+		
+		
+		OpenWindow openWindow = new OpenWindow();
+		openWindow.setVisible(true);
+		
 	/*	
+	
 		try {
-			User u=ac.getUser("test");
-			 Recipe r=rc.addRecipe("sałątka", "OBIAD", u, "bla");
+			User u=ac.getUser("user1");
+			 Recipe r=rc.addRecipe("mrożonka", "OBIAD", u, "bla");
 		} catch (DishTypeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Ingredient i = ic.addIngredient("sól", false, false, 10, false);
-		java.util.List<Ingredient> listall=ic.getAllIngredients();
+		Ingredient i = ic.addIngredient("pieprz", false, false, 10, false);
+		//java.util.List<Ingredient> listall=ic.getAllIngredients();
 		
 		
-		  System.out.print(listall.size());
-	*/
+		//  System.out.print(listall.size());
+	
 		/*
 		User u=null;
 		try {
@@ -104,8 +126,6 @@ public class Main {
 		egg.setRecipes(recipesContainsEggs);
 		*/
 		
-		OpenWindow openWindow = new OpenWindow();
-		openWindow.setVisible(true);
 		
 		//Bawcie sie 
 	
