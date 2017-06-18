@@ -26,6 +26,7 @@ public class RecipeController {
 		}
 		Recipe newRecipe = new Recipe(recipeName, recipeType, owner, content);
 		sessionDB.save(newRecipe);
+		sessionDB.getTransaction().commit();
 		return newRecipe;
 	}
 	// zakładamy że nie da się zmienić właściciela
