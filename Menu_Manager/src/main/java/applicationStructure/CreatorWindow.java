@@ -5,7 +5,7 @@ import javax.swing.SpringLayout;
 import org.hibernate.Session;
 
 import databaseController.IngredientController;
-import databaseController.RIController;
+
 import databaseController.RecipeController;
 import databaseManager.User;
 
@@ -20,7 +20,7 @@ public class CreatorWindow extends javax.swing.JPanel {
 	private JTextField textFieldType;
 	RecipeController rc;
 	IngredientController ic;
-	RIController ric;
+	
 
 	public CreatorWindow(User loggedUser, Session sessionDB) {
 		

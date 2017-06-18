@@ -1,5 +1,8 @@
 package databaseController;
 
+import java.util.List;
+import java.util.Set;
+
 import org.hibernate.Session;
 
 import databaseManager.Ingredient;
@@ -18,6 +21,7 @@ public class IngredientController {
 			boolean meat) {
 		Ingredient newIngredient = new Ingredient(ingredientName, lactose, gluten, calories, meat);
 		sessionDB.save(newIngredient);
+		
 		return newIngredient;
 	}
 
@@ -31,7 +35,15 @@ public class IngredientController {
 		sessionDB.getTransaction().commit();
 		return changedIngredient;
 	}
-
+	
+	public List<Ingredient> getAllIngredients() {
+		 List<Ingredient> allIngredients = sessionDB.createQuery("from Ingredient").list();
+		 sessionDB.getTransaction().commit();
+		return allIngredients;
+	}
+	
+	
+	
 	public Ingredient getIngredient(String ingredientName) {
 		Ingredient ingredient=sessionDB.get(Ingredient.class, ingredientName);
 		return ingredient;
@@ -41,7 +53,9 @@ public class IngredientController {
 	public void deleteIngredient(Ingredient deletedIngredient) {
 
 		sessionDB.delete( deletedIngredient);
-		sessionDB.getTransaction().commit();
+		
 	}
+	
+
 
 }

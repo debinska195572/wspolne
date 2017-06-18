@@ -1,9 +1,15 @@
 package databaseController;
 
+import java.util.List;
+import java.util.Set;
+
+
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
-
+import databaseManager.Ingredient;
 import databaseManager.Recipe;
+import databaseManager.RecipeIngredient;
 import databaseManager.User;
 
 public class RecipeController {
@@ -14,13 +20,14 @@ public class RecipeController {
 		
 	}
 	// w miejscu wywołania trzeba bedzie sprawdzić, czy owner istnieje!
-	public Recipe addRecipe(String recipeName, String recipeType, String owner, String content)  throws DishTypeException{
+	public Recipe addRecipe(String recipeName, String recipeType, User owner, String content)  throws DishTypeException{
 		if(!recipeType.equals("SNIADANIE") && !recipeType.equals("KOLACJA") &&
 				!recipeType.equals("OBIAD") && !recipeType.equals("DESER") && !recipeType.equals("PRZEKASKA") ){
 			throw new DishTypeException(recipeType);
 		}
 		Recipe newRecipe = new Recipe(recipeName, recipeType, owner, content);
 		sessionDB.save(newRecipe);
+	
 		return newRecipe;
 	}
 	// zakładamy że nie da się zmienić właściciela
@@ -36,18 +43,57 @@ public class RecipeController {
 		sessionDB.getTransaction().commit();
 		return changedRecipe;
 	}
+	public List<Recipe> getAllRecipes() {
+		Query<Recipe> query = sessionDB.createQuery("FROM Recipe ");
+		sessionDB.getTransaction().commit();
+		
+		 List<Recipe> allRecipes= query.list();
+		return allRecipes;
+	}
+	
+	
+	public Recipe addIngredientsToRecipe(Recipe changedRecipe, Set<RecipeIngredient> usedIngredients) {
+		
+		changedRecipe.setRecipesIngredients(usedIngredients);
+		sessionDB.update( changedRecipe);
+		sessionDB.getTransaction().commit();
+		return changedRecipe;
+	}
+	
+public Recipe addIngredientToRecipe(Recipe changedRecipe, RecipeIngredient usedIngredient) {
+		
+		changedRecipe.addRecipeIngredient(usedIngredient);
+		sessionDB.update( changedRecipe);
+		sessionDB.getTransaction().commit();
+		return changedRecipe;
+	}
 
+	public Recipe removeIngredientFromRecipe(Recipe changedRecipe, RecipeIngredient deleted) {
+	
+		changedRecipe.removeRecipeIngredient(deleted);
+		sessionDB.update( changedRecipe);
+		sessionDB.getTransaction().commit();
+		return changedRecipe;
+	}
+	
+	public Set<RecipeIngredient> getIngredientsFromRecipe(Recipe choosenRecipe) {
+		
+		
+		return choosenRecipe.getRecipesIngredients();
+	}
+	
 	public Recipe getRecipe(String recipeName) {
 		Recipe recipe=sessionDB.get(Recipe.class, recipeName);
+		sessionDB.getTransaction().commit();
 		return recipe;
 
     }
 	
 	
 	
-	public void deleteIngredient(Recipe deletedRecipe) {
+	public void deleteRecipe(Recipe deletedRecipe) {
 
 		sessionDB.delete( deletedRecipe);
-		sessionDB.getTransaction().commit();
+		
 	}
 }

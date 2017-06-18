@@ -3,7 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-   
+   <!--  
     <changeSet id="12" author="admin_zzpj">
    
         <createTable tableName="Users">
@@ -75,34 +75,13 @@
            
         </createTable>
     </changeSet>
-
+-->
 
 
  
  <!--
-   <changeSet id="6" author="admin_zzpj">
-    <dropTable cascadeConstraints="true"
-           
-            tableName="RecipesIngredients"/>
- <dropTable cascadeConstraints="true"
-           
-            tableName="Recipes"/>
-         <createTable tableName="Recipes">
-            <column name="Recipe_Name" type="varchar(45)">
-                 <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="Recipe_Type" type="varchar(45)">
-                <constraints nullable="false"/>
-            </column>
-             <column name="Owner" type="varchar(45)">
-                <constraints nullable="false" foreignKeyName="fk_owner_user" references="Users(login)"/>
-            </column>
-             <column name="Content" type="text">
-                <constraints nullable="true"/>
-            </column>
-        </createTable>
-       
-            
+   <changeSet id="16" author="admin_zzpj">
+   
              <createTable tableName="RecipesIngredients">
             <column name="ID_RecipeIngredient"  autoIncrement="true" type="int" >
                 <constraints primaryKey="true" nullable="false"/>
@@ -112,6 +91,9 @@
             </column>
              <column name="Ingredient_Name" type="varchar(45)">
                 <constraints nullable="false" foreignKeyName="fk_ri_ingredients" references="Ingredients(Ingredient_Name)"/>
+            </column>
+            <column name="Amount" type="int">
+                <constraints nullable="true" />
             </column>
            
         </createTable>

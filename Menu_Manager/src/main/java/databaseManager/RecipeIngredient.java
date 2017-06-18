@@ -1,58 +1,72 @@
 package databaseManager;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "RecipesIngredients")
 public class RecipeIngredient {
-
-	@Id
-	@Column(name = "ID_RecipeIngredient")
-	private int riNumber;
-	@Column(name = "Recipe_Name")
-	private String recipeName;
-	@Column(name = "Ingredient_Name")
-	private String ingredientName;
+	
+	private int id;
+    private Recipe recipe;
+    private Ingredient ingredient;
+    private int amount;
 
 	public RecipeIngredient() {
-
 	}
-
-	public RecipeIngredient( String recipeName, String ingredientName) {
-		super();
+	
+	 public RecipeIngredient(Recipe recipe, Ingredient ingredient, int amount) {
+			super();
 		
-		this.recipeName = recipeName;
-		this.ingredientName = ingredientName;
+			this.recipe = recipe;
+			this.ingredient = ingredient;
+			this.amount = amount;
+		}
+	 @Id
+	 @GeneratedValue
+	 @Column(name = "ID_RecipeIngredient")
+	public int getId() {
+		return id;
 	}
 
-	public int getRiNumber() {
-		return riNumber;
-	}
-
-	public void setRiNumber(int riNumber) {
-		this.riNumber = riNumber;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	
-	public String getRecipeName() {
-		return recipeName;
+	@ManyToOne(cascade = CascadeType.ALL)
+	    @JoinColumn(name = "Recipe_Name")  
+	public Recipe getRecipe() {
+		return recipe;
 	}
 
-	public void setRecipeName(String recipeName) {
-		this.recipeName = recipeName;
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
 	}
 
-	public String getIngredientName() {
-		return ingredientName;
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Ingredient_Name")
+	public Ingredient getIngredient() {
+		return ingredient;
 	}
 
-	public void setIngredientName(String ingredientName) {
-		this.ingredientName = ingredientName;
+	public void setIngredient(Ingredient ingredient) {
+		this.ingredient = ingredient;
 	}
 
+	 @Column(name = "Amount")
+	public int getAmount() {
+		return amount;
+	}
 
-
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+	
 }

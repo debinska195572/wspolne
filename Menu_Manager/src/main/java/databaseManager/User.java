@@ -1,8 +1,11 @@
 package databaseManager;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +32,8 @@ public class User {
 	@Column(name = "Gender")
 	private String gender;
 	
+	@OneToMany(mappedBy="owner")
+	private Set<Recipe> recipes;
 	
 	public User() {
 
@@ -127,6 +132,14 @@ this.password= password;
 
 	public void setDiet(String diet) {
 		this.diet = diet;
+	}
+
+	public Set<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(Set<Recipe> recipes) {
+		this.recipes = recipes;
 	}
 
 }

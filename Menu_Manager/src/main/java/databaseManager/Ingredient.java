@@ -1,25 +1,28 @@
 package databaseManager;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Ingredients")
 public class Ingredient {
 
-	@Id
-	@Column(name = "Ingredient_Name")
+	
 	private String ingredientName;
-	@Column(name = "Lactose")
 	private boolean lactose;
-	@Column(name = "Gluten")
 	private boolean gluten;
-	@Column(name = "Calories")
 	private int calories;
-	@Column(name = "Meat")
 	private boolean meat;
+	
+	private Set<RecipeIngredient> ri= new HashSet<RecipeIngredient>();
 
 	public Ingredient() {
 
@@ -34,7 +37,8 @@ public class Ingredient {
 		this.meat = meat;
 	}
 
-	
+	@Id
+	@Column(name = "Ingredient_Name")
 	public String getIngredientName() {
 		return ingredientName;
 	}
@@ -42,7 +46,7 @@ public class Ingredient {
 	public void setIngredientName(String ingredientName) {
 		this.ingredientName = ingredientName;
 	}
-
+	@Column(name = "Lactose")
 	public boolean isLactose() {
 		return lactose;
 	}
@@ -50,7 +54,7 @@ public class Ingredient {
 	public void setLactose(boolean lactose) {
 		this.lactose = lactose;
 	}
-
+	@Column(name = "Gluten")
 	public boolean isGluten() {
 		return gluten;
 	}
@@ -58,7 +62,7 @@ public class Ingredient {
 	public void setGluten(boolean gluten) {
 		this.gluten = gluten;
 	}
-
+	@Column(name = "Calories")
 	public int getCalories() {
 		return calories;
 	}
@@ -66,7 +70,7 @@ public class Ingredient {
 	public void setCalories(int calories) {
 		this.calories = calories;
 	}
-
+	@Column(name = "Meat")
 	public boolean isMeat() {
 		return meat;
 	}
@@ -75,6 +79,17 @@ public class Ingredient {
 		this.meat = meat;
 	}
 
-	
+	 @OneToMany(mappedBy = "ingredient")
+	 public Set<RecipeIngredient> getRecipesIngredients() {
+	        return ri;
+	    }
+	 
+	    public void setRecipesIngredients(Set<RecipeIngredient> newRI) {
+	        this.ri = newRI;
+	    }
+	     
+	    public void addRecipeIngredient(RecipeIngredient newRI) {
+	        this.ri.add(newRI);
+	    }  
 
 }
