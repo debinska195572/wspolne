@@ -94,6 +94,26 @@ public class RecipesWindow extends javax.swing.JPanel{
 			}
 		});
 		add(btnLoad);
+		
+		JButton btnNewButton = new JButton("Podgląd");
+		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, btnEdit);
+		springLayout.putConstraint(SpringLayout.WEST, btnNewButton, 43, SpringLayout.EAST, listRecipes);
+		springLayout.putConstraint(SpringLayout.EAST, btnNewButton, 132, SpringLayout.EAST, listRecipes);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int[] row_indexes=listRecipes.getSelectedRows();
+				String przepis = "";
+				for(int i=0;i<row_indexes.length;i++){
+					  String wartosc = listRecipes.getValueAt(row_indexes[i], 0).toString();
+					  // pobranie przepisu
+					  przepis=wartosc;
+					  System.out.println(wartosc);
+				}
+				ViewRecipe window = new ViewRecipe(sessionDB,przepis);
+				window.setVisible(true);
+			}
+		});
+		add(btnNewButton);
 		// TODO Auto-generated constructor stub
 	}
 	public TableModel getDataFromDatabase(Session psessionDB, User logedUser)
