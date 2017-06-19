@@ -2,12 +2,8 @@ package databaseController;
 
 import java.util.List;
 import java.util.Set;
-
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
-import databaseManager.Ingredient;
 import databaseManager.Recipe;
 import databaseManager.RecipeIngredient;
 import databaseManager.User;
@@ -45,7 +41,7 @@ public class RecipeController {
 	}
 	public List<Recipe> getAllRecipes() {
 		Query<Recipe> query = sessionDB.createQuery("FROM Recipe ");
-		//sessionDB.getTransaction().commit(); // Tu jest to samo - 
+		 
 		
 		 List<Recipe> allRecipes= query.list();
 		return allRecipes;

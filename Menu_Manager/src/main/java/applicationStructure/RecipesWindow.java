@@ -86,7 +86,7 @@ public class RecipesWindow extends javax.swing.JPanel{
 		btnEdit.setEnabled(true);
 		add(btnEdit);
 		
-		JButton btnLoad = new JButton("Wczytaj");
+		JButton btnLoad = new JButton("WCZYTAJ");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnLoad, -209, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, btnLoad, 0, SpringLayout.EAST, chckbxMyRecipes);
 		springLayout.putConstraint(SpringLayout.WEST, btnLoad, 0, SpringLayout.WEST, chckbxMyRecipes);
@@ -97,7 +97,7 @@ public class RecipesWindow extends javax.swing.JPanel{
 		});
 		add(btnLoad);
 		
-		JButton btnNewButton = new JButton("Podgląd");
+		JButton btnNewButton = new JButton("PODGLĄD");
 		springLayout.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, btnNewButton);
 		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, btnLoad);
 		springLayout.putConstraint(SpringLayout.WEST, btnNewButton, 0, SpringLayout.WEST, chckbxMyRecipes);
