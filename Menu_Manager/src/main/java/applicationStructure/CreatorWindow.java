@@ -106,7 +106,7 @@ public class CreatorWindow extends javax.swing.JPanel {
 		txtrDesc.setText("Przepis\r\n1.\r\n2.\r\n3.\r\n4.\r\n5.\r\n6.\r\n");
 		add(txtrDesc);
 
-		JLabel lblIngredients = new JLabel("Składniki");
+		JLabel lblIngredients = new JLabel("Składniki(laktoza|gluten|mięso)");
 		springLayout.putConstraint(SpringLayout.NORTH, lblIngredients, 0, SpringLayout.NORTH, lblName);
 		springLayout.putConstraint(SpringLayout.WEST, lblIngredients, 111, SpringLayout.EAST, textFieldName);
 		lblIngredients.setFont(new Font("Calibri", Font.BOLD, 15));
@@ -120,6 +120,8 @@ public class CreatorWindow extends javax.swing.JPanel {
 		model.addColumn("Kalorycznosc");
 
 		listIngredients = new JTable(model);
+		listIngredients.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );  
+		
 		springLayout.putConstraint(SpringLayout.NORTH, listIngredients, 13, SpringLayout.SOUTH, lblIngredients);
 		springLayout.putConstraint(SpringLayout.WEST, listIngredients, 18, SpringLayout.EAST, txtrDesc);
 		springLayout.putConstraint(SpringLayout.SOUTH, listIngredients, -235, SpringLayout.SOUTH, this);
@@ -243,7 +245,7 @@ public class CreatorWindow extends javax.swing.JPanel {
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxTyp, 35, SpringLayout.EAST, lblType);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxTyp, 153, SpringLayout.WEST, this);
 		comboBoxTyp.setModel(
-				new DefaultComboBoxModel(new String[] { "ŚNIADANIE", "KOLACJA", "OBIAD", "DESER", "PRZEKĄSKA" }));
+				new DefaultComboBoxModel(new String[] {"SNIADANIE", "KOLACJA", "OBIAD", "DESER", "PRZEKASKA"}));
 		add(comboBoxTyp);
 		// TODO Auto-generated constructor stub
 	}

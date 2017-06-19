@@ -56,6 +56,7 @@ public class RecipesWindow extends javax.swing.JPanel{
         model.addColumn("Owner");
 		
 		listRecipes = new JTable(model);
+		listRecipes.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );  
 		springLayout.putConstraint(SpringLayout.WEST, listRecipes, 10, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, listRecipes, -28, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, listRecipes, 351, SpringLayout.WEST, this);
