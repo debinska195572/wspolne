@@ -99,7 +99,7 @@ public class ViewRecipe extends javax.swing.JFrame {
 		springLayout.putConstraint(SpringLayout.EAST, lblDesc, 0, SpringLayout.EAST, listIngredients);
 		springLayout.putConstraint(SpringLayout.NORTH, listIngredients, 119, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, listIngredients, 0, SpringLayout.NORTH, btnBack);
-		listIngredients.setBackground(Color.YELLOW);
+		listIngredients.setBackground(Color.WHITE);
 		getContentPane().add(listIngredients);
 		getData(Recipe_Name,sessionDB);
 	}

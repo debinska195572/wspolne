@@ -19,6 +19,7 @@ public class RIController {
 	{
 		RecipeIngredient newRI= new RecipeIngredient(recipe, ingredient, amount);
 		sessionDB.save(newRI);
+		sessionDB.getTransaction().commit();
 		
 		return newRI;
 	}
