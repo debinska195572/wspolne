@@ -47,12 +47,12 @@ public class Main {
 		
 		
 		
-		RecipeIngredient ri= ric.addRI(r, i, 2); //tworzenie osobno obiektu RecipeIngredient
-		r.addRecipeIngredient(ri); //osobno dodawanie tego obiektu do przepisu - do setu, żeby potem można było dostać wszystkie składniki przepisu przez:
+		//RecipeIngredient ri= ric.addRI(r, i, 2); //tworzenie osobno obiektu RecipeIngredient
+		//r.addRecipeIngredient(ri); //osobno dodawanie tego obiektu do przepisu - do setu, żeby potem można było dostać wszystkie składniki przepisu przez:
 		//r.getRecipesIngredients() -zwraca set RecipeIngredient -składników danego przepisu
 		
-		r.removeRecipeIngredient(ri); //chyba najpierw trzeba usunąć stąd tak na logike
-		ric.deleteRI(ri);
+		//r.removeRecipeIngredient(ri); //chyba najpierw trzeba usunąć stąd tak na logike
+		//[ric.deleteRI(ri);
 		
 		
 		OpenWindow openWindow = new OpenWindow();
