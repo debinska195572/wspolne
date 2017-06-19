@@ -11,6 +11,7 @@ import databaseManager.RecipeIngredient;
 
 public class RIController {
 	Session sessionDB;
+	
 	public RIController(Session sessionDB) {
 		this.sessionDB = sessionDB;
 	}

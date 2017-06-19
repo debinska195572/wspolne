@@ -39,20 +39,20 @@ public class Main {
 		IngredientController ic = new IngredientController(sessionDB);
 		RIController ric = new RIController(sessionDB);
 		
-		User u=ac.getUser("user1");
-		Recipe r =rc.getRecipe("pizza");
-		
-		Ingredient i = ic.getIngredient("papryka");
-		
-		
-		
-		
-		RecipeIngredient ri= ric.addRI(r, i, 2); //tworzenie osobno obiektu RecipeIngredient
-		r.addRecipeIngredient(ri); //osobno dodawanie tego obiektu do przepisu - do setu, żeby potem można było dostać wszystkie składniki przepisu przez:
-		//r.getRecipesIngredients() -zwraca set RecipeIngredient -składników danego przepisu
-		
-		r.removeRecipeIngredient(ri); //chyba najpierw trzeba usunąć stąd tak na logike
-		ric.deleteRI(ri);
+//		User u=ac.getUser("user1");
+//		Recipe r =rc.getRecipe("pizza");
+//		
+//		Ingredient i = ic.getIngredient("papryka");
+//		
+//		
+//		
+//		
+//		RecipeIngredient ri= ric.addRI(r, i, 2); //tworzenie osobno obiektu RecipeIngredient
+//		r.addRecipeIngredient(ri); //osobno dodawanie tego obiektu do przepisu - do setu, żeby potem można było dostać wszystkie składniki przepisu przez:
+//		//r.getRecipesIngredients() -zwraca set RecipeIngredient -składników danego przepisu
+//		
+//		r.removeRecipeIngredient(ri); //chyba najpierw trzeba usunąć stąd tak na logike
+//		ric.deleteRI(ri);
 		
 		
 		OpenWindow openWindow = new OpenWindow();

@@ -14,7 +14,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-
+import databaseController.RIController;
 import databaseManager.*;
 
 /**
@@ -30,8 +30,16 @@ public final class GenerateRecipe {
 	private static List<Recipe> recipes;
 	
 	
-	public static /*JList<Recipe>*/ void  getLunch(User loggedUser, Session sessionDB)
+	public static /*JList<Recipe>*/ void  getLunch(User loggedUser, Session session)
 	{
+		
+		
+		
+		
+		
+		
+		
+		
 		//List<Recipe> list = (List) sessionDB.createCriteria(Recipe.class).list();
 		
 
@@ -43,8 +51,8 @@ public final class GenerateRecipe {
 		// Create CriteriaQuery
 		//CriteriaQuery<Recipe> criteria = builder.createQuery(Recipe.class);
 		
-		recipes = sessionDB.createQuery("FROM Recipe").list();
-		System.out.println("Ilość: " + recipes.size());
+//		recipes = sessionDB.createQuery("FROM Recipe").list();
+//		System.out.println("Ilość: " + recipes.size());
 		
 		//return null;
 		
