@@ -9,7 +9,7 @@ import org.hibernate.Session;
 
 import databaseController.DishTypeException;
 import databaseController.IngredientController;
-
+import databaseController.RIController;
 import databaseController.RecipeController;
 import databaseManager.Ingredient;
 import databaseManager.Recipe;
@@ -43,6 +43,7 @@ public class CreatorWindow extends javax.swing.JPanel {
 	JTable listAdded;
 	private String Rec_id="";
 	JComboBox comboBoxTyp;
+	
 	
 	
 	public CreatorWindow(final User loggedUser, final Session sessionDB) {
@@ -140,12 +141,12 @@ public class CreatorWindow extends javax.swing.JPanel {
 					for(int i=0;i<row_indexes.length;i++){
 					  String wartosc = listIngredients.getValueAt(row_indexes[i], 0).toString();  
 					  System.out.println(wartosc);
+					  
 					  RecipeController db = new RecipeController(sessionDB);
 					  IngredientController dbin = new IngredientController(sessionDB);
 					  Ingredient skladnik = dbin.getIngredient(wartosc);
-					  //To samo wywala przez commit selecta
-					  
-					  //Do usuniecia jak ktos poprawi te commity
+					  RIController ri = new RIController(sessionDB);
+					 
 					  if(!sessionDB.getTransaction().isActive()){
 						  sessionDB.beginTransaction();
 					  }
@@ -157,8 +158,11 @@ public class CreatorWindow extends javax.swing.JPanel {
 							  sessionDB.beginTransaction();
 						  }
 						  
-						  RecipeIngredient ri = new RecipeIngredient(przepis,skladnik,1);		  
-						  przepis.addRecipeIngredient(ri);
+						  RecipeIngredient recipeI = ri.addRI(przepis, skladnik, 1);	
+						  if(!sessionDB.getTransaction().isActive()){
+							  sessionDB.beginTransaction();
+						  }
+						  przepis.addRecipeIngredient(recipeI);
 						
 						  if(sessionDB.getTransaction().isActive()){
 							  sessionDB.getTransaction().commit();
@@ -192,8 +196,25 @@ public class CreatorWindow extends javax.swing.JPanel {
 		add(listAdded);
 		
 		JButton btnSave = new JButton("ZAPISZ PRZEPIS");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					RecipeController db = new RecipeController(sessionDB);
+					if(!sessionDB.getTransaction().isActive()){
+						sessionDB.beginTransaction();
+					  }
+					Recipe przepis = db.getRecipe(Rec_id);
+					Set<RecipeIngredient> skladniki = new HashSet<RecipeIngredient>();
+					skladniki=przepis.getRecipesIngredients();
+					db.addIngredientsToRecipe(przepis, skladniki);
+					
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}	
+			}
+		});
 		springLayout.putConstraint(SpringLayout.EAST, btnSave, -25, SpringLayout.EAST, this);
-		btnSave.setEnabled(false);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnSave, 0, SpringLayout.SOUTH, btnAdd);
 		add(btnSave);
 		

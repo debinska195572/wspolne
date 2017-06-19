@@ -70,14 +70,16 @@ public class RecipesWindow extends javax.swing.JPanel{
 		
 		JButton btnEdit = new JButton("EDYTUJ");
 		springLayout.putConstraint(SpringLayout.WEST, btnEdit, 0, SpringLayout.WEST, chckbxMyRecipes);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnEdit, -179, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, btnEdit, -149, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, btnEdit, 0, SpringLayout.EAST, chckbxMyRecipes);
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int[] row_indexes=listRecipes.getSelectedRows();
 				for(int i=0;i<row_indexes.length;i++){
 				  String wartosc = listRecipes.getValueAt(row_indexes[i], 0).toString();  
 				  System.out.println(wartosc);
-				  
+				  EditRecipe window = new EditRecipe(wartosc,sessionDB);
+				  window.setVisible(true);
 				}
 			}
 		});
@@ -86,7 +88,7 @@ public class RecipesWindow extends javax.swing.JPanel{
 		
 		JButton btnLoad = new JButton("Wczytaj");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnLoad, -209, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.NORTH, btnEdit, 7, SpringLayout.SOUTH, btnLoad);
+		springLayout.putConstraint(SpringLayout.EAST, btnLoad, 0, SpringLayout.EAST, chckbxMyRecipes);
 		springLayout.putConstraint(SpringLayout.WEST, btnLoad, 0, SpringLayout.WEST, chckbxMyRecipes);
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,9 +98,10 @@ public class RecipesWindow extends javax.swing.JPanel{
 		add(btnLoad);
 		
 		JButton btnNewButton = new JButton("Podgląd");
-		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, btnEdit);
-		springLayout.putConstraint(SpringLayout.WEST, btnNewButton, 43, SpringLayout.EAST, listRecipes);
-		springLayout.putConstraint(SpringLayout.EAST, btnNewButton, 132, SpringLayout.EAST, listRecipes);
+		springLayout.putConstraint(SpringLayout.NORTH, btnEdit, 6, SpringLayout.SOUTH, btnNewButton);
+		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, btnLoad);
+		springLayout.putConstraint(SpringLayout.WEST, btnNewButton, 0, SpringLayout.WEST, chckbxMyRecipes);
+		springLayout.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, chckbxMyRecipes);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int[] row_indexes=listRecipes.getSelectedRows();
