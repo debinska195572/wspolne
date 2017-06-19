@@ -38,7 +38,7 @@ public class IngredientController {
 	
 	public List<Ingredient> getAllIngredients() {
 		 List<Ingredient> allIngredients = sessionDB.createQuery("from Ingredient").list();
-		 sessionDB.getTransaction().commit();
+		 //sessionDB.getTransaction().commit();
 		return allIngredients;
 	}
 	

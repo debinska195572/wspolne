@@ -26,7 +26,7 @@ public class LoginWindow  extends JFrame{
 
 	public LoginWindow(final Session sessionDB ) {
 		
-		sessionDB.beginTransaction();
+		//sessionDB.beginTransaction();
 		final AccountController ac= new AccountController(sessionDB);
 		getContentPane().setBackground(new Color(176, 224, 230));
 		setTitle("Panel logowania");

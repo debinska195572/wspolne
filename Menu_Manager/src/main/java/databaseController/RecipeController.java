@@ -45,7 +45,7 @@ public class RecipeController {
 	}
 	public List<Recipe> getAllRecipes() {
 		Query<Recipe> query = sessionDB.createQuery("FROM Recipe ");
-		sessionDB.getTransaction().commit();
+		//sessionDB.getTransaction().commit(); // Tu jest to samo - 
 		
 		 List<Recipe> allRecipes= query.list();
 		return allRecipes;
@@ -84,7 +84,7 @@ public Recipe addIngredientToRecipe(Recipe changedRecipe, RecipeIngredient usedI
 	
 	public Recipe getRecipe(String recipeName) {
 		Recipe recipe=sessionDB.get(Recipe.class, recipeName);
-		sessionDB.getTransaction().commit();
+		sessionDB.getTransaction().commit(); // To samo ? Commit selecta?
 		return recipe;
 
     }

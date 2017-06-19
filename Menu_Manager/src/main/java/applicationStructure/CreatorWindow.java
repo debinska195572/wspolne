@@ -1,35 +1,79 @@
 package applicationStructure;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.SpringLayout;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import org.hibernate.Session;
 
+import databaseController.DishTypeException;
 import databaseController.IngredientController;
 
 import databaseController.RecipeController;
+import databaseManager.Ingredient;
+import databaseManager.Recipe;
+import databaseManager.RecipeIngredient;
 import databaseManager.User;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
+import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class CreatorWindow extends javax.swing.JPanel {
 	private JTextField textFieldName;
-	private JTextField textFieldType;
+	private JTextArea txtrDesc;
 	RecipeController rc;
-	IngredientController ic;
+	IngredientController ic;	
+	private JTable listIngredients;
+	JTable listAdded;
+	private String Rec_id="";
+	JComboBox comboBoxTyp;
 	
-
-	public CreatorWindow(User loggedUser, Session sessionDB) {
-		
-		
-		
+	
+	public CreatorWindow(final User loggedUser, final Session sessionDB) {
+			
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		
 		JButton btnAdd = new JButton("DODAJ PRZEPIS");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(textFieldName.getText().length()>0){
+					RecipeController db = new RecipeController(sessionDB);
+					if (comboBoxTyp.getSelectedItem() != null) {
+			            System.out.println(comboBoxTyp.getSelectedItem().toString());
+			        }
+					try {
+						db.addRecipe(textFieldName.getText(), comboBoxTyp.getSelectedItem().toString(), loggedUser, txtrDesc.getText());
+						Rec_id=textFieldName.getText();
+							
+						
+						JOptionPane.showMessageDialog(null, "Przepis dodany pomyślnie", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, "Nie można dodać przepisu do bazy. Błąd:\n"+e.getMessage(), "Błąd", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}else
+				{
+					JOptionPane.showMessageDialog(null, "Uzupełnij dane przepisu", "Błąd", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnAdd, 10, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, btnAdd, 10, SpringLayout.WEST, this);
 		add(btnAdd);
@@ -51,12 +95,6 @@ public class CreatorWindow extends javax.swing.JPanel {
 		lblType.setFont(new Font("Calibri", Font.BOLD, 15));
 		add(lblType);
 		
-		textFieldType = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldType, -1, SpringLayout.NORTH, lblType);
-		springLayout.putConstraint(SpringLayout.EAST, textFieldType, 0, SpringLayout.EAST, textFieldName);
-		add(textFieldType);
-		textFieldType.setColumns(10);
-		
 		JLabel lblDesc = new JLabel("Opis");
 		lblDesc.setFont(new Font("Calibri", Font.BOLD, 15));
 		springLayout.putConstraint(SpringLayout.NORTH, lblDesc, 157, SpringLayout.NORTH, this);
@@ -64,44 +102,93 @@ public class CreatorWindow extends javax.swing.JPanel {
 		springLayout.putConstraint(SpringLayout.WEST, lblDesc, 0, SpringLayout.WEST, btnAdd);
 		add(lblDesc);
 		
-		JTextArea txtrDesc = new JTextArea();
+		txtrDesc = new JTextArea();
 		springLayout.putConstraint(SpringLayout.NORTH, txtrDesc, 22, SpringLayout.SOUTH, lblDesc);
 		springLayout.putConstraint(SpringLayout.WEST, txtrDesc, 10, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.SOUTH, txtrDesc, -9, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, txtrDesc, -531, SpringLayout.EAST, this);
 		txtrDesc.setRows(10);
 		txtrDesc.setText("Przepis\r\n1.\r\n2.\r\n3.\r\n4.\r\n5.\r\n6.\r\n");
 		add(txtrDesc);
 		
 		JLabel lblIngredients = new JLabel("Składniki");
 		springLayout.putConstraint(SpringLayout.NORTH, lblIngredients, 0, SpringLayout.NORTH, lblName);
+		springLayout.putConstraint(SpringLayout.WEST, lblIngredients, 111, SpringLayout.EAST, textFieldName);
 		lblIngredients.setFont(new Font("Calibri", Font.BOLD, 15));
 		add(lblIngredients);
 		
-		JList listIngredients = new JList();
-		springLayout.putConstraint(SpringLayout.EAST, txtrDesc, -18, SpringLayout.WEST, listIngredients);
-		springLayout.putConstraint(SpringLayout.WEST, listIngredients, 264, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, listIngredients, -9, SpringLayout.EAST, this);
+		DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Nazwa");
+        model.addColumn("L");
+        model.addColumn("G");
+        model.addColumn("M");
+        model.addColumn("Kalorycznosc");
+			
+		listIngredients = new JTable(model);
 		springLayout.putConstraint(SpringLayout.NORTH, listIngredients, 13, SpringLayout.SOUTH, lblIngredients);
-		springLayout.putConstraint(SpringLayout.WEST, lblIngredients, 0, SpringLayout.WEST, listIngredients);
+		springLayout.putConstraint(SpringLayout.WEST, listIngredients, 18, SpringLayout.EAST, txtrDesc);
+		springLayout.putConstraint(SpringLayout.SOUTH, listIngredients, -235, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, listIngredients, -10, SpringLayout.EAST, this);
 		add(listIngredients);
 		
-		JButton btnAddIngredient = new JButton("DODAJ");
-		springLayout.putConstraint(SpringLayout.SOUTH, listIngredients, -6, SpringLayout.NORTH, btnAddIngredient);
-		springLayout.putConstraint(SpringLayout.NORTH, btnAddIngredient, 223, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, btnAddIngredient, 0, SpringLayout.WEST, listIngredients);
+		JButton btnAddIngredient = new JButton("DODAJ DO PRZEPISU");
+		btnAddIngredient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(Rec_id.length()>0){				
+					int[] row_indexes=listIngredients.getSelectedRows();
+					for(int i=0;i<row_indexes.length;i++){
+					  String wartosc = listIngredients.getValueAt(row_indexes[i], 0).toString();  
+					  System.out.println(wartosc);
+					  RecipeController db = new RecipeController(sessionDB);
+					  IngredientController dbin = new IngredientController(sessionDB);
+					  Ingredient skladnik = dbin.getIngredient(wartosc);
+					  //To samo wywala przez commit selecta
+					  
+					  //Do usuniecia jak ktos poprawi te commity
+					  if(!sessionDB.getTransaction().isActive()){
+						  sessionDB.beginTransaction();
+					  }
+					  Recipe przepis = db.getRecipe(Rec_id);
+					  Set<Recipe> przepisy = new HashSet<Recipe>();		  
+					  
+					  try {
+						  if(!sessionDB.getTransaction().isActive()){
+							  sessionDB.beginTransaction();
+						  }
+						  
+						  RecipeIngredient ri = new RecipeIngredient(przepis,skladnik,1);		  
+						  przepis.addRecipeIngredient(ri);
+						
+						  if(sessionDB.getTransaction().isActive()){
+							  sessionDB.getTransaction().commit();
+						  }
+						  JOptionPane.showMessageDialog(null, "Składnik pomyślnie dodany do przepisu", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+						  
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Wystąpił błąd:"+e2.getMessage(), "Błąd", JOptionPane.INFORMATION_MESSAGE);
+					}		
+					}
+				}else{
+					JOptionPane.showMessageDialog(null, "Najpierw uzupełnij dane przepisu", "Błąd", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		springLayout.putConstraint(SpringLayout.NORTH, btnAddIngredient, 6, SpringLayout.SOUTH, listIngredients);
+		springLayout.putConstraint(SpringLayout.WEST, btnAddIngredient, 18, SpringLayout.EAST, txtrDesc);
 		add(btnAddIngredient);
 		
 		JLabel lblAdded = new JLabel("Dodane");
-		springLayout.putConstraint(SpringLayout.NORTH, lblAdded, 6, SpringLayout.SOUTH, btnAddIngredient);
-		springLayout.putConstraint(SpringLayout.WEST, lblAdded, 0, SpringLayout.WEST, listIngredients);
+		springLayout.putConstraint(SpringLayout.NORTH, lblAdded, 41, SpringLayout.SOUTH, btnAddIngredient);
+		springLayout.putConstraint(SpringLayout.WEST, lblAdded, 0, SpringLayout.WEST, lblIngredients);
 		lblAdded.setFont(new Font("Calibri", Font.BOLD, 15));
 		add(lblAdded);
 		
-		JList listAdded = new JList();
+		listAdded = new JTable(model);
 		springLayout.putConstraint(SpringLayout.NORTH, listAdded, 6, SpringLayout.SOUTH, lblAdded);
-		springLayout.putConstraint(SpringLayout.WEST, listAdded, 0, SpringLayout.WEST, listIngredients);
 		springLayout.putConstraint(SpringLayout.SOUTH, listAdded, -9, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, listAdded, 21, SpringLayout.EAST, this);
+		springLayout.putConstraint(SpringLayout.WEST, listAdded, 264, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.EAST, listAdded, -10, SpringLayout.EAST, this);
 		add(listAdded);
 		
 		JButton btnSave = new JButton("ZAPISZ PRZEPIS");
@@ -109,6 +196,83 @@ public class CreatorWindow extends javax.swing.JPanel {
 		btnSave.setEnabled(false);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnSave, 0, SpringLayout.SOUTH, btnAdd);
 		add(btnSave);
+		
+		JButton btnNewIngredient = new JButton("NOWY SKŁADNIK");
+		springLayout.putConstraint(SpringLayout.NORTH, btnNewIngredient, 6, SpringLayout.SOUTH, listIngredients);
+		springLayout.putConstraint(SpringLayout.EAST, btnNewIngredient, 0, SpringLayout.EAST, listIngredients);
+		btnNewIngredient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NewIngredient window = new NewIngredient(sessionDB);
+				window.setVisible(true);
+			}
+		});
+		add(btnNewIngredient);
+		
+		JButton btnRefresh = new JButton("Odśwież");
+		springLayout.putConstraint(SpringLayout.EAST, btnAddIngredient, -140, SpringLayout.WEST, btnRefresh);
+		springLayout.putConstraint(SpringLayout.NORTH, btnRefresh, 6, SpringLayout.SOUTH, listIngredients);
+		springLayout.putConstraint(SpringLayout.EAST, btnRefresh, -130, SpringLayout.EAST, this);
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				populateIngredients(sessionDB);
+				populateAdded(sessionDB);
+			}
+		});
+		add(btnRefresh);
+		
+		comboBoxTyp = new JComboBox();
+		springLayout.putConstraint(SpringLayout.NORTH, comboBoxTyp, 35, SpringLayout.SOUTH, textFieldName);
+		springLayout.putConstraint(SpringLayout.WEST, comboBoxTyp, 35, SpringLayout.EAST, lblType);
+		springLayout.putConstraint(SpringLayout.EAST, comboBoxTyp, 153, SpringLayout.WEST, this);
+		comboBoxTyp.setModel(new DefaultComboBoxModel(new String[] {"SNIADANIE", "KOLACJA", "OBIAD", "DESER", "PRZEKASKA"}));
+		add(comboBoxTyp);
 		// TODO Auto-generated constructor stub
+	}
+	
+	public TableModel getDataFromDatabase(Session psessionDB)
+	{    
+	    IngredientController db = new IngredientController(psessionDB);
+		db.getAllIngredients();
+		List<Ingredient> skladniki = db.getAllIngredients();	
+		DefaultTableModel model = new DefaultTableModel(0,5);
+		System.out.println("Ilość składników: " + skladniki.size());
+		for (Ingredient skladnik : db.getAllIngredients()) {
+		    System.out.println(skladnik);
+		    model.addRow(new Object[] { skladnik.getIngredientName(), skladnik.isLactose(), skladnik.isGluten(),
+		    				skladnik.isMeat(), skladnik.getCalories() });
+		}
+	    return model;
+	}
+	
+	public TableModel getAddFromDatabase(Session psessionDB)
+	{    
+	    RecipeController db = new RecipeController(psessionDB);
+	    if(!psessionDB.getTransaction().isActive()){
+	    	psessionDB.beginTransaction();
+		  }
+	    Recipe przepis = db.getRecipe(Rec_id);		
+		Set<RecipeIngredient> skladniki = db.getIngredientsFromRecipe(przepis);
+		DefaultTableModel model = new DefaultTableModel(0,5);
+		System.out.println("Ilość składników z przepisu: " + skladniki.size());
+		for (RecipeIngredient skladnik : db.getIngredientsFromRecipe(przepis)) {
+		    System.out.println(skladnik);
+		    model.addRow(new Object[] { skladnik.getIngredient().getIngredientName(), skladnik.getIngredient().isLactose(), skladnik.getIngredient().isGluten(),
+		    				skladnik.getIngredient().isMeat(), skladnik.getIngredient().getCalories() });
+		}
+	    return model;
+	}
+	
+	private void populateIngredients(Session psessionDB)
+	{	
+		listIngredients.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	 
+		listIngredients.setModel(getDataFromDatabase(psessionDB));
+		listIngredients.repaint();
+	}
+	
+	private void populateAdded(Session psessionDB)
+	{	
+		listAdded.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	 
+		listAdded.setModel(getAddFromDatabase(psessionDB));
+		listAdded.repaint();
 	}
 }
