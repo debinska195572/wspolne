@@ -24,6 +24,7 @@ public class DietWindow extends javax.swing.JPanel {
 	
 	RecipeController rc;
 	IngredientController ic;
+	JTextArea textArea ;
 	
 	AccountController ac;
 	float bmi;
@@ -40,6 +41,7 @@ public class DietWindow extends javax.swing.JPanel {
 		setLayout(springLayout);
 		
 		JLabel lblMyBMI = new JLabel("Moje BMI");
+		springLayout.putConstraint(SpringLayout.WEST, lblMyBMI, 10, SpringLayout.WEST, this);
 		lblMyBMI.setFont(new Font("Calibri", Font.BOLD, 15));
 		add(lblMyBMI);
 		
@@ -63,45 +65,13 @@ public class DietWindow extends javax.swing.JPanel {
 			
 			public void actionPerformed(ActionEvent e) {
 				GenerateRecipe gRecipe = new GenerateRecipe(loggedUser, sessionDB);
-				gRecipe.getSniadanie(minCalories);
+				textArea.setText(gRecipe.getSniadanie(minCalories));
 				
 			}
 		});
 		
-		JLabel lblBreakfast = new JLabel("Śniadanie");
-		springLayout.putConstraint(SpringLayout.NORTH, lblMyBMI, -29, SpringLayout.NORTH, lblBreakfast);
-		springLayout.putConstraint(SpringLayout.WEST, lblMyBMI, 0, SpringLayout.WEST, lblBreakfast);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblMyBMI, -10, SpringLayout.NORTH, lblBreakfast);
-		springLayout.putConstraint(SpringLayout.WEST, lblBreakfast, 10, SpringLayout.WEST, this);
-		lblBreakfast.setFont(new Font("Calibri", Font.BOLD, 15));
-		add(lblBreakfast);
-		
-		JLabel lblSnack = new JLabel("Przekąska");
-		springLayout.putConstraint(SpringLayout.WEST, lblSnack, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblBreakfast, -22, SpringLayout.NORTH, lblSnack);
-		lblSnack.setFont(new Font("Calibri", Font.BOLD, 15));
-		add(lblSnack);
-		
-		JLabel lblLunch = new JLabel("Obiad");
-		springLayout.putConstraint(SpringLayout.WEST, lblLunch, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblSnack, -32, SpringLayout.NORTH, lblLunch);
-		lblLunch.setFont(new Font("Calibri", Font.BOLD, 15));
-		add(lblLunch);
-		
-		JLabel lblDessert = new JLabel("Deser");
-		springLayout.putConstraint(SpringLayout.WEST, lblDessert, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblLunch, -29, SpringLayout.NORTH, lblDessert);
-		lblDessert.setFont(new Font("Calibri", Font.BOLD, 15));
-		add(lblDessert);
-		
-		JLabel lblSupper = new JLabel("Kolacja");
-		springLayout.putConstraint(SpringLayout.SOUTH, lblDessert, -27, SpringLayout.NORTH, lblSupper);
-		springLayout.putConstraint(SpringLayout.WEST, lblSupper, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblSupper, -56, SpringLayout.SOUTH, this);
-		lblSupper.setFont(new Font("Calibri", Font.BOLD, 15));
-		add(lblSupper);
-		
 		JButton btnSaveFile = new JButton("ZAPISZ DO PLIKU");
+		springLayout.putConstraint(SpringLayout.SOUTH, lblMyBMI, -248, SpringLayout.NORTH, btnSaveFile);
 		springLayout.putConstraint(SpringLayout.WEST, btnSaveFile, 0, SpringLayout.WEST, lblMyBMI);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnSaveFile, 0, SpringLayout.SOUTH, this);
 		add(btnSaveFile);
@@ -115,6 +85,7 @@ public class DietWindow extends javax.swing.JPanel {
 		obesityLabel.setText(obesityInfo);
 		
 		JLabel minColorieLabel = new JLabel("    ");
+		springLayout.putConstraint(SpringLayout.NORTH, lblMyBMI, 21, SpringLayout.SOUTH, minColorieLabel);
 		springLayout.putConstraint(SpringLayout.NORTH, minColorieLabel, 6, SpringLayout.SOUTH, obesityLabel);
 		springLayout.putConstraint(SpringLayout.WEST, minColorieLabel, 0, SpringLayout.WEST, lblMyBMI);
 		springLayout.putConstraint(SpringLayout.EAST, minColorieLabel, -348, SpringLayout.EAST, this);
@@ -122,9 +93,9 @@ public class DietWindow extends javax.swing.JPanel {
 		
 		minColorieLabel.setText("Potrzebujesz dziennie minimum: " + df.format(minCalories) + " dziennie");
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		springLayout.putConstraint(SpringLayout.NORTH, textArea, -212, SpringLayout.NORTH, btnSaveFile);
-		springLayout.putConstraint(SpringLayout.WEST, textArea, 19, SpringLayout.EAST, labelBMI);
+		springLayout.putConstraint(SpringLayout.WEST, textArea, 0, SpringLayout.WEST, lblMyBMI);
 		springLayout.putConstraint(SpringLayout.SOUTH, textArea, -62, SpringLayout.NORTH, btnSaveFile);
 		springLayout.putConstraint(SpringLayout.EAST, textArea, 0, SpringLayout.EAST, btnGenerateDiet);
 		add(textArea);

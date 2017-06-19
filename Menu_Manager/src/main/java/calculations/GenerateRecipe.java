@@ -16,6 +16,7 @@ import org.hibernate.Transaction;
 
 import databaseController.IngredientController;
 import databaseController.RIController;
+import databaseController.RecipeController;
 import databaseManager.*;
 
 /**
@@ -30,6 +31,7 @@ public final class GenerateRecipe {
 	private Transaction tx;
 	private static List<Recipe> recipes;
 	private RIController riController;
+	private RecipeController recipeController;
 	Random generator;
 	//
 	//
@@ -40,96 +42,116 @@ public final class GenerateRecipe {
 		this.user = loggedUser;
 		riController = new RIController(session);
 		generator = new Random();
+		recipeController = new RecipeController(session);
 		//
 		// ingredientController=new IngredientController(session);
 	}
 
-	public void getSniadanie(float minCalories) {
-		String przepis;
+	public String getSniadanie(float minCalories) {
+		String przepis="";
 		List<Ingredient> listDobra = new ArrayList<Ingredient>();
 		Recipe recipe;
-
-		List<RecipeIngredient> list = riController.getAllRecipesIngredients();
-		// System.out.println(list.size());
+		
+		List<Recipe> listOfRecipes = recipeController.getAllRecipes();
+		
+		List<RecipeIngredient> listOfIngredientsOfRecipe;
+		
+//		for(int i=0; i<listOfRecipes.size(); i++)
+//		{
+//			
+//			System.out.println("Przepis nazwa: " + listOfRecipes.get(i).getRecipeName());
+//			
+//			listOfIngredientsOfRecipe=riController.getRecipesIngredientsByRecipe(listOfRecipes.get(i).getRecipeName());
+//			
+//			for(int y=0; y<listOfIngredientsOfRecipe.size(); y++)
+//			{
+//			
+//				System.out.println("Skladnik: " + listOfIngredientsOfRecipe.get(y).getIngredient().getIngredientName());
+//			}
+//			
+//			
+//		}
 
 		int i;
 		int o=0;
 		boolean juz=false;
+		recipe=null;
 		
 		while (juz==false) {
 			
 			o++;
-			i = generator.nextInt(list.size());
+			i = generator.nextInt(listOfRecipes.size());
 
-			recipe = list.get(i).getRecipe();
-
-			Set<RecipeIngredient> set = recipe.getRecipesIngredients();
+			recipe = listOfRecipes.get(i);
+//
+//			Set<RecipeIngredient> set = recipe.getRecipesIngredients();
+//			
+//			
+//			List<RecipeIngredient> listOfIngredientsOfRecipe = new ArrayList<RecipeIngredient>(set);
 			
-			
-			List<RecipeIngredient> secik = new ArrayList<RecipeIngredient>(set);
-			
+			listOfIngredientsOfRecipe=riController.getRecipesIngredientsByRecipe(recipe.getRecipeName());
 						
-			int z = secik.size();
+			int z = listOfIngredientsOfRecipe.size();
 			
 			int pom=0;
 			
 			for (int y = 0; y <z; y++) {
 				
 				
-				if (secik.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
-						&& secik.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
-						&& (secik.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
+				if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
+						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
+						&& (listOfIngredientsOfRecipe.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
 					pom++;
-					listDobra.add(secik.get(y).getIngredient());
+					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
 
 				}
-				else if (secik.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
-						&& secik.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
-						&& (secik.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
+				else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
+						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
+						&& (listOfIngredientsOfRecipe.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
 					pom++;
-					listDobra.add(secik.get(y).getIngredient());
+					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
 					
 				}
-				else if (secik.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
-						&& secik.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
-						&& (secik.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
+				else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
+						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
+						&& (listOfIngredientsOfRecipe.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
 					pom++;
-					listDobra.add(secik.get(y).getIngredient());
+					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
 					
 				}
-				else if (secik.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
-						&& secik.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
-						&& (!secik.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
+				else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
+						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
+						&& (!listOfIngredientsOfRecipe.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
 					pom++;
-					listDobra.add(secik.get(y).getIngredient());
+					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
 					
 				}
-				else if (secik.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
-						&& secik.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
-						&& (secik.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
+				else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
+						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
+						&& (listOfIngredientsOfRecipe.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
 					pom++;
-					listDobra.add(secik.get(y).getIngredient());
+					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
 					
 				}
-				else if (secik.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
-						&& secik.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
-						&& (!secik.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
+				else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() == user.isGlutenTolerance()
+						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
+						&& (!listOfIngredientsOfRecipe.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
 					pom++;
-					listDobra.add(secik.get(y).getIngredient());
+					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
 					
 				}
-				else if (secik.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
-						&& secik.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
-						&& (!secik.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
+				else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
+						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() == user.isLactoseTolerance()
+						&& (!listOfIngredientsOfRecipe.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
 					pom++;
-					listDobra.add(secik.get(y).getIngredient());
+					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
 					
 				}
-				else if (secik.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
-						&& secik.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
-						&& (!secik.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
+				else if (listOfIngredientsOfRecipe.get(y).getIngredient().isGluten() != user.isGlutenTolerance()
+						&& listOfIngredientsOfRecipe.get(y).getIngredient().isLactose() != user.isLactoseTolerance()
+						&& (!listOfIngredientsOfRecipe.get(y).getIngredient().isMeat() && user.getDiet().equals("NORMALNA"))) {
 					pom++;
-					listDobra.add(secik.get(y).getIngredient());
+					listDobra.add(listOfIngredientsOfRecipe.get(y).getIngredient());
 					
 				}
 
@@ -139,10 +161,22 @@ public final class GenerateRecipe {
 			{
 				juz=true;
 			}
+			else if (o==100 && (pom!=z)) {
+				recipe=null;
+			}
 
 		}
 
+		if (recipe!=null) {
+			przepis+="Przepis: " + recipe.getRecipeName() + "\n" + "Składniki: \n";
+			for(int h=0; h<listDobra.size(); h++)
+			{
+				przepis+="-" + listDobra.get(h).getIngredientName() + "\n";
+			}
+			
+		}
 		
+		return przepis;
 		
 		
 		
@@ -151,41 +185,6 @@ public final class GenerateRecipe {
 
 	}
 
-	// public GenerateRecipe(User user)
-	// {
-	// this.user = user;
-	//
-	// }
-	//
-	// public GenerateRecipe(){
-	//
-	//
-	//
-	//
-	// session = HibernateUtil.getSessionFactory().openSession();
-	// tx = null;
-	// try {
-	// tx = session.beginTransaction();
-	//
-	// tryToGetGoodRecipe();
-	//
-	// tx.commit();
-	// }
-	// catch (Exception e) {
-	// if (tx!=null) tx.rollback();
-	// e.printStackTrace();
-	// }finally {
-	// session.close();
-	// }
-	//
-	//
-	// }
-	//
-	// private void tryToGetGoodRecipe() {
-	//
-	//
-	//
-	//
-	// }
+
 
 }
