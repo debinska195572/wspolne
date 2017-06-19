@@ -24,12 +24,12 @@ public class DietWindow extends javax.swing.JPanel {
 	
 	RecipeController rc;
 	IngredientController ic;
-	JTextArea textArea ;
 	
 	AccountController ac;
 	float bmi;
 	String obesityInfo;
 	float minCalories;
+	JTextArea textArea;
 
 	public DietWindow(final User loggedUser, final Session sessionDB) {
 		
@@ -37,68 +37,82 @@ public class DietWindow extends javax.swing.JPanel {
 		obesityInfo=BMI.getObesityInfo(bmi);
 		minCalories=NeedCalories.minCalories(loggedUser.getGender(), loggedUser.getWeight(), loggedUser.getHeight(), loggedUser.getAge());
 		
+		java.text.DecimalFormat df=new java.text.DecimalFormat(); //tworzymy obiekt DecimalFormat
+		df.setMaximumFractionDigits(1); //dla df ustawiamy największą ilość miejsc po przecinku
+		df.setMinimumFractionDigits(1);
+		
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		
-		JLabel lblMyBMI = new JLabel("Moje BMI");
-		springLayout.putConstraint(SpringLayout.WEST, lblMyBMI, 10, SpringLayout.WEST, this);
-		lblMyBMI.setFont(new Font("Calibri", Font.BOLD, 15));
-		add(lblMyBMI);
+		JLabel lblBmi = new JLabel("BMI:");
+		springLayout.putConstraint(SpringLayout.NORTH, lblBmi, 10, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, lblBmi, 10, SpringLayout.WEST, this);
+		add(lblBmi);
 		
-		JLabel labelBMI = new JLabel("0");
-		springLayout.putConstraint(SpringLayout.NORTH, labelBMI, 0, SpringLayout.NORTH, lblMyBMI);
-		springLayout.putConstraint(SpringLayout.WEST, labelBMI, 16, SpringLayout.EAST, lblMyBMI);
-		labelBMI.setFont(new Font("Calibri", Font.BOLD, 15));
-		add(labelBMI);
-		//
-		java.text.DecimalFormat df=new java.text.DecimalFormat(); //tworzymy obiekt DecimalFormat
-		df.setMaximumFractionDigits(1); //dla df ustawiamy największą ilość miejsc po przecinku
-		df.setMinimumFractionDigits(1); 
-		//
-		labelBMI.setText(String.valueOf(df.format(bmi)));
+		JLabel resultBmiLabel = new JLabel("  ");
+		springLayout.putConstraint(SpringLayout.NORTH, resultBmiLabel, 0, SpringLayout.NORTH, lblBmi);
+		springLayout.putConstraint(SpringLayout.WEST, resultBmiLabel, 18, SpringLayout.EAST, lblBmi);
+		springLayout.putConstraint(SpringLayout.EAST, resultBmiLabel, 63, SpringLayout.EAST, lblBmi);
+		add(resultBmiLabel);
 		
-		JButton btnGenerateDiet = new JButton("GENERUJ JADŁOSPIS");
-		springLayout.putConstraint(SpringLayout.NORTH, btnGenerateDiet, 10, SpringLayout.NORTH, this);
-		add(btnGenerateDiet);
+		resultBmiLabel.setText(String.valueOf(df.format(bmi)));
 		
-		btnGenerateDiet.addActionListener(new ActionListener() {
+		JLabel lblInformacjaOPoziomie = new JLabel("Informacja o poziomie otyłości:");
+		springLayout.putConstraint(SpringLayout.NORTH, lblInformacjaOPoziomie, 6, SpringLayout.SOUTH, lblBmi);
+		springLayout.putConstraint(SpringLayout.WEST, lblInformacjaOPoziomie, 10, SpringLayout.WEST, this);
+		add(lblInformacjaOPoziomie);
+		
+		JLabel obseityinfolabel = new JLabel("     ");
+		springLayout.putConstraint(SpringLayout.NORTH, obseityinfolabel, 30, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, obseityinfolabel, 6, SpringLayout.EAST, lblInformacjaOPoziomie);
+		springLayout.putConstraint(SpringLayout.EAST, obseityinfolabel, 271, SpringLayout.EAST, lblInformacjaOPoziomie);
+		add(obseityinfolabel);
+		
+		obseityinfolabel.setText(obesityInfo);
+		
+		JLabel lblMinimumDzienneZapotrzebowanie = new JLabel("Minimum dzienne zapotrzebowanie kalorii: ");
+		springLayout.putConstraint(SpringLayout.NORTH, lblMinimumDzienneZapotrzebowanie, 5, SpringLayout.SOUTH, lblInformacjaOPoziomie);
+		springLayout.putConstraint(SpringLayout.WEST, lblMinimumDzienneZapotrzebowanie, 10, SpringLayout.WEST, this);
+		add(lblMinimumDzienneZapotrzebowanie);
+		
+		JLabel minCalLabel = new JLabel("         ");
+		springLayout.putConstraint(SpringLayout.NORTH, minCalLabel, 6, SpringLayout.SOUTH, obseityinfolabel);
+		springLayout.putConstraint(SpringLayout.WEST, minCalLabel, 6, SpringLayout.EAST, lblMinimumDzienneZapotrzebowanie);
+		springLayout.putConstraint(SpringLayout.EAST, minCalLabel, 79, SpringLayout.EAST, lblMinimumDzienneZapotrzebowanie);
+		add(minCalLabel);
+		minCalLabel.setText(String.valueOf(minCalories));
+		
+		JButton btnGenerujJadospis = new JButton("Generuj jadłospis");
+		springLayout.putConstraint(SpringLayout.NORTH, btnGenerujJadospis, 6, SpringLayout.SOUTH, lblMinimumDzienneZapotrzebowanie);
+		springLayout.putConstraint(SpringLayout.WEST, btnGenerujJadospis, 0, SpringLayout.WEST, lblBmi);
+		add(btnGenerujJadospis);
+		
+		btnGenerujJadospis.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				GenerateRecipe gRecipe = new GenerateRecipe(loggedUser, sessionDB);
-				textArea.setText(gRecipe.getSniadanie(minCalories));
+				GenerateRecipe generateRecipe = new GenerateRecipe(loggedUser, sessionDB);
+				textArea.setText(generateRecipe.getRecipe(minCalories, "OBIAD"));
+				textArea.setText(textArea.getText() +generateRecipe.getRecipe(minCalories, "DESER") );
 				
 			}
 		});
 		
-		JButton btnSaveFile = new JButton("ZAPISZ DO PLIKU");
-		springLayout.putConstraint(SpringLayout.SOUTH, lblMyBMI, -248, SpringLayout.NORTH, btnSaveFile);
-		springLayout.putConstraint(SpringLayout.WEST, btnSaveFile, 0, SpringLayout.WEST, lblMyBMI);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnSaveFile, 0, SpringLayout.SOUTH, this);
-		add(btnSaveFile);
-		
-		JLabel obesityLabel = new JLabel("      ");
-		springLayout.putConstraint(SpringLayout.WEST, btnGenerateDiet, 66, SpringLayout.EAST, obesityLabel);
-		springLayout.putConstraint(SpringLayout.NORTH, obesityLabel, 14, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, obesityLabel, -400, SpringLayout.EAST, this);
-		springLayout.putConstraint(SpringLayout.WEST, obesityLabel, 0, SpringLayout.WEST, lblMyBMI);
-		add(obesityLabel);
-		obesityLabel.setText(obesityInfo);
-		
-		JLabel minColorieLabel = new JLabel("    ");
-		springLayout.putConstraint(SpringLayout.NORTH, lblMyBMI, 21, SpringLayout.SOUTH, minColorieLabel);
-		springLayout.putConstraint(SpringLayout.NORTH, minColorieLabel, 6, SpringLayout.SOUTH, obesityLabel);
-		springLayout.putConstraint(SpringLayout.WEST, minColorieLabel, 0, SpringLayout.WEST, lblMyBMI);
-		springLayout.putConstraint(SpringLayout.EAST, minColorieLabel, -348, SpringLayout.EAST, this);
-		add(minColorieLabel);
-		
-		minColorieLabel.setText("Potrzebujesz dziennie minimum: " + df.format(minCalories) + " dziennie");
-		
-		textArea = new JTextArea();
-		springLayout.putConstraint(SpringLayout.NORTH, textArea, -212, SpringLayout.NORTH, btnSaveFile);
-		springLayout.putConstraint(SpringLayout.WEST, textArea, 0, SpringLayout.WEST, lblMyBMI);
-		springLayout.putConstraint(SpringLayout.SOUTH, textArea, -62, SpringLayout.NORTH, btnSaveFile);
-		springLayout.putConstraint(SpringLayout.EAST, textArea, 0, SpringLayout.EAST, btnGenerateDiet);
+		 textArea = new JTextArea();
+		springLayout.putConstraint(SpringLayout.NORTH, textArea, 6, SpringLayout.SOUTH, btnGenerujJadospis);
+		springLayout.putConstraint(SpringLayout.WEST, textArea, 10, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, textArea, 225, SpringLayout.SOUTH, btnGenerujJadospis);
+		springLayout.putConstraint(SpringLayout.EAST, textArea, 275, SpringLayout.WEST, this);
 		add(textArea);
+		
+		JButton btnZapiszDoPliku = new JButton("Zapisz do pliku");
+		springLayout.putConstraint(SpringLayout.SOUTH, btnZapiszDoPliku, -21, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, btnZapiszDoPliku, -10, SpringLayout.EAST, this);
+		add(btnZapiszDoPliku);
+		//
+		
+		
+		
+		
 		// TODO Auto-generated constructor stub
 	}
 }

@@ -47,10 +47,12 @@ public final class GenerateRecipe {
 		// ingredientController=new IngredientController(session);
 	}
 
-	public String getSniadanie(float minCalories) {
+	public String getRecipe(float minCalories, String recipeType) {
 		String przepis="";
 		List<Ingredient> listDobra = new ArrayList<Ingredient>();
 		Recipe recipe;
+		
+		
 		
 		List<Recipe> listOfRecipes = recipeController.getAllRecipes();
 		
@@ -76,6 +78,7 @@ public final class GenerateRecipe {
 		int o=0;
 		boolean juz=false;
 		recipe=null;
+		float iloscKalorii=0;
 		
 		while (juz==false) {
 			
@@ -83,17 +86,18 @@ public final class GenerateRecipe {
 			i = generator.nextInt(listOfRecipes.size());
 
 			recipe = listOfRecipes.get(i);
-//
-//			Set<RecipeIngredient> set = recipe.getRecipesIngredients();
-//			
-//			
-//			List<RecipeIngredient> listOfIngredientsOfRecipe = new ArrayList<RecipeIngredient>(set);
+			if(!recipe.getRecipeType().equals(recipeType))
+			{
+				continue;
+			}
+
 			
 			listOfIngredientsOfRecipe=riController.getRecipesIngredientsByRecipe(recipe.getRecipeName());
 						
 			int z = listOfIngredientsOfRecipe.size();
 			
 			int pom=0;
+			iloscKalorii=0;
 			
 			for (int y = 0; y <z; y++) {
 				
@@ -155,7 +159,20 @@ public final class GenerateRecipe {
 					
 				}
 
+				
+				
 			}
+			
+			for(int k=0; k<listDobra.size(); k++)
+			{
+				iloscKalorii+=listDobra.get(k).getCalories();
+			}
+			
+			
+//			if(iloscKalorii<minCalories)
+//			{
+//				continue;
+//			}
 			
 			if((pom==z) || o==100)
 			{
@@ -168,13 +185,14 @@ public final class GenerateRecipe {
 		}
 
 		if (recipe!=null) {
-			przepis+="Przepis: " + recipe.getRecipeName() + "\n" + "Składniki: \n";
+			przepis+=recipeType +": " + recipe.getRecipeName() + "\n" + "Składniki: \n";
 			for(int h=0; h<listDobra.size(); h++)
 			{
 				przepis+="-" + listDobra.get(h).getIngredientName() + "\n";
 			}
 			
 		}
+		else przepis="Przykro nam, nie znaleziono żadnego " + recipeType + ", spełniającego wymagania \n";
 		
 		return przepis;
 		
