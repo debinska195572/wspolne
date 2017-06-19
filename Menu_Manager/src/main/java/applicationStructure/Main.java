@@ -39,8 +39,41 @@ public class Main {
 		IngredientController ic = new IngredientController(sessionDB);
 		RIController ric = new RIController(sessionDB);
 		
+		
+		
+		/////////////////////////
 //		User u=ac.getUser("user1");
 //		Recipe r =rc.getRecipe("pizza");
+//		
+//		Ingredient i = ic.getIngredient("papryka");
+//		
+//		Ingredient i2 = ic.getIngredient("sól");
+//		
+//		
+//		RecipeIngredient ri= ric.addRI(r, i, 2); //tworzenie osobno obiektu RecipeIngredient
+//		RecipeIngredient ri2= ric.addRI(r, i2, 4);
+//		Set<RecipeIngredient> set= new HashSet<RecipeIngredient>(); 
+//		set.add(ri);
+//		set.add(ri2);
+//		r=rc.addIngredientToRecipe(r, ri); //dodawanie pojedyńczego 
+//		r=rc.addIngredientsToRecipe(r, set); // dodawanie setu obiektów
+//		Set<RecipeIngredient> set2=rc.getIngredientsFromRecipe(r);// -zwraca set RecipeIngredient -składników danego przepisu
+//		
+//		rc.removeIngredientFromRecipe(r, ri); //usuwanie najpierw z setu w Recipe
+//		ric.deleteRI(ri); //usuwanie z tabeli recipeIngredient
+		
+		
+		
+		
+		////////////////////////
+		
+		
+		
+		
+		
+		//System.out.println(ric.getAllRecipesIngredients().size());
+//		User u=ac.getUser("user1");
+		//Recipe r =rc.addRecipe(recipeName, recipeType, owner, content)
 //		
 //		Ingredient i = ic.getIngredient("papryka");
 //		

@@ -62,7 +62,8 @@ public class DietWindow extends javax.swing.JPanel {
 		btnGenerateDiet.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				GenerateRecipe.getLunch(loggedUser, sessionDB);
+				GenerateRecipe gRecipe = new GenerateRecipe(loggedUser, sessionDB);
+				gRecipe.getSniadanie(minCalories);
 				
 			}
 		});

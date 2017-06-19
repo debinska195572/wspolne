@@ -47,7 +47,7 @@ public class RIController {
 	
 	public List<RecipeIngredient> getAllRecipesIngredients() {
 		Query<RecipeIngredient> query = sessionDB.createQuery("FROM RecipeIngredient ");
-		sessionDB.getTransaction().commit();
+		//sessionDB.getTransaction().commit();
 		
 		 List<RecipeIngredient> allRecipesIngredients= query.list();
 		return allRecipesIngredients;
