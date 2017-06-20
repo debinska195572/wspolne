@@ -31,34 +31,40 @@ public class Main {
 	public static void main(String[] args) {
 		
 		
-		
+		/*
 		 Session sessionDB = HibernateUtil.getSessionFactory().openSession();
-		 sessionDB.beginTransaction();
-		AccountController ac= new AccountController(sessionDB);
+
 		RecipeController rc = new RecipeController(sessionDB);
 		IngredientController ic = new IngredientController(sessionDB);
 		RIController ric = new RIController(sessionDB);
 		
-		User u=ac.getUser("user1");
-		Recipe r =rc.getRecipe("pizza");
+	
+		Recipe r =rc.getRecipe("przepis1");
 		
-		Ingredient i = ic.getIngredient("papryka");
-		
-		
+		Ingredient i = ic.getIngredient("Jajko");
 		
 		
-		//RecipeIngredient ri= ric.addRI(r, i, 2); //tworzenie osobno obiektu RecipeIngredient
+		
+		
+		RecipeIngredient ri= ric.addRI(r, i, 5); //tworzenie osobno obiektu RecipeIngredient
+		RecipeIngredient ri2= new RecipeIngredient(r, i, 5);
+		sessionDB.save(ri2);
+		System.out.print("moj"+ri.getIngredient().getIngredientName());
+		java.util.List<RecipeIngredient> l2= ric.getRecipesIngredientsByRecipe("przepis1");
+		java.util.List<RecipeIngredient> l= ric.getAllRecipesIngredients();
+		for(int j=0; j<l2.size(); j++)
+		System.out.print("Przepis:"+l2.get(j).getRecipe().getRecipeName()+"składnik "+ l2.get(j).getIngredient().getIngredientName());
 		//r.addRecipeIngredient(ri); //osobno dodawanie tego obiektu do przepisu - do setu, żeby potem można było dostać wszystkie składniki przepisu przez:
 		//r.getRecipesIngredients() -zwraca set RecipeIngredient -składników danego przepisu
 		
 		//r.removeRecipeIngredient(ri); //chyba najpierw trzeba usunąć stąd tak na logike
 		//[ric.deleteRI(ri);
 		
-		
+		*/
 		OpenWindow openWindow = new OpenWindow();
 		openWindow.setVisible(true);
 		
-	/*	
+	/*
 	
 		try {
 			User u=ac.getUser("user1");

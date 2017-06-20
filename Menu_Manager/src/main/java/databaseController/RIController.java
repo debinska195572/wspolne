@@ -17,9 +17,10 @@ public class RIController {
 	
 	public RecipeIngredient addRI(Recipe recipe, Ingredient ingredient, int amount)
 	{
+	
 		RecipeIngredient newRI= new RecipeIngredient(recipe, ingredient, amount);
 		sessionDB.save(newRI);
-		
+		sessionDB.getTransaction().commit();
 		return newRI;
 	}
 
@@ -34,19 +35,20 @@ public class RIController {
 	public void deleteRI(RecipeIngredient deleted) {
 		
 		sessionDB.delete( deleted);
+		sessionDB.getTransaction().commit();
 		
 	}
 	
 	public RecipeIngredient getRI(int id)
 	{
 		RecipeIngredient ri= sessionDB.get(RecipeIngredient.class, id);
-		//sessionDB.getTransaction().commit();
+		
 		return ri;
 	}
 	
 	public List<RecipeIngredient> getAllRecipesIngredients() {
 		Query<RecipeIngredient> query = sessionDB.createQuery("FROM RecipeIngredient ");
-		sessionDB.getTransaction().commit();
+
 		
 		 List<RecipeIngredient> allRecipesIngredients= query.list();
 		return allRecipesIngredients;
