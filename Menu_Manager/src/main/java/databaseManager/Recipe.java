@@ -50,9 +50,9 @@ public class Recipe {
 		return ri;
 	}
 
-	/*public void setRecipesIngredients(Set<RecipeIngredient> newRI) {
+	public void setRecipesIngredients(Set<RecipeIngredient> newRI) {
 		this.ri = newRI;
-	}*/
+	}
 
 	public void addRecipeIngredient(RecipeIngredient newRI) {
 		this.ri.add(newRI);
@@ -61,4 +61,5 @@ public class Recipe {
 	public void removeRecipeIngredient(RecipeIngredient deletedRI) {
 		this.ri.remove(deletedRI);
 	}
+
 }
