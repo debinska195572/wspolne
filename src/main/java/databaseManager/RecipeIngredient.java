@@ -10,64 +10,36 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "RecipesIngredients")
+
+@NoArgsConstructor
+@Getter
+@Setter
 public class RecipeIngredient {
-	
+	@Id
+	@GeneratedValue
+	@Column(name = "ID_RecipeIngredient")
 	private int id;
-    private Recipe recipe;
-    private Ingredient ingredient;
-    private int amount;
-
-	public RecipeIngredient() {
-	}
-	
-	 public RecipeIngredient(Recipe recipe, Ingredient ingredient, int amount) {
-			super();
-		
-			this.recipe = recipe;
-			this.ingredient = ingredient;
-			this.amount = amount;
-		}
-	 @Id
-	 @GeneratedValue
-	 @Column(name = "ID_RecipeIngredient")
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	
 	@ManyToOne(cascade = CascadeType.ALL)
-	    @JoinColumn(name = "Recipe_Name")  
-	public Recipe getRecipe() {
-		return recipe;
-	}
-
-	public void setRecipe(Recipe recipe) {
-		this.recipe = recipe;
-	}
-
+	@JoinColumn(name = "Recipe_Name")
+	private Recipe recipe;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "Ingredient_Name")
-	public Ingredient getIngredient() {
-		return ingredient;
-	}
+	@JoinColumn(name = "Ingredient_Name")
+	private Ingredient ingredient;
+	@Column(name = "Amount")
+	private int amount;
 
-	public void setIngredient(Ingredient ingredient) {
+	public RecipeIngredient(Recipe recipe, Ingredient ingredient, int amount) {
+		super();
+		this.recipe = recipe;
 		this.ingredient = ingredient;
-	}
-
-	 @Column(name = "Amount")
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	
+
 }

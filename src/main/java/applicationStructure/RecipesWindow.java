@@ -145,13 +145,13 @@ public class RecipesWindow extends javax.swing.JPanel {
 				if (przepis.getOwner() == logedUser) {
 					if (przepis.getRecipeName() != null) {
 						model.addRow(new Object[] { przepis.getRecipeName(), przepis.getRecipeType(),
-								przepis.getContent(), przepis.getOwner() });
+								przepis.getContent(), przepis.getOwner().getLogin() });
 					}
 				}
 			} else {
 				if (przepis.getRecipeName() != null) {
 					model.addRow(new Object[] { przepis.getRecipeName(), przepis.getRecipeType(), przepis.getContent(),
-							przepis.getOwner() });
+							przepis.getOwner().getLogin() });
 				}
 			}
 

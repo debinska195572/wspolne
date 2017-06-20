@@ -174,49 +174,47 @@ public class EditRecipe extends javax.swing.JFrame {
 		springLayout.putConstraint(SpringLayout.NORTH, btnUsuZPrzepisu, 87, SpringLayout.SOUTH, lblWszystkie);
 		btnUsuZPrzepisu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				RIController ri = new RIController(sessionDB);
+				RecipeController db = new RecipeController(sessionDB);
+			
+				Recipe przepis = db.getRecipe(Rec_id);
+				
 				int[] row_indexes = listAdded.getSelectedRows();
 				for (int i = 0; i < row_indexes.length; i++) {
 					String wartosc = listAdded.getValueAt(row_indexes[i], 0).toString();
-					System.out.println(wartosc);
-					RecipeController db = new RecipeController(sessionDB);
-					IngredientController dbin = new IngredientController(sessionDB);
-					Ingredient skladnik = dbin.getIngredient(wartosc);
-					RIController ri = new RIController(sessionDB);
+					List<RecipeIngredient> listRi= ri.getRecipesIngredientsByRecipe(przepis.getRecipeName());
+					for(int j=0; j<listRi.size(); j++){
+						if(wartosc.equals(listRi.get(j).getIngredient().getIngredientName())){
+							
+							
+							try {
+								if (!sessionDB.getTransaction().isActive()) {
+									sessionDB.beginTransaction();
+								}
 
-					if (!sessionDB.getTransaction().isActive()) {
-						sessionDB.beginTransaction();
+							
+							
+								ri.deleteRI(listRi.get(j));
+
+								if (sessionDB.getTransaction().isActive()) {
+									sessionDB.getTransaction().commit();
+								}
+								JOptionPane.showMessageDialog(null, "Składnik usunięty", "Informacja",
+										JOptionPane.INFORMATION_MESSAGE);
+
+							} catch (Exception e2) {
+								JOptionPane.showMessageDialog(null, "Wystąpił błąd:" + e2.getMessage(), "Błąd",
+										JOptionPane.INFORMATION_MESSAGE);
+							}
+						}
+							
 					}
-					Recipe przepis = db.getRecipe(Rec_id);
-					Set<Recipe> przepisy = new HashSet<Recipe>();
-
-					try {
-						if (!sessionDB.getTransaction().isActive()) {
-							sessionDB.beginTransaction();
-						}
-
-						RecipeIngredient delete = new RecipeIngredient(przepis, skladnik, 1);
-						if (!sessionDB.getTransaction().isActive()) {
-							sessionDB.beginTransaction();
-						}
-
-						Recipe deleted = db.removeIngredientFromRecipe(przepis, delete);
-						if (!sessionDB.getTransaction().isActive()) {
-							sessionDB.beginTransaction();
-						}
-
-						deleted.removeRecipeIngredient(delete);
-						ri.deleteRI(delete);
-
-						if (sessionDB.getTransaction().isActive()) {
-							sessionDB.getTransaction().commit();
-						}
-						JOptionPane.showMessageDialog(null, "Składnik usunięty", "Informacja",
-								JOptionPane.INFORMATION_MESSAGE);
-
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(null, "Wystąpił błąd:" + e2.getMessage(), "Błąd",
-								JOptionPane.INFORMATION_MESSAGE);
-					}
+						
+					
+					
+					
+					
+				
 				}
 			}
 		});
@@ -233,6 +231,7 @@ public class EditRecipe extends javax.swing.JFrame {
 					System.out.println(wartosc);
 					RecipeController db = new RecipeController(sessionDB);
 					IngredientController dbin = new IngredientController(sessionDB);
+					RIController ric = new RIController(sessionDB);
 					Ingredient skladnik = dbin.getIngredient(wartosc);
 					if (!sessionDB.getTransaction().isActive()) {
 						sessionDB.beginTransaction();
@@ -245,7 +244,7 @@ public class EditRecipe extends javax.swing.JFrame {
 							sessionDB.beginTransaction();
 						}
 
-						RecipeIngredient ri = new RecipeIngredient(przepis, skladnik, 1);
+						RecipeIngredient ri = ric.addRI(przepis, skladnik, 1);
 						przepis.addRecipeIngredient(ri);
 
 						if (sessionDB.getTransaction().isActive()) {
@@ -323,16 +322,17 @@ public class EditRecipe extends javax.swing.JFrame {
 	}
 
 	public TableModel getAddFromDatabase(Session psessionDB) {
+		RIController ri = new RIController(psessionDB);
 		RecipeController db = new RecipeController(psessionDB);
 		if (!psessionDB.getTransaction().isActive()) {
 			psessionDB.beginTransaction();
 		}
 		Recipe przepis = db.getRecipe(Rec_id);
-		Set<RecipeIngredient> skladniki = db.getIngredientsFromRecipe(przepis);
+		List<RecipeIngredient> skladniki = ri.getRecipesIngredientsByRecipe(przepis.getRecipeName());
 		DefaultTableModel model = new DefaultTableModel(0,5);
 		
 		System.out.println("Ilość składników z przepisu: " + skladniki.size());
-		for (RecipeIngredient skladnik : db.getIngredientsFromRecipe(przepis)) {
+		for (RecipeIngredient skladnik : ri.getRecipesIngredientsByRecipe(przepis.getRecipeName())) {
 			System.out.println(skladnik);
 			model.addRow(new Object[] { skladnik.getIngredient().getIngredientName(),
 					skladnik.getIngredient().isLactose(), skladnik.getIngredient().isGluten(),
