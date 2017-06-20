@@ -26,16 +26,18 @@ import java.util.Set;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JScrollPane;
+import applicationStructure.NewIngredient;
 
 public class CreatorWindow extends javax.swing.JPanel {
 	private JTextField textFieldName;
 	private JTextArea txtrDesc;
 	RecipeController rc;
 	IngredientController ic;
-	private JTable listIngredients;
 	JTable listAdded;
 	private String Rec_id = "";
 	JComboBox comboBoxTyp;
+	private JTable table;
 
 	public CreatorWindow(final User loggedUser, final Session sessionDB) {
 
@@ -98,17 +100,13 @@ public class CreatorWindow extends javax.swing.JPanel {
 		add(lblDesc);
 
 		txtrDesc = new JTextArea();
-		springLayout.putConstraint(SpringLayout.NORTH, txtrDesc, 22, SpringLayout.SOUTH, lblDesc);
 		springLayout.putConstraint(SpringLayout.WEST, txtrDesc, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, txtrDesc, -9, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, txtrDesc, -531, SpringLayout.EAST, this);
 		txtrDesc.setRows(10);
 		txtrDesc.setText("Przepis\r\n1.\r\n2.\r\n3.\r\n4.\r\n5.\r\n6.\r\n");
 		add(txtrDesc);
 
-		JLabel lblIngredients = new JLabel("Składniki(laktoza|gluten|mięso)");
-		springLayout.putConstraint(SpringLayout.NORTH, lblIngredients, 0, SpringLayout.NORTH, lblName);
-		springLayout.putConstraint(SpringLayout.WEST, lblIngredients, 111, SpringLayout.EAST, textFieldName);
+		JLabel lblIngredients = new JLabel("Składniki:");
+		springLayout.putConstraint(SpringLayout.WEST, lblIngredients, 188, SpringLayout.WEST, this);
 		lblIngredients.setFont(new Font("Calibri", Font.BOLD, 15));
 		add(lblIngredients);
 
@@ -119,23 +117,16 @@ public class CreatorWindow extends javax.swing.JPanel {
 		model.addColumn("M");
 		model.addColumn("Kalorycznosc");
 
-		listIngredients = new JTable(model);
-		listIngredients.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );  
-		
-		springLayout.putConstraint(SpringLayout.NORTH, listIngredients, 13, SpringLayout.SOUTH, lblIngredients);
-		springLayout.putConstraint(SpringLayout.WEST, listIngredients, 18, SpringLayout.EAST, txtrDesc);
-		springLayout.putConstraint(SpringLayout.SOUTH, listIngredients, -235, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, listIngredients, -10, SpringLayout.EAST, this);
-		add(listIngredients);
-
 		JButton btnAddIngredient = new JButton("DODAJ DO PRZEPISU");
+		springLayout.putConstraint(SpringLayout.NORTH, btnAddIngredient, -4, SpringLayout.NORTH, lblIngredients);
+		springLayout.putConstraint(SpringLayout.WEST, btnAddIngredient, 20, SpringLayout.EAST, lblIngredients);
 		btnAddIngredient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if (Rec_id.length() > 0) {
-					int[] row_indexes = listIngredients.getSelectedRows();
+					int[] row_indexes = table.getSelectedRows();
 					for (int i = 0; i < row_indexes.length; i++) {
-						String wartosc = listIngredients.getValueAt(row_indexes[i], 0).toString();
+						String wartosc = table.getValueAt(row_indexes[i], 0).toString();
 						System.out.println(wartosc);
 
 						RecipeController db = new RecipeController(sessionDB);
@@ -177,24 +168,21 @@ public class CreatorWindow extends javax.swing.JPanel {
 				}
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, btnAddIngredient, 6, SpringLayout.SOUTH, listIngredients);
-		springLayout.putConstraint(SpringLayout.WEST, btnAddIngredient, 18, SpringLayout.EAST, txtrDesc);
 		add(btnAddIngredient);
 
 		JLabel lblAdded = new JLabel("Dodane");
-		springLayout.putConstraint(SpringLayout.NORTH, lblAdded, 41, SpringLayout.SOUTH, btnAddIngredient);
-		springLayout.putConstraint(SpringLayout.WEST, lblAdded, 0, SpringLayout.WEST, lblIngredients);
 		lblAdded.setFont(new Font("Calibri", Font.BOLD, 15));
 		add(lblAdded);
 
 		listAdded = new JTable(model);
-		springLayout.putConstraint(SpringLayout.NORTH, listAdded, 6, SpringLayout.SOUTH, lblAdded);
-		springLayout.putConstraint(SpringLayout.SOUTH, listAdded, -9, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, listAdded, 264, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, listAdded, -10, SpringLayout.EAST, this);
+		springLayout.putConstraint(SpringLayout.NORTH, listAdded, 320, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, listAdded, -10, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblAdded, -6, SpringLayout.NORTH, listAdded);
+		springLayout.putConstraint(SpringLayout.WEST, listAdded, 553, SpringLayout.WEST, this);
 		add(listAdded);
 
 		JButton btnSave = new JButton("ZAPISZ PRZEPIS");
+		springLayout.putConstraint(SpringLayout.EAST, lblAdded, 0, SpringLayout.EAST, btnSave);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -218,8 +206,9 @@ public class CreatorWindow extends javax.swing.JPanel {
 		add(btnSave);
 
 		JButton btnNewIngredient = new JButton("NOWY SKŁADNIK");
-		springLayout.putConstraint(SpringLayout.NORTH, btnNewIngredient, 6, SpringLayout.SOUTH, listIngredients);
-		springLayout.putConstraint(SpringLayout.EAST, btnNewIngredient, 0, SpringLayout.EAST, listIngredients);
+		springLayout.putConstraint(SpringLayout.EAST, listAdded, 0, SpringLayout.EAST, btnNewIngredient);
+		springLayout.putConstraint(SpringLayout.NORTH, btnNewIngredient, 36, SpringLayout.SOUTH, btnSave);
+		springLayout.putConstraint(SpringLayout.EAST, btnNewIngredient, -10, SpringLayout.EAST, this);
 		btnNewIngredient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NewIngredient window = new NewIngredient(sessionDB);
@@ -229,8 +218,8 @@ public class CreatorWindow extends javax.swing.JPanel {
 		add(btnNewIngredient);
 
 		JButton btnRefresh = new JButton("ODŚWIEŻ");
-		springLayout.putConstraint(SpringLayout.EAST, btnAddIngredient, -140, SpringLayout.WEST, btnRefresh);
-		springLayout.putConstraint(SpringLayout.NORTH, btnRefresh, 6, SpringLayout.SOUTH, listIngredients);
+		springLayout.putConstraint(SpringLayout.EAST, btnAddIngredient, -114, SpringLayout.WEST, btnRefresh);
+		springLayout.putConstraint(SpringLayout.NORTH, btnRefresh, 36, SpringLayout.SOUTH, btnSave);
 		springLayout.putConstraint(SpringLayout.EAST, btnRefresh, -130, SpringLayout.EAST, this);
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -247,14 +236,35 @@ public class CreatorWindow extends javax.swing.JPanel {
 		comboBoxTyp.setModel(
 				new DefaultComboBoxModel(new String[] {"SNIADANIE", "KOLACJA", "OBIAD", "DESER", "PRZEKASKA"}));
 		add(comboBoxTyp);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 112, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.EAST, scrollPane, -6, SpringLayout.WEST, listAdded);
+		springLayout.putConstraint(SpringLayout.EAST, txtrDesc, -6, SpringLayout.WEST, scrollPane);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblIngredients, -6, SpringLayout.NORTH, scrollPane);
+		springLayout.putConstraint(SpringLayout.NORTH, txtrDesc, 2, SpringLayout.NORTH, scrollPane);
+		springLayout.putConstraint(SpringLayout.SOUTH, txtrDesc, 0, SpringLayout.SOUTH, scrollPane);
+		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 28, SpringLayout.SOUTH, lblDesc);
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -10, SpringLayout.SOUTH, this);
+		add(scrollPane);
+		
+		table = new JTable(model);
+		scrollPane.setViewportView(table);
 		// TODO Auto-generated constructor stub
+		
+		populateIngredients(sessionDB);
 	}
 
 	public TableModel getDataFromDatabase(Session psessionDB) {
 		IngredientController db = new IngredientController(psessionDB);
 		db.getAllIngredients();
 		List<Ingredient> skladniki = db.getAllIngredients();
-		DefaultTableModel model = new DefaultTableModel(0, 5);
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("Nazwa");
+		model.addColumn("L");
+		model.addColumn("G");
+		model.addColumn("M");
+		model.addColumn("Kalorycznosc");
 		System.out.println("Ilość składników: " + skladniki.size());
 		for (Ingredient skladnik : db.getAllIngredients()) {
 			System.out.println(skladnik);
@@ -283,9 +293,9 @@ public class CreatorWindow extends javax.swing.JPanel {
 	}
 
 	private void populateIngredients(Session psessionDB) {
-		listIngredients.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listIngredients.setModel(getDataFromDatabase(psessionDB));
-		listIngredients.repaint();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setModel(getDataFromDatabase(psessionDB));
+		table.repaint();
 	}
 
 	private void populateAdded(Session psessionDB) {
