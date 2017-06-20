@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -19,10 +21,21 @@ import javax.swing.SpringLayout;
 
 public class OpenWindow extends JFrame {
 	 Session sessionDB = HibernateUtil.getSessionFactory().openSession();
+	 
 	public OpenWindow() {
 		
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter()
+		{
+		public void windowClosing(WindowEvent e)
+		{
+		sessionDB.close();
+		System.exit(0); 
+		
+		}
+		}); 
+		
 		setSize(450, 300);
 		this.setLocationRelativeTo(null);
 		getContentPane().setBackground(new Color(176, 224, 230));
@@ -74,5 +87,7 @@ public class OpenWindow extends JFrame {
 		lblNewLabel.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 55));
 		getContentPane().add(lblNewLabel);
 		// TODO Auto-generated constructor stub
+		
 	}
+	
 }
