@@ -54,7 +54,10 @@ public final class GenerateRecipe {
 			i = generator.nextInt(listOfRecipes.size());
 
 			recipe = listOfRecipes.get(i);
-			if (!recipe.getRecipeType().equals(recipeType)) {
+			
+			 if (!recipe.getRecipeType().equals(recipeType) && o==100) {
+				juz = true; recipe = null; break;
+			}else if (!recipe.getRecipeType().equals(recipeType)) {
 				continue;
 			}
 
@@ -127,10 +130,7 @@ public final class GenerateRecipe {
 
 			}
 
-			// for(int k=0; k<listDobra.size(); k++)
-			// {
-			// iloscKalorii+=listDobra.get(k).getCalories();
-			// }
+			
 
 			if ((pom == z) || o == 100) {
 				juz = true;
@@ -157,7 +157,7 @@ public final class GenerateRecipe {
 			przepisXml += "</Przepis>";
 
 		} else
-			przepis = "Przykro nam, nie znaleziono żadnego " + recipeType + ", spełniającego wymagania \n";
+			przepis = "Przykro nam, nie znaleziono żadnego " + recipeType + ", spełniającego wymagania \n\n";
 
 		return przepis;
 
