@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import calculations.BMI;
 import calculations.GenerateRecipe;
 import calculations.NeedCalories;
+import calculations.saveToFile;
 import databaseController.AccountController;
 import databaseController.IngredientController;
 
@@ -13,12 +14,19 @@ import databaseController.RecipeController;
 import databaseManager.User;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
+
+import java.awt.FileDialog;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class DietWindow extends javax.swing.JPanel {
 	
@@ -30,6 +38,8 @@ public class DietWindow extends javax.swing.JPanel {
 	String obesityInfo;
 	float minCalories;
 	JTextArea textArea;
+	float obliczoneKalorie;
+	String xml;
 
 	public DietWindow(final User loggedUser, final Session sessionDB) {
 		
@@ -37,7 +47,7 @@ public class DietWindow extends javax.swing.JPanel {
 		obesityInfo=BMI.getObesityInfo(bmi);
 		minCalories=NeedCalories.minCalories(loggedUser.getGender(), loggedUser.getWeight(), loggedUser.getHeight(), loggedUser.getAge());
 		
-		java.text.DecimalFormat df=new java.text.DecimalFormat(); //tworzymy obiekt DecimalFormat
+		final java.text.DecimalFormat df=new java.text.DecimalFormat(); //tworzymy obiekt DecimalFormat
 		df.setMaximumFractionDigits(1); //dla df ustawiamy największą ilość miejsc po przecinku
 		df.setMinimumFractionDigits(1);
 		
@@ -90,24 +100,83 @@ public class DietWindow extends javax.swing.JPanel {
 		btnGenerujJadospis.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				
+				obliczoneKalorie = 0;
+				xml = "<Jadłospis>";
+				
 				GenerateRecipe generateRecipe = new GenerateRecipe(loggedUser, sessionDB);
+				
 				textArea.setText(generateRecipe.getRecipe(minCalories, "OBIAD"));
+				obliczoneKalorie+=generateRecipe.getObliczoneKalorie();
+				xml+=generateRecipe.getStringXml();
+				
 				textArea.setText(textArea.getText() +generateRecipe.getRecipe(minCalories, "DESER") );
+				obliczoneKalorie+=generateRecipe.getObliczoneKalorie();
+				xml+=generateRecipe.getStringXml();
+				
+				textArea.setText(textArea.getText() +generateRecipe.getRecipe(minCalories, "KOLACJA") );
+				obliczoneKalorie+=generateRecipe.getObliczoneKalorie();
+				xml+=generateRecipe.getStringXml();
+				
+				textArea.setText(textArea.getText() +generateRecipe.getRecipe(minCalories, "PRZEKASKA") );
+				obliczoneKalorie+=generateRecipe.getObliczoneKalorie();
+				xml+=generateRecipe.getStringXml();
+				
+				textArea.setText(textArea.getText() +generateRecipe.getRecipe(minCalories, "SNIADANIE") );
+				obliczoneKalorie+=generateRecipe.getObliczoneKalorie();
+				xml+=generateRecipe.getStringXml();
+				xml+="</Jadłospis>";
+				
+				textArea.setText(textArea.getText() + "Łączenie kalorii: " + String.valueOf(df.format(obliczoneKalorie )));
 				
 			}
 		});
-		
-		 textArea = new JTextArea();
-		springLayout.putConstraint(SpringLayout.NORTH, textArea, 6, SpringLayout.SOUTH, btnGenerujJadospis);
-		springLayout.putConstraint(SpringLayout.WEST, textArea, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, textArea, 225, SpringLayout.SOUTH, btnGenerujJadospis);
-		springLayout.putConstraint(SpringLayout.EAST, textArea, 275, SpringLayout.WEST, this);
-		add(textArea);
 		
 		JButton btnZapiszDoPliku = new JButton("Zapisz do pliku");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnZapiszDoPliku, -21, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, btnZapiszDoPliku, -10, SpringLayout.EAST, this);
 		add(btnZapiszDoPliku);
+	
+		btnZapiszDoPliku.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				File selectedFile = null;
+				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(null);
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    selectedFile = fileChooser.getSelectedFile();
+				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				}
+				
+				saveToFile.saveToTxt(textArea.getText(), selectedFile.getAbsolutePath()+".txt");
+				
+				
+				try {
+					saveToFile.loadXMLFromString(xml, selectedFile.getAbsolutePath()+"XML.xml");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		JScrollPane scrollPane = new JScrollPane();
+		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 6, SpringLayout.SOUTH, btnGenerujJadospis);
+		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 10, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, btnZapiszDoPliku);
+		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, obseityinfolabel);
+		add(scrollPane);
+		
+		 textArea = new JTextArea();
+		 scrollPane.setViewportView(textArea);
+		 springLayout.putConstraint(SpringLayout.NORTH, textArea, 59, SpringLayout.SOUTH, btnGenerujJadospis);
+		 springLayout.putConstraint(SpringLayout.WEST, textArea, 366, SpringLayout.WEST, this);
+		 textArea.setLineWrap(true);
+		 springLayout.putConstraint(SpringLayout.SOUTH, textArea, -28, SpringLayout.NORTH, btnZapiszDoPliku);
+		 springLayout.putConstraint(SpringLayout.EAST, textArea, 0, SpringLayout.EAST, btnZapiszDoPliku);
 		//
 		
 		

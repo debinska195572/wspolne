@@ -33,6 +33,8 @@ public final class GenerateRecipe {
 	private RIController riController;
 	private RecipeController recipeController;
 	Random generator;
+	float iloscKalorii;
+	String przepisXml;
 	//
 	//
 	// private IngredientController ingredientController;
@@ -78,7 +80,7 @@ public final class GenerateRecipe {
 		int o=0;
 		boolean juz=false;
 		recipe=null;
-		float iloscKalorii=0;
+		iloscKalorii=0;
 		
 		while (juz==false) {
 			
@@ -163,16 +165,13 @@ public final class GenerateRecipe {
 				
 			}
 			
-			for(int k=0; k<listDobra.size(); k++)
-			{
-				iloscKalorii+=listDobra.get(k).getCalories();
-			}
-			
-			
-//			if(iloscKalorii<minCalories)
+//			for(int k=0; k<listDobra.size(); k++)
 //			{
-//				continue;
+//				iloscKalorii+=listDobra.get(k).getCalories();
 //			}
+			
+			
+
 			
 			if((pom==z) || o==100)
 			{
@@ -183,13 +182,23 @@ public final class GenerateRecipe {
 			}
 
 		}
-
+		
+		przepisXml="";
+		
 		if (recipe!=null) {
 			przepis+=recipeType +": " + recipe.getRecipeName() + "\n" + "Składniki: \n";
+			przepisXml+="<Przepis>" + recipe.getRecipeName();
+			
 			for(int h=0; h<listDobra.size(); h++)
 			{
 				przepis+="-" + listDobra.get(h).getIngredientName() + "\n";
+				przepisXml+="<Składnik>" + listDobra.get(h).getIngredientName() + "</Składnik>";
+				
+				iloscKalorii+=listDobra.get(h).getCalories();
 			}
+			przepis+="OPIS: " + recipe.getContent() + "\n";
+			przepisXml+="<Opis>" + recipe.getContent() + "</Opis>";
+			przepisXml+="</Przepis>"; 
 			
 		}
 		else przepis="Przykro nam, nie znaleziono żadnego " + recipeType + ", spełniającego wymagania \n";
@@ -203,6 +212,14 @@ public final class GenerateRecipe {
 
 	}
 
+public float getObliczoneKalorie()
+{
+	return iloscKalorii;
+}
 
+public String getStringXml()
+{
+	return przepisXml;
+}
 
 }
