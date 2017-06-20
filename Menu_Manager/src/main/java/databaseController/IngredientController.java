@@ -21,7 +21,7 @@ public class IngredientController {
 			boolean meat) {
 		Ingredient newIngredient = new Ingredient(ingredientName, lactose, gluten, calories, meat);
 		sessionDB.save(newIngredient);
-		
+		sessionDB.getTransaction().commit();
 		return newIngredient;
 	}
 
@@ -38,7 +38,7 @@ public class IngredientController {
 	
 	public List<Ingredient> getAllIngredients() {
 		 List<Ingredient> allIngredients = sessionDB.createQuery("from Ingredient").list();
-		 //sessionDB.getTransaction().commit();
+		
 		return allIngredients;
 	}
 	
@@ -53,6 +53,7 @@ public class IngredientController {
 	public void deleteIngredient(Ingredient deletedIngredient) {
 
 		sessionDB.delete( deletedIngredient);
+		sessionDB.getTransaction().commit();
 		
 	}
 	

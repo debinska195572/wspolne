@@ -41,7 +41,7 @@ public class AccountController {
 			throw new DietException(diet);
 		}
 		
-		//changedUser.setPassword(password); 
+		
 		changedUser.setAge(age);
 		changedUser.setDiet(diet);
 		changedUser.setHeight(height);
