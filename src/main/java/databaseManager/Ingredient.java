@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,6 +39,7 @@ public class Ingredient {
 	private Set<RecipeIngredient> ri = new HashSet<RecipeIngredient>();
 
 	// powinien zostać, bo super()
+
 	public Ingredient(String ingredientName, boolean lactose, boolean gluten, int calories, boolean meat) {
 		super();
 		this.ingredientName = ingredientName;
@@ -47,9 +49,11 @@ public class Ingredient {
 		this.meat = meat;
 	}
 
+
 	
 	public void addRecipeIngredient(RecipeIngredient newRI) {
 		this.ri.add(newRI);
 	}
+
 
 }
