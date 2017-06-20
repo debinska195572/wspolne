@@ -14,11 +14,6 @@ import lombok.AllArgsConstructor;
 public class IngredientController {
 	Session sessionDB;
 
-/*	public IngredientController(Session sessionDB) {
-		this.sessionDB = sessionDB;
-		
-	}*/
-
 	public Ingredient addIngredient(String ingredientName, boolean lactose, boolean gluten, int calories,
 			boolean meat) {
 		Ingredient newIngredient = new Ingredient(ingredientName, lactose, gluten, calories, meat);
@@ -27,8 +22,8 @@ public class IngredientController {
 		return newIngredient;
 	}
 
-	public Ingredient changeIngredient(Ingredient changedIngredient,  boolean lactose, boolean gluten,
-			int calories, boolean meat) {
+	public Ingredient changeIngredient(Ingredient changedIngredient, boolean lactose, boolean gluten, int calories,
+			boolean meat) {
 		changedIngredient.setCalories(calories);
 		changedIngredient.setGluten(gluten);
 		changedIngredient.setLactose(lactose);
@@ -37,28 +32,22 @@ public class IngredientController {
 		sessionDB.getTransaction().commit();
 		return changedIngredient;
 	}
-	
+
 	public List<Ingredient> getAllIngredients() {
-		 List<Ingredient> allIngredients = sessionDB.createQuery("from Ingredient").list();
-		
+		List<Ingredient> allIngredients = sessionDB.createQuery("from Ingredient").list();
 		return allIngredients;
 	}
-	
-	
-	
+
 	public Ingredient getIngredient(String ingredientName) {
-		Ingredient ingredient=sessionDB.get(Ingredient.class, ingredientName);
+		Ingredient ingredient = sessionDB.get(Ingredient.class, ingredientName);
 		return ingredient;
 
-    }
-	
-	public void deleteIngredient(Ingredient deletedIngredient) {
-
-		sessionDB.delete( deletedIngredient);
-		sessionDB.getTransaction().commit();
-		
 	}
-	
 
+	public void deleteIngredient(Ingredient deletedIngredient) {
+		sessionDB.delete(deletedIngredient);
+		sessionDB.getTransaction().commit();
+
+	}
 
 }

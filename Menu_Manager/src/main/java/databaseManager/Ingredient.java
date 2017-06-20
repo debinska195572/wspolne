@@ -1,11 +1,17 @@
 package databaseManager;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,11 +21,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
- 
 @NoArgsConstructor
-
 public class Ingredient {
-
 	@Id
 	@Column(name = "Ingredient_Name")
 	private String ingredientName;
@@ -31,10 +34,10 @@ public class Ingredient {
 	private int calories;
 	@Column(name = "Meat")
 	private boolean meat;
+	@OneToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
+	private Set<RecipeIngredient> ri = new HashSet<RecipeIngredient>();
 
-
-
-	// bo super() i chyba musi zostać
+	// powinien zostać, bo super()
 	public Ingredient(String ingredientName, boolean lactose, boolean gluten, int calories, boolean meat) {
 		super();
 		this.ingredientName = ingredientName;
@@ -45,50 +48,8 @@ public class Ingredient {
 	}
 
 	
-/*	public Ingredient() {
-
+	public void addRecipeIngredient(RecipeIngredient newRI) {
+		this.ri.add(newRI);
 	}
-		
-	public String getIngredientName() {
-		return ingredientName;
-	}
-
-	public void setIngredientName(String ingredientName) {
-		this.ingredientName = ingredientName;
-	}
-
-	public boolean isLactose() {
-		return lactose;
-	}
-
-	public void setLactose(boolean lactose) {
-		this.lactose = lactose;
-	}
-
-	public boolean isGluten() {
-		return gluten;
-	}
-
-	public void setGluten(boolean gluten) {
-		this.gluten = gluten;
-	}
-
-	public int getCalories() {
-		return calories;
-	}
-
-	public void setCalories(int calories) {
-		this.calories = calories;
-	}
-
-	public boolean isMeat() {
-		return meat;
-	}
-
-	public void setMeat(boolean meat) {
-		this.meat = meat;
-	}*/
-
-	
 
 }

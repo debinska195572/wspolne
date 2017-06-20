@@ -1,11 +1,15 @@
 package databaseManager;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,54 +17,27 @@ import lombok.Setter;
 @Entity
 @Table(name = "RecipesIngredients")
 
+@NoArgsConstructor
 @Getter
 @Setter
- 
-@NoArgsConstructor
-
 public class RecipeIngredient {
-
 	@Id
+	@GeneratedValue
 	@Column(name = "ID_RecipeIngredient")
-	private int riNumber;
-	@Column(name = "Recipe_Number")
-	private int recipeNumber;
-	@Column(name = "Ingredient_Name")
-	private String ingredientName;
+	private int id;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Recipe_Name")
+	private Recipe recipe;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "Ingredient_Name")
+	private Ingredient ingredient;
+	@Column(name = "Amount")
+	private int amount;
 
-	public RecipeIngredient(int recipeNumber, String ingredientName) {
+	public RecipeIngredient(Recipe recipe, Ingredient ingredient, int amount) {
 		super();
-
-		this.recipeNumber = recipeNumber;
-		this.ingredientName = ingredientName;
+		this.recipe = recipe;
+		this.ingredient = ingredient;
+		this.amount = amount;
 	}
-
-	/*public RecipeIngredient() {
-
-	}
-
-	public int getRiNumber() {
-		return riNumber;
-	}
-
-	public void setRiNumber(int riNumber) {
-		this.riNumber = riNumber;
-	}
-
-	public int getRecipeNumber() {
-		return recipeNumber;
-	}
-
-	public void setRecipeNumber(int recipeNumber) {
-		this.recipeNumber = recipeNumber;
-	}
-
-	public String getIngredientName() {
-		return ingredientName;
-	}
-
-	public void setIngredientName(String ingredientName) {
-		this.ingredientName = ingredientName;
-	}*/
-
 }

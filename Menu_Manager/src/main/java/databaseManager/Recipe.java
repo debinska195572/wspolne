@@ -1,11 +1,18 @@
 package databaseManager;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,80 +20,45 @@ import lombok.Setter;
 @Entity
 @Table(name = "Recipes")
 
-
 @Getter
 @Setter
-
 @NoArgsConstructor
-
 public class Recipe {
 
 	@Id
-	@Column(name = "ID_Recipe")
-	private int recipeNumber;
-
-	@Column(name = "Dish_Name")
-	private String dishName;
-	@Column(name = "Dish_Type")
-	private String dishType;
-	@Column(name = "Owner")
-	private String owner;
+	@Column(name = "Recipe_Name")
+	private String recipeName;
+	@Column(name = "Recipe_Type")
+	private String recipeType;
+	@ManyToOne
+	@JoinColumn(name = "Owner")
+	private User owner;
 	@Column(name = "Content")
 	private String content;
+	@OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+	private Set<RecipeIngredient> ri = new HashSet<RecipeIngredient>();
 
-	
-	//powinno zostać, bo super() (?)
-	public Recipe(String dishName, String dishType, String owner, String content) {
+	public Recipe(String recipeName, String recipeType, User user, String content) {
 		super();
-
-		this.dishName = dishName;
-		this.dishType = dishType;
-		this.owner = owner;
+		this.recipeName = recipeName;
+		this.recipeType = recipeType;
+		this.owner = user;
 		this.content = content;
 	}
 
-	/*public Recipe() {
-	
-	} 
-	
-	public int getRecipeNumber() {
-		return recipeNumber;
+	public Set<RecipeIngredient> getRecipesIngredients() {
+		return ri;
 	}
 
-	public void setRecipeNumber(int recipeNumber) {
-		this.recipeNumber = recipeNumber;
-	}
-
-	public String getDishName() {
-		return dishName;
-	}
-
-	public void setDishName(String dishName) {
-		this.dishName = dishName;
-	}
-
-	public String getDishType() {
-		return dishType;
-	}
-
-	public void setDishType(String dishType) {
-		this.dishType = dishType;
-	}
-
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
+	/*public void setRecipesIngredients(Set<RecipeIngredient> newRI) {
+		this.ri = newRI;
 	}*/
 
+	public void addRecipeIngredient(RecipeIngredient newRI) {
+		this.ri.add(newRI);
+	}
+
+	public void removeRecipeIngredient(RecipeIngredient deletedRI) {
+		this.ri.remove(deletedRI);
+	}
 }
