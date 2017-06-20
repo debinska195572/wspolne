@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
+
 public class User {
 
 	@Id
@@ -38,6 +40,7 @@ public class User {
 	private String diet;
 	@Column(name = "Gender")
 	private String gender;
+
 	@OneToMany(mappedBy = "owner")
 	private Set<Recipe> recipes;
 
@@ -45,6 +48,7 @@ public class User {
 		this.login = login;
 		this.password = password;
 	}
+
 
 	public User(String login, String password, int age, int height, int weight, boolean lactoseTolerance,
 			boolean glutenTolerance, String diet, String gender) {
@@ -57,6 +61,8 @@ public class User {
 		this.lactoseTolerance = lactoseTolerance;
 		this.glutenTolerance = glutenTolerance;
 		this.diet = diet;
+
 		this.gender = gender;
 	}
+
 }
