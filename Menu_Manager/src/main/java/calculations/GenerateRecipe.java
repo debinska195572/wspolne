@@ -133,10 +133,7 @@ public final class GenerateRecipe {
 
 			}
 
-			// for(int k=0; k<listDobra.size(); k++)
-			// {
-			// iloscKalorii+=listDobra.get(k).getCalories();
-			// }
+			
 
 			if ((pom == z) || o == 100) {
 				juz = true;
