@@ -11,14 +11,12 @@ import databaseManager.Ingredient;
 import databaseManager.Recipe;
 import databaseManager.RecipeIngredient;
 import databaseManager.User;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class RecipeController {
 	Session sessionDB;
 
-	public RecipeController(Session sessionDB) {
-		this.sessionDB = sessionDB;
-		
-	}
 	// w miejscu wywołania trzeba bedzie sprawdzić, czy owner istnieje!
 	public Recipe addRecipe(String recipeName, String recipeType, User owner, String content)  throws DishTypeException{
 		if(!recipeType.equals("SNIADANIE") && !recipeType.equals("KOLACJA") &&
@@ -45,15 +43,12 @@ public class RecipeController {
 	}
 	public List<Recipe> getAllRecipes() {
 		Query<Recipe> query = sessionDB.createQuery("FROM Recipe ");
-	
-		
 		 List<Recipe> allRecipes= query.list();
 		return allRecipes;
 	}
 	
 	
 	public Recipe addIngredientsToRecipe(Recipe changedRecipe, Set<RecipeIngredient> usedIngredients) {
-		
 		changedRecipe.setRecipesIngredients(usedIngredients);
 		sessionDB.update( changedRecipe);
 		sessionDB.getTransaction().commit();
@@ -61,7 +56,6 @@ public class RecipeController {
 	}
 	
 public Recipe addIngredientToRecipe(Recipe changedRecipe, RecipeIngredient usedIngredient) {
-		
 		changedRecipe.addRecipeIngredient(usedIngredient);
 		sessionDB.update( changedRecipe);
 		sessionDB.getTransaction().commit();
@@ -69,7 +63,6 @@ public Recipe addIngredientToRecipe(Recipe changedRecipe, RecipeIngredient usedI
 	}
 
 	public Recipe removeIngredientFromRecipe(Recipe changedRecipe, RecipeIngredient deleted) {
-	
 		changedRecipe.removeRecipeIngredient(deleted);
 		sessionDB.update( changedRecipe);
 		sessionDB.getTransaction().commit();
@@ -77,22 +70,16 @@ public Recipe addIngredientToRecipe(Recipe changedRecipe, RecipeIngredient usedI
 	}
 	
 	public Set<RecipeIngredient> getIngredientsFromRecipe(Recipe choosenRecipe) {
-		
-		
 		return choosenRecipe.getRecipesIngredients();
 	}
 	
 	public Recipe getRecipe(String recipeName) {
 		Recipe recipe=sessionDB.get(Recipe.class, recipeName);
-	
 		return recipe;
-
     }
 	
-	
-	
+		
 	public void deleteRecipe(Recipe deletedRecipe) {
-
 		sessionDB.delete( deletedRecipe);
 		sessionDB.getTransaction().commit();
 		

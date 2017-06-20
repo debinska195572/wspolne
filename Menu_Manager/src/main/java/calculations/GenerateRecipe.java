@@ -11,10 +11,7 @@ import databaseController.RIController;
 import databaseController.RecipeController;
 import databaseManager.*;
 
-/**
- * @author Marcin
- *
- */
+
 public final class GenerateRecipe {
 
 	private User user;
@@ -24,10 +21,7 @@ public final class GenerateRecipe {
 	Random generator;
 	float iloscKalorii;
 	String przepisXml;
-	//
-	//
-	// private IngredientController ingredientController;
-
+	
 	public GenerateRecipe(final User loggedUser, final Session sessionDB) {
 		this.session = sessionDB;
 		this.user = loggedUser;
