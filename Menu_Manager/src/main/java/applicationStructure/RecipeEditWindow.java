@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 import javax.swing.JTextField;
 
-public class RecipeEditWindow extends javax.swing.JPanel{
+public class RecipeEditWindow extends javax.swing.JFrame{
 	private JTextField textFieldNameEdited;
 	private JTextField textFieldTypeEdited;
 	RecipeController rc;
