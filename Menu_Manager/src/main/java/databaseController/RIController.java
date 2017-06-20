@@ -13,6 +13,7 @@ import databaseManager.RecipeIngredient;
 
 public class RIController {
 	Session sessionDB;
+	
 	public RIController(Session sessionDB) {
 		this.sessionDB = sessionDB;
 	}
@@ -58,10 +59,16 @@ public class RIController {
 	}
 	
 	public List<RecipeIngredient> getRecipesIngredientsByRecipe(String nazwa) {
+
+		
 		Query<RecipeIngredient> query = sessionDB.createQuery("FROM RecipeIngredient WHERE recipe.recipeName ='"+ nazwa+"'");
 		
-		
-		 List<RecipeIngredient> allRecipesIngredients= query.list();
+		List<RecipeIngredient> allRecipesIngredients= query.list();
 		return allRecipesIngredients;
 	}
+		
+	
+
+		
+
 }

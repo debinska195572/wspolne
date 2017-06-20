@@ -38,6 +38,30 @@ public class Main {
 		IngredientController ic = new IngredientController(sessionDB);
 		RIController ric = new RIController(sessionDB);
 		
+
+		
+		
+		/////////////////////////
+//		User u=ac.getUser("user1");
+//		Recipe r =rc.getRecipe("pizza");
+//		
+//		Ingredient i = ic.getIngredient("papryka");
+//		
+//		Ingredient i2 = ic.getIngredient("sól");
+//		
+//		
+//		RecipeIngredient ri= ric.addRI(r, i, 2); //tworzenie osobno obiektu RecipeIngredient
+//		RecipeIngredient ri2= ric.addRI(r, i2, 4);
+//		Set<RecipeIngredient> set= new HashSet<RecipeIngredient>(); 
+//		set.add(ri);
+//		set.add(ri2);
+//		r=rc.addIngredientToRecipe(r, ri); //dodawanie pojedyńczego 
+//		r=rc.addIngredientsToRecipe(r, set); // dodawanie setu obiektów
+//		Set<RecipeIngredient> set2=rc.getIngredientsFromRecipe(r);// -zwraca set RecipeIngredient -składników danego przepisu
+//		
+//		rc.removeIngredientFromRecipe(r, ri); //usuwanie najpierw z setu w Recipe
+//		ric.deleteRI(ri); //usuwanie z tabeli recipeIngredient
+
 	
 	Recipe r =rc.getRecipe("przepis1");
 		
@@ -55,6 +79,7 @@ public class Main {
 		java.util.List<RecipeIngredient> l= ric.getAllRecipesIngredients();
 		for(int j=0; j<l2.size(); j++)
 		System.out.print("Przepis:"+l2.get(j).getRecipe().getRecipeName()+"składnik "+ l2.get(j).getIngredient().getIngredientName());
+
 		
 	//	rc.deleteRecipe(r);
 l2.get(2).setIngredient(null);
@@ -67,12 +92,38 @@ l2.get(2).setRecipe(null);
 			System.out.print("Przepis:"+l2.get(j).getRecipe().getRecipeName()+"składnik "+ l2.get(j).getIngredient().getIngredientName());
 			
 		
+
+		
+		////////////////////////
+		
+		
+		
+		
+		
+		//System.out.println(ric.getAllRecipesIngredients().size());
+//		User u=ac.getUser("user1");
+		//Recipe r =rc.addRecipe(recipeName, recipeType, owner, content)
+//		
+//		Ingredient i = ic.getIngredient("papryka");
+//		
+//		
+//		
+//		
+//		RecipeIngredient ri= ric.addRI(r, i, 2); //tworzenie osobno obiektu RecipeIngredient
+//		r.addRecipeIngredient(ri); //osobno dodawanie tego obiektu do przepisu - do setu, żeby potem można było dostać wszystkie składniki przepisu przez:
+//		//r.getRecipesIngredients() -zwraca set RecipeIngredient -składników danego przepisu
+//		
+//		r.removeRecipeIngredient(ri); //chyba najpierw trzeba usunąć stąd tak na logike
+//		ric.deleteRI(ri);
+		
+
 		//r.addRecipeIngredient(ri); //osobno dodawanie tego obiektu do przepisu - do setu, żeby potem można było dostać wszystkie składniki przepisu przez:
 		//r.getRecipesIngredients() -zwraca set RecipeIngredient -składników danego przepisu
 		
 		//r.removeRecipeIngredient(ri); //chyba najpierw trzeba usunąć stąd tak na logike
 		//[ric.deleteRI(ri);
 	*/	
+
 		
 		OpenWindow openWindow = new OpenWindow();
 		openWindow.setVisible(true);
