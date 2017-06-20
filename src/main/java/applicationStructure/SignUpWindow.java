@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
+import javax.swing.JComboBox;
 
 public class SignUpWindow extends JFrame {
 	private JTextField textFieldLoginNew;
@@ -29,7 +30,7 @@ public class SignUpWindow extends JFrame {
 	private JTextField textFieldAgeNew;
 	private JTextField textFieldHeightNew;
 	private JTextField textFieldWeightNew;
-	private JTextField textFieldDietNew;
+	JComboBox comboBoxDiet;
 	JCheckBox checkBoxLactoseNew;
 	JCheckBox checkBoxGlutenNew;
 	JLabel labelNoLoginPassword;
@@ -90,13 +91,6 @@ public class SignUpWindow extends JFrame {
 		getContentPane().add(textFieldWeightNew);
 		textFieldWeightNew.setColumns(10);
 		
-		textFieldDietNew = new JTextField();
-		springLayout.putConstraint(SpringLayout.WEST, textFieldDietNew, 269, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, textFieldDietNew, 278, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, textFieldDietNew, 0, SpringLayout.EAST, textFieldLoginNew);
-		getContentPane().add(textFieldDietNew);
-		textFieldDietNew.setColumns(10);
-		
 		JLabel lblLoginNew = new JLabel("Login: *");
 		springLayout.putConstraint(SpringLayout.NORTH, lblLoginNew, 13, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldLoginNew, -3, SpringLayout.NORTH, lblLoginNew);
@@ -155,7 +149,6 @@ public class SignUpWindow extends JFrame {
 		
 		JLabel lblDietNew = new JLabel("Dieta:");
 		springLayout.putConstraint(SpringLayout.NORTH, lblDietNew, 16, SpringLayout.SOUTH, lblGlutenNew);
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldDietNew, -2, SpringLayout.NORTH, lblDietNew);
 		lblDietNew.setFont(new Font("Calibri", Font.BOLD, 15));
 		springLayout.putConstraint(SpringLayout.WEST, lblDietNew, 0, SpringLayout.WEST, lblLoginNew);
 		springLayout.putConstraint(SpringLayout.EAST, lblDietNew, 80, SpringLayout.WEST, getContentPane());
@@ -188,7 +181,7 @@ public class SignUpWindow extends JFrame {
 				nameNew=textFieldLoginNew.getText();
 				passwordNew=textFieldPasswordNew.getText();
 				if(textFieldAgeNew.getText().equals("")||textFieldHeightNew.getText().equals("")
-						|| textFieldWeightNew.getText().equals("") || textFieldDietNew.getText().equals("") )
+						|| textFieldWeightNew.getText().equals("")  )
 				{
 						User checkUser = ac.getUser(nameNew);
 						if(checkUser!=null)
@@ -222,7 +215,7 @@ public class SignUpWindow extends JFrame {
 				else if(rdbtnK.isSelected()==true)
 					genderNew="K";
 				
-				dietNew=textFieldDietNew.getText();
+				dietNew=comboBoxDiet.getSelectedItem().toString();
 				
 				User checkUser = ac.getUser(nameNew);
 				if(checkUser!=null)
@@ -285,6 +278,18 @@ public class SignUpWindow extends JFrame {
 		ButtonGroup genderGroup = new ButtonGroup();
 		genderGroup.add(rdbtnM);
 		genderGroup.add(rdbtnK);
+		
+		comboBoxDiet = new JComboBox();
+		springLayout.putConstraint(SpringLayout.NORTH, comboBoxDiet, -1, SpringLayout.NORTH, lblDietNew);
+		springLayout.putConstraint(SpringLayout.WEST, comboBoxDiet, 0, SpringLayout.WEST, textFieldLoginNew);
+		springLayout.putConstraint(SpringLayout.EAST, comboBoxDiet, 33, SpringLayout.EAST, rdbtnK);
+		String n="NORMALNA";
+		String w="WEGETARIAŃSKA";
+		comboBoxDiet.addItem(n);
+		comboBoxDiet.addItem(w);
+		
+		
+		getContentPane().add(comboBoxDiet);
 		// TODO Auto-generated constructor stub
 	}
 }

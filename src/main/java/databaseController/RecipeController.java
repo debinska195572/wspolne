@@ -27,7 +27,7 @@ public class RecipeController {
 		}
 		Recipe newRecipe = new Recipe(recipeName, recipeType, owner, content);
 		sessionDB.save(newRecipe);
-	
+		sessionDB.getTransaction().commit();
 		return newRecipe;
 	}
 	// zakładamy że nie da się zmienić właściciela
@@ -45,7 +45,7 @@ public class RecipeController {
 	}
 	public List<Recipe> getAllRecipes() {
 		Query<Recipe> query = sessionDB.createQuery("FROM Recipe ");
-		sessionDB.getTransaction().commit();
+	
 		
 		 List<Recipe> allRecipes= query.list();
 		return allRecipes;
@@ -84,7 +84,7 @@ public Recipe addIngredientToRecipe(Recipe changedRecipe, RecipeIngredient usedI
 	
 	public Recipe getRecipe(String recipeName) {
 		Recipe recipe=sessionDB.get(Recipe.class, recipeName);
-		sessionDB.getTransaction().commit();
+	
 		return recipe;
 
     }
@@ -94,6 +94,7 @@ public Recipe addIngredientToRecipe(Recipe changedRecipe, RecipeIngredient usedI
 	public void deleteRecipe(Recipe deletedRecipe) {
 
 		sessionDB.delete( deletedRecipe);
+		sessionDB.getTransaction().commit();
 		
 	}
 }
