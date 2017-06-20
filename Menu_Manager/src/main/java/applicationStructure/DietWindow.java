@@ -41,6 +41,8 @@ public class DietWindow extends javax.swing.JPanel {
 	JTextArea textArea;
 	float obliczoneKalorie;
 	String xml;
+	int i;
+	String string;
 
 	public DietWindow(final User loggedUser, final Session sessionDB) {
 
@@ -110,52 +112,77 @@ public class DietWindow extends javax.swing.JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 
-				boolean juz = false;
-				int i = 0;
+				i = 0;
 
-				while (juz == false || i != 20) {
-					i++;
-					obliczoneKalorie = 0;
-					xml = "<Jadłospis>";
+				new Thread(() -> {
+					
+					boolean juz = false;
+					
+					
+					while (juz == false) {
+						i++;
+						obliczoneKalorie = 0;
+						xml = "<Jadłospis>";
+						string="";
 
-					GenerateRecipe generateRecipe = new GenerateRecipe(loggedUser, sessionDB);
+						GenerateRecipe generateRecipe = new GenerateRecipe(loggedUser, sessionDB);
+						
+						string=generateRecipe.getRecipe(minCalories, "OBIAD");
+						//textArea.setText(generateRecipe.getRecipe(minCalories, "OBIAD"));
+						obliczoneKalorie += generateRecipe.getObliczoneKalorie();
+						xml += generateRecipe.getStringXml();
+						
+						string+=generateRecipe.getRecipe(minCalories, "DESER");
+						//textArea.setText(textArea.getText() + generateRecipe.getRecipe(minCalories, "DESER"));
+						obliczoneKalorie += generateRecipe.getObliczoneKalorie();
+						xml += generateRecipe.getStringXml();
+						
+						string+=generateRecipe.getRecipe(minCalories, "KOLACJA");
+						//textArea.setText(textArea.getText() + generateRecipe.getRecipe(minCalories, "KOLACJA"));
+						obliczoneKalorie += generateRecipe.getObliczoneKalorie();
+						xml += generateRecipe.getStringXml();
+						
+						string+=generateRecipe.getRecipe(minCalories, "PRZEKASKA");
+						//textArea.setText(textArea.getText() + generateRecipe.getRecipe(minCalories, "PRZEKASKA"));
+						obliczoneKalorie += generateRecipe.getObliczoneKalorie();
+						xml += generateRecipe.getStringXml();
+						
+						string+=generateRecipe.getRecipe(minCalories, "SNIADANIE");
+						//textArea.setText(textArea.getText() + generateRecipe.getRecipe(minCalories, "SNIADANIE"));
+						obliczoneKalorie += generateRecipe.getObliczoneKalorie();
+						xml += generateRecipe.getStringXml();
+						xml += "</Jadłospis>";
+						
+						string+="Łączenie kalorii: " + String.valueOf(df.format(obliczoneKalorie));
+//						textArea.setText(
+//								textArea.getText() + "Łączenie kalorii: " + String.valueOf(df.format(obliczoneKalorie)));
 
-					textArea.setText(generateRecipe.getRecipe(minCalories, "OBIAD"));
-					obliczoneKalorie += generateRecipe.getObliczoneKalorie();
-					xml += generateRecipe.getStringXml();
+						if ((obliczoneKalorie > minCalories)|| i==20) {
+							juz = true;
+							textArea.setText(string);
+						}
 
-					textArea.setText(textArea.getText() + generateRecipe.getRecipe(minCalories, "DESER"));
-					obliczoneKalorie += generateRecipe.getObliczoneKalorie();
-					xml += generateRecipe.getStringXml();
-
-					textArea.setText(textArea.getText() + generateRecipe.getRecipe(minCalories, "KOLACJA"));
-					obliczoneKalorie += generateRecipe.getObliczoneKalorie();
-					xml += generateRecipe.getStringXml();
-
-					textArea.setText(textArea.getText() + generateRecipe.getRecipe(minCalories, "PRZEKASKA"));
-					obliczoneKalorie += generateRecipe.getObliczoneKalorie();
-					xml += generateRecipe.getStringXml();
-
-					textArea.setText(textArea.getText() + generateRecipe.getRecipe(minCalories, "SNIADANIE"));
-					obliczoneKalorie += generateRecipe.getObliczoneKalorie();
-					xml += generateRecipe.getStringXml();
-					xml += "</Jadłospis>";
-
-					textArea.setText(
-							textArea.getText() + "Łączenie kalorii: " + String.valueOf(df.format(obliczoneKalorie)));
-
-					if (obliczoneKalorie > minCalories) {
-						juz = true;
 					}
-
-				}
+					
+					if(i>=20)
+					{
+						textArea.setText("Przykro mi, nie znaleziono przepisów, których łączna ilosć kalorii odpowiadałaby twoim wymogom");
+					}
+				}).start();
+				
+				
+				
+				
+				
+				
+				
 
 			}
 
 		});
 
-		JButton btnZapiszDoPliku = new JButton("Zapisz do pliku");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnZapiszDoPliku, -21, SpringLayout.SOUTH, this);
+		JButton btnZapiszDoPliku = new JButton("Zapisz do pliku TXT");
+		springLayout.putConstraint(SpringLayout.NORTH, btnZapiszDoPliku, -4, SpringLayout.NORTH, lblBmi);
 		springLayout.putConstraint(SpringLayout.EAST, btnZapiszDoPliku, -10, SpringLayout.EAST, this);
 		add(btnZapiszDoPliku);
 
@@ -175,19 +202,14 @@ public class DietWindow extends javax.swing.JPanel {
 
 				saveToFile.saveToTxt(textArea.getText(), selectedFile.getAbsolutePath() + ".txt");
 
-				try {
-					saveToFile.loadXMLFromString(xml, selectedFile.getAbsolutePath() + "XML.xml");
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
 			}
 		});
 
 		JScrollPane scrollPane = new JScrollPane();
 		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 6, SpringLayout.SOUTH, btnGenerujJadospis);
 		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, btnZapiszDoPliku);
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -21, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, obseityinfolabel);
 		add(scrollPane);
 
@@ -198,6 +220,36 @@ public class DietWindow extends javax.swing.JPanel {
 		textArea.setLineWrap(true);
 		springLayout.putConstraint(SpringLayout.SOUTH, textArea, -28, SpringLayout.NORTH, btnZapiszDoPliku);
 		springLayout.putConstraint(SpringLayout.EAST, textArea, 0, SpringLayout.EAST, btnZapiszDoPliku);
+		
+		JButton btnNewButton = new JButton("Zapisz do pliku XML");
+		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, obseityinfolabel);
+		springLayout.putConstraint(SpringLayout.WEST, btnNewButton, 0, SpringLayout.WEST, btnZapiszDoPliku);
+		add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				File selectedFile = null;
+
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(null);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					selectedFile = fileChooser.getSelectedFile();
+					System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				}
+				
+				try {
+					saveToFile.loadXMLFromString(xml, selectedFile.getAbsolutePath() + "XML.xml");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+				
+				
+			}
+		});
 		//
 
 		// TODO Auto-generated constructor stub
