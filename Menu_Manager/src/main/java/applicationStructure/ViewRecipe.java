@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.util.Set;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.JScrollPane;
 
 public class ViewRecipe extends javax.swing.JFrame {
 
@@ -58,6 +59,9 @@ public class ViewRecipe extends javax.swing.JFrame {
 
 		lblDesc = new JLabel("New label");
 		springLayout.putConstraint(SpringLayout.NORTH, lblDesc, 28, SpringLayout.SOUTH, lblName);
+		springLayout.putConstraint(SpringLayout.WEST, lblDesc, 20, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, lblDesc, -240, SpringLayout.SOUTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblDesc, -10, SpringLayout.EAST, getContentPane());
 		getContentPane().add(lblDesc);
 
 		DefaultTableModel model = new DefaultTableModel();
@@ -77,17 +81,21 @@ public class ViewRecipe extends javax.swing.JFrame {
 		});
 		springLayout.putConstraint(SpringLayout.SOUTH, btnBack, -10, SpringLayout.SOUTH, getContentPane());
 		getContentPane().add(btnBack);
-
-		listIngredients = new JTable(model);
-		springLayout.putConstraint(SpringLayout.WEST, listIngredients, 20, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, listIngredients, -10, SpringLayout.EAST, getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, lblDesc, 0, SpringLayout.WEST, listIngredients);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblDesc, -6, SpringLayout.NORTH, listIngredients);
-		springLayout.putConstraint(SpringLayout.EAST, lblDesc, 0, SpringLayout.EAST, listIngredients);
-		springLayout.putConstraint(SpringLayout.NORTH, listIngredients, 119, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, listIngredients, 0, SpringLayout.NORTH, btnBack);
-		listIngredients.setBackground(Color.WHITE);
-		getContentPane().add(listIngredients);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 6, SpringLayout.SOUTH, lblDesc);
+		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 10, SpringLayout.WEST, lblDesc);
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -6, SpringLayout.NORTH, btnBack);
+		springLayout.putConstraint(SpringLayout.EAST, scrollPane, -10, SpringLayout.EAST, getContentPane());
+		getContentPane().add(scrollPane);
+		
+				listIngredients = new JTable(model);
+				scrollPane.setViewportView(listIngredients);
+				springLayout.putConstraint(SpringLayout.NORTH, listIngredients, 6, SpringLayout.SOUTH, lblDesc);
+				springLayout.putConstraint(SpringLayout.WEST, listIngredients, 20, SpringLayout.WEST, getContentPane());
+				springLayout.putConstraint(SpringLayout.SOUTH, listIngredients, -117, SpringLayout.NORTH, btnBack);
+				springLayout.putConstraint(SpringLayout.EAST, listIngredients, -228, SpringLayout.EAST, getContentPane());
+				listIngredients.setBackground(Color.WHITE);
 		getData(Recipe_Name, sessionDB);
 	}
 
@@ -110,7 +118,12 @@ public class ViewRecipe extends javax.swing.JFrame {
 		}
 		Recipe przepis = db.getRecipe(Rec_id);
 		Set<RecipeIngredient> skladniki = db.getIngredientsFromRecipe(przepis);
-		DefaultTableModel model = new DefaultTableModel(0, 5);
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("Nazwa");
+		model.addColumn("L");
+		model.addColumn("G");
+		model.addColumn("M");
+		model.addColumn("Kalorycznosc");
 		System.out.println("Ilość składników z przepisu: " + skladniki.size());
 		for (RecipeIngredient skladnik : db.getIngredientsFromRecipe(przepis)) {
 			System.out.println(skladnik);
