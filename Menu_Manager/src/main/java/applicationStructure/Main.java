@@ -31,14 +31,14 @@ public class Main {
 	public static void main(String[] args) {
 		
 		
-		
+/*		
 		 Session sessionDB = HibernateUtil.getSessionFactory().openSession();
-		 sessionDB.beginTransaction();
-		AccountController ac= new AccountController(sessionDB);
+
 		RecipeController rc = new RecipeController(sessionDB);
 		IngredientController ic = new IngredientController(sessionDB);
 		RIController ric = new RIController(sessionDB);
 		
+
 		
 		
 		/////////////////////////
@@ -61,9 +61,38 @@ public class Main {
 //		
 //		rc.removeIngredientFromRecipe(r, ri); //usuwanie najpierw z setu w Recipe
 //		ric.deleteRI(ri); //usuwanie z tabeli recipeIngredient
+
+	
+	Recipe r =rc.getRecipe("przepis1");
 		
+	//	Ingredient i = ic.getIngredient("Jajko");
+		sessionDB.getTransaction().begin();
 		
+	
 		
+	//	RecipeIngredient ri= ric.addRI(r, i, 5); //tworzenie osobno obiektu RecipeIngredient
+	//	RecipeIngredient ri2= new RecipeIngredient(r, i, 5);
+	//	sessionDB.save(ri2);
+	//	System.out.print("moj"+ri.getIngredient().getIngredientName());
+		java.util.List<RecipeIngredient> l2= ric.getRecipesIngredientsByRecipe("przepis1");
+		
+		java.util.List<RecipeIngredient> l= ric.getAllRecipesIngredients();
+		for(int j=0; j<l2.size(); j++)
+		System.out.print("Przepis:"+l2.get(j).getRecipe().getRecipeName()+"składnik "+ l2.get(j).getIngredient().getIngredientName());
+
+		
+	//	rc.deleteRecipe(r);
+l2.get(2).setIngredient(null);
+l2.get(2).setRecipe(null);
+		ric.deleteRI(l2.get(2));
+		
+		java.util.List<RecipeIngredient> l3= ric.getRecipesIngredientsByRecipe("przepis1");
+		
+		for(int j=0; j<l2.size(); j++)
+			System.out.print("Przepis:"+l2.get(j).getRecipe().getRecipeName()+"składnik "+ l2.get(j).getIngredient().getIngredientName());
+			
+		
+
 		
 		////////////////////////
 		
@@ -87,11 +116,19 @@ public class Main {
 //		r.removeRecipeIngredient(ri); //chyba najpierw trzeba usunąć stąd tak na logike
 //		ric.deleteRI(ri);
 		
+
+		//r.addRecipeIngredient(ri); //osobno dodawanie tego obiektu do przepisu - do setu, żeby potem można było dostać wszystkie składniki przepisu przez:
+		//r.getRecipesIngredients() -zwraca set RecipeIngredient -składników danego przepisu
+		
+		//r.removeRecipeIngredient(ri); //chyba najpierw trzeba usunąć stąd tak na logike
+		//[ric.deleteRI(ri);
+	*/	
+
 		
 		OpenWindow openWindow = new OpenWindow();
 		openWindow.setVisible(true);
 		
-	/*	
+	/*
 	
 		try {
 			User u=ac.getUser("user1");

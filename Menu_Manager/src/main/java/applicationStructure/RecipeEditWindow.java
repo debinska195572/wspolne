@@ -121,5 +121,4 @@ public class RecipeEditWindow extends javax.swing.JPanel{
 		add(btnBack);
 		// TODO Auto-generated constructor stub
 	}
-
 }

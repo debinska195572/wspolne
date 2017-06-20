@@ -17,6 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
 
 public class AccountWindow extends javax.swing.JPanel  {
 	private JTextField textFieldLogin;
@@ -24,7 +25,6 @@ public class AccountWindow extends javax.swing.JPanel  {
 	private JTextField textFieldAge;
 	private JTextField textFieldHeight;
 	private JTextField textFieldWeight;
-	private JTextField textFieldDiet;
 	JCheckBox checkBoxLactose;
 	JCheckBox chckbxGluten;
 	JRadioButton rdbtnM;
@@ -42,6 +42,7 @@ public class AccountWindow extends javax.swing.JPanel  {
 	String genderNew;
 	
 	AccountController ac;
+	private JComboBox comboBoxDiet;
 
 
 	public AccountWindow( User logged, Session sessionDB) {
@@ -168,15 +169,6 @@ public class AccountWindow extends javax.swing.JPanel  {
 		
 		add(chckbxGluten);
 		
-		textFieldDiet = new JTextField();
-		textFieldDiet.setEnabled(false);
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldDiet, -1, SpringLayout.NORTH, lblDiet);
-		springLayout.putConstraint(SpringLayout.WEST, textFieldDiet, 0, SpringLayout.WEST, textFieldLogin);
-		springLayout.putConstraint(SpringLayout.EAST, textFieldDiet, -190, SpringLayout.EAST, this);
-		textFieldDiet.setText(loggedUser.getDiet());
-		add(textFieldDiet);
-		textFieldDiet.setColumns(10);
-		
 		JButton btnEdytuj = new JButton("EDYTUJ");
 		springLayout.putConstraint(SpringLayout.NORTH, btnEdytuj, -2, SpringLayout.NORTH, lblName);
 		springLayout.putConstraint(SpringLayout.EAST, btnEdytuj, -40, SpringLayout.EAST, this);
@@ -189,7 +181,7 @@ public class AccountWindow extends javax.swing.JPanel  {
 				textFieldWeight.setEnabled(true);
 				checkBoxLactose.setEnabled(true);
 				chckbxGluten.setEnabled(true);
-				textFieldDiet.setEnabled(true);
+				comboBoxDiet.setEnabled(true);
 				rdbtnM.setEnabled(true);
 				rdbtnK.setEnabled(true);
 			}
@@ -208,7 +200,7 @@ public class AccountWindow extends javax.swing.JPanel  {
 				
 				passwordNew=textFieldPassword.getText();
 				if(textFieldAge.getText().equals("")||textFieldHeight.getText().equals("")
-						|| textFieldWeight.getText().equals("") || textFieldDiet.getText().equals("") )
+						|| textFieldWeight.getText().equals("")  )
 				{
 						loggedUser=ac.changePssword(loggedUser, passwordNew);
 					
@@ -233,7 +225,7 @@ public class AccountWindow extends javax.swing.JPanel  {
 				else if(rdbtnK.isSelected()==true)
 					genderNew="K";
 				
-				dietNew=textFieldDiet.getText();
+				dietNew=comboBoxDiet.getSelectedItem().toString();
 				
 				
 				
@@ -253,7 +245,7 @@ public class AccountWindow extends javax.swing.JPanel  {
 				textFieldWeight.setEnabled(false);
 				checkBoxLactose.setEnabled(false);
 				chckbxGluten.setEnabled(false);
-				textFieldDiet.setEnabled(false);
+				comboBoxDiet.setEnabled(false);
 				rdbtnM.setEnabled(false);
 				rdbtnK.setEnabled(false);
 			  }		
@@ -294,6 +286,19 @@ public class AccountWindow extends javax.swing.JPanel  {
 		springLayout.putConstraint(SpringLayout.SOUTH, labelNoData, 0, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, labelNoData, 0, SpringLayout.EAST, lblHeight);
 		add(labelNoData);
+		
+		comboBoxDiet = new JComboBox();
+		comboBoxDiet.setEnabled(false);
+		springLayout.putConstraint(SpringLayout.WEST, comboBoxDiet, 0, SpringLayout.WEST, textFieldLogin);
+		springLayout.putConstraint(SpringLayout.SOUTH, comboBoxDiet, 0, SpringLayout.SOUTH, lblDiet);
+		String n="NORMALNA";
+		String w="WEGETARIAŃSKA";
+		comboBoxDiet.addItem(loggedUser.getDiet());
+		if(n.equals(loggedUser.getDiet()))
+			comboBoxDiet.addItem(w);
+		else
+			comboBoxDiet.addItem(n);
+		add(comboBoxDiet);
 		
 	
 		
