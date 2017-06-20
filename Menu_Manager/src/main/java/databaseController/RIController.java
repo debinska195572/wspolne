@@ -2,6 +2,8 @@ package databaseController;
 
 import java.util.List;
 
+import javax.persistence.FetchType;
+
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -33,7 +35,8 @@ public class RIController {
 	}
 	
 	public void deleteRI(RecipeIngredient deleted) {
-		
+		deleted.setIngredient(null);
+		deleted.setRecipe(null);
 		sessionDB.delete( deleted);
 		sessionDB.getTransaction().commit();
 		

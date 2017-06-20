@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
@@ -78,7 +79,7 @@ public class Recipe {
 		this.content = content;
 	}
 
-	  @OneToMany(mappedBy = "recipe")
+	  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
 	    public Set<RecipeIngredient> getRecipesIngredients() {
 	        return ri;
 	    }
