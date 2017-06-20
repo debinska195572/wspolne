@@ -233,6 +233,7 @@ public class EditRecipe extends javax.swing.JFrame {
 					System.out.println(wartosc);
 					RecipeController db = new RecipeController(sessionDB);
 					IngredientController dbin = new IngredientController(sessionDB);
+					RIController ric = new RIController(sessionDB);
 					Ingredient skladnik = dbin.getIngredient(wartosc);
 					if (!sessionDB.getTransaction().isActive()) {
 						sessionDB.beginTransaction();
@@ -245,7 +246,7 @@ public class EditRecipe extends javax.swing.JFrame {
 							sessionDB.beginTransaction();
 						}
 
-						RecipeIngredient ri = new RecipeIngredient(przepis, skladnik, 1);
+						RecipeIngredient ri = ric.addRI(przepis, skladnik, 1);
 						przepis.addRecipeIngredient(ri);
 
 						if (sessionDB.getTransaction().isActive()) {

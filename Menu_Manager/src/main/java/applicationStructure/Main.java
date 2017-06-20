@@ -29,12 +29,24 @@ import databaseManager.User;
 public class Main {
 
 	public static void main(String[] args) {
+		 Session sessionDB = HibernateUtil.getSessionFactory().openSession();
+sessionDB.beginTransaction();
 		
+		
+		/*
+		RIController ric = new RIController(sessionDB);
+		RecipeController rc = new RecipeController(sessionDB);
+		java.util.List<RecipeIngredient> l= ric.getRecipesIngredientsByRecipe("pr");
+		
+		for(int i=0; i<l.size(); i++)
+			ric.deleteRI(l.get(i));
+		
+		Recipe r= rc.getRecipe("Przepis1");
+		rc.deleteRecipe(r);
 		
 /*		
-		 Session sessionDB = HibernateUtil.getSessionFactory().openSession();
-
-		RecipeController rc = new RecipeController(sessionDB);
+		
+		
 		IngredientController ic = new IngredientController(sessionDB);
 		RIController ric = new RIController(sessionDB);
 		
