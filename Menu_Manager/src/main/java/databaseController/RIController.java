@@ -54,6 +54,7 @@ public class RIController {
 	}
 	
 	public List<RecipeIngredient> getRecipesIngredientsByRecipe(String nazwa) {
+<<<<<<< HEAD
 		
 		Query<RecipeIngredient> query = sessionDB.createQuery("FROM RecipeIngredient WHERE recipe.recipeName ='"+ nazwa+"'");
 		
@@ -62,4 +63,12 @@ public class RIController {
 	}
 		
 	
+=======
+		Query<RecipeIngredient> query = sessionDB.createQuery("FROM RecipeIngredient WHERE recipe.recipeName ='"+ nazwa+"'");
+		
+		
+		 List<RecipeIngredient> allRecipesIngredients= query.list();
+		return allRecipesIngredients;
+	}
+>>>>>>> refs/remotes/origin/master
 }
