@@ -17,11 +17,7 @@ import databaseManager.User;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
 
-import java.awt.FileDialog;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -43,6 +39,7 @@ public class DietWindow extends javax.swing.JPanel {
 	String xml;
 	int i;
 	String string;
+	JLabel IlePowinnoKalLabel ;
 
 	public DietWindow(final User loggedUser, final Session sessionDB) {
 
@@ -168,6 +165,9 @@ public class DietWindow extends javax.swing.JPanel {
 					{
 						textArea.setText("Przykro mi, nie znaleziono przepisów, których łączna ilosć kalorii odpowiadałaby twoim wymogom");
 					}
+					
+					IlePowinnoKalLabel.setText(BMI.getHowMuchCalShould());
+					
 				}).start();
 				
 				
@@ -225,6 +225,12 @@ public class DietWindow extends javax.swing.JPanel {
 		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 6, SpringLayout.SOUTH, obseityinfolabel);
 		springLayout.putConstraint(SpringLayout.WEST, btnNewButton, 0, SpringLayout.WEST, btnZapiszDoPliku);
 		add(btnNewButton);
+		
+		IlePowinnoKalLabel = new JLabel("        ");
+		springLayout.putConstraint(SpringLayout.WEST, IlePowinnoKalLabel, 10, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, IlePowinnoKalLabel, -1, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, IlePowinnoKalLabel, 543, SpringLayout.WEST, this);
+		add(IlePowinnoKalLabel);
 		btnNewButton.addActionListener(new ActionListener() {
 			
 			@Override
