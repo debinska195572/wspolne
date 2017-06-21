@@ -73,7 +73,7 @@ public class GenerateRecipeTest {
         recipe += generateRecipe.getRecipe(minCalories,"OBIAD");
         calories +=generateRecipe.getObliczoneKalorie();
 
-        assertTrue("To much calories", calories < minCalories);
+        assertTrue("To much calories", calories > minCalories);
 
     }
 
