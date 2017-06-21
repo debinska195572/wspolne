@@ -14,9 +14,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.matchers.JUnitMatchers.*;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.matchers.JUnitMatchers.both;
+import static org.junit.matchers.JUnitMatchers.containsString;
 
 
 
@@ -55,27 +55,6 @@ public class GenerateRecipeTest {
 
     }
 
-
-    @Test
-    public void genereteCaloriesTest(){
-        float minCalories=NeedCalories.minCalories(user.getGender(), user.getWeight(), user.getHeight(), user.getAge());
-        String recipe ="";
-        int calories = 0;
-
-        recipe += generateRecipe.getRecipe(minCalories,"SNIADANIE");
-        calories +=generateRecipe.getObliczoneKalorie();
-        recipe += generateRecipe.getRecipe(minCalories, "PRZEKASKA");
-        calories +=generateRecipe.getObliczoneKalorie();
-        recipe += generateRecipe.getRecipe(minCalories,"KOLACJA");
-        calories +=generateRecipe.getObliczoneKalorie();
-        recipe += generateRecipe.getRecipe(minCalories, "DESER");
-        calories +=generateRecipe.getObliczoneKalorie();
-        recipe += generateRecipe.getRecipe(minCalories,"OBIAD");
-        calories +=generateRecipe.getObliczoneKalorie();
-
-        assertTrue("To much calories", calories > minCalories);
-
-    }
 
 
     @Test
