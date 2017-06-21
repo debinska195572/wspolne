@@ -4,5 +4,6 @@ jdk:
 
 sudo: false
 
-script: mvn clean verify
+script: mvn clean -DskipTests
+
 
