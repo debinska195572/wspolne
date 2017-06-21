@@ -60,7 +60,7 @@ public class EditRecipe extends javax.swing.JFrame {
 	 */
 	public EditRecipe(String Recipe_name, final Session sessionDB) {
 		initialize();
-		setSize(new Dimension(400, 600));
+		setSize(new Dimension(400, 650));
 		SpringLayout springLayout = new SpringLayout();
 		getContentPane().setLayout(springLayout);
 
@@ -171,7 +171,7 @@ public class EditRecipe extends javax.swing.JFrame {
 		getContentPane().add(lblWszystkie);
 
 		JButton btnUsuZPrzepisu = new JButton("USUŃ Z PRZEPISU");
-		springLayout.putConstraint(SpringLayout.NORTH, btnUsuZPrzepisu, 87, SpringLayout.SOUTH, lblWszystkie);
+		springLayout.putConstraint(SpringLayout.WEST, btnUsuZPrzepisu, 0, SpringLayout.WEST, textName);
 		btnUsuZPrzepisu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RIController ri = new RIController(sessionDB);
@@ -218,10 +218,12 @@ public class EditRecipe extends javax.swing.JFrame {
 				}
 			}
 		});
-		springLayout.putConstraint(SpringLayout.WEST, btnUsuZPrzepisu, 0, SpringLayout.WEST, textName);
 		getContentPane().add(btnUsuZPrzepisu);
 
 		JButton btnAdd = new JButton("DODAJ DO PRZEPISU");
+		springLayout.putConstraint(SpringLayout.SOUTH, btnUsuZPrzepisu, -6, SpringLayout.NORTH, btnAdd);
+		springLayout.putConstraint(SpringLayout.WEST, btnAdd, 0, SpringLayout.WEST, textName);
+		springLayout.putConstraint(SpringLayout.SOUTH, btnAdd, -6, SpringLayout.NORTH, btnAnuluj);
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -261,13 +263,11 @@ public class EditRecipe extends javax.swing.JFrame {
 			}
 
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, btnAdd, 6, SpringLayout.SOUTH, btnUsuZPrzepisu);
-		springLayout.putConstraint(SpringLayout.WEST, btnAdd, 0, SpringLayout.WEST, textName);
 		getContentPane().add(btnAdd);
 
 		JButton btnOdwie = new JButton("ODŚWIEŻ");
-		springLayout.putConstraint(SpringLayout.NORTH, btnOdwie, 108, SpringLayout.SOUTH, listAdded);
-		springLayout.putConstraint(SpringLayout.WEST, btnOdwie, 131, SpringLayout.EAST, btnUsuZPrzepisu);
+		springLayout.putConstraint(SpringLayout.NORTH, btnOdwie, 0, SpringLayout.NORTH, btnUsuZPrzepisu);
+		springLayout.putConstraint(SpringLayout.EAST, btnOdwie, 0, SpringLayout.EAST, textDesc);
 		btnOdwie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				populateAdded(sessionDB);
@@ -279,7 +279,7 @@ public class EditRecipe extends javax.swing.JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 6, SpringLayout.SOUTH, lblWszystkie);
 		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 10, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, 69, SpringLayout.SOUTH, lblWszystkie);
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -6, SpringLayout.NORTH, btnUsuZPrzepisu);
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, textDesc);
 		getContentPane().add(scrollPane);
 		
