@@ -9,7 +9,7 @@ package calculations;
  */
 public final class BMI {
 
-	static int i=0;
+	public static int i=0;
 	public static float getBmi(float height, float weight) // in centimeters, in
 															// kg
 	{

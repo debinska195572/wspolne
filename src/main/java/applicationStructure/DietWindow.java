@@ -154,9 +154,32 @@ public class DietWindow extends javax.swing.JPanel {
 //						textArea.setText(
 //								textArea.getText() + "Łączenie kalorii: " + String.valueOf(df.format(obliczoneKalorie)));
 
-						if ((obliczoneKalorie > minCalories)|| i==20) {
+//						if ((obliczoneKalorie > minCalories)|| i==20) {
+//							juz = true;
+//							textArea.setText(string);
+//						}
+						
+						
+						if(BMI.i==1 || BMI.i==2 )
+						{
+							if ((obliczoneKalorie > minCalories)|| i==20) {
 							juz = true;
 							textArea.setText(string);
+						}
+						}
+						else if(BMI.i==3 || BMI.i==4 || BMI.i==5)
+						{
+							if ((obliczoneKalorie < minCalories*0.9)|| i==20) {
+								juz = true;
+								textArea.setText(string);
+							}
+						}
+						else if(BMI.i==6)
+						{
+							if ((obliczoneKalorie < minCalories*0.8)|| i==20) {
+								juz = true;
+								textArea.setText(string);
+							}
 						}
 
 					}
