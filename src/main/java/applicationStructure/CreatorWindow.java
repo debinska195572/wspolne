@@ -224,6 +224,7 @@ public class CreatorWindow extends javax.swing.JPanel {
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				populateIngredients(sessionDB);
+				if(Rec_id.length()>0)
 				populateAdded(sessionDB);
 			}
 		});
